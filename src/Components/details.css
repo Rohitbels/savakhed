@@ -38,6 +38,7 @@
 
 .rows{
     padding: 15px;
+    display: flex;
 }
 
 .label{
@@ -46,6 +47,7 @@
     color: white;
     font-weight: 500;
     margin-left: 20px;
+    width: 120px;
 }
 
 .book_name{

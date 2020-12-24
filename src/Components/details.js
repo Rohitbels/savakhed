@@ -17,7 +17,7 @@ function details() {
             </div>
             <div className="book_details">
                 <div className="rows">
-                    <span className="label">Book Name</span>
+                    <div className="label">Book Name</div>
                     <span className="book_name">The Alchemist</span>
                 </div>
                 <hr />
@@ -40,6 +40,7 @@ function details() {
                     <span className="label">Genre</span>
                     <span className="book_name">The Alchemist</span>
                 </div>
+                <br/>
                 <hr />
             </div>
         </div>
