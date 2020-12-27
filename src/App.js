@@ -1,12 +1,26 @@
 import './App.css';
 import Details from './Components/details'
+import React, { Component } from 'react'
 
-function App() {
-  return (
-    <div className="App">
-      <Details />
-    </div>
-  );
+ class App extends Component {
+
+  constructor(){
+    super();
+    this.state={
+      showListing : true 
+    };
+  }
+
+  
+
+
+  render() {
+    return (
+      <div>
+        <Details />        
+      </div>
+    )
+  }
 }
 
 export default App;
