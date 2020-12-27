@@ -1,132 +1,41 @@
-import React, { useState } from "react";
+import React, { Component, useState } from "react";
 import "./listing.css";
 
-function Listing() {
-	const book_details = [
-		{
-			id: "1",
-			"vibhag id": "11",
-			"book name": "The Alchemist",
-			author: "Paulo Coelho",
-		},
-		{
-			id: "2",
-			"vibhag id": "22",
-			"book name": "Yoga",
-			author: "Swami Vivekananda",
-		},
-		{
-			id: "3",
-			"vibhag id": "33",
-			"book name": "Lorem Ipsum is simply dummy text",
-			author: "Lorem Ipsum",
-		},
-		{
-			id: "4",
-			"vibhag id": "44",
-			"book name": "The Alchemist",
-			author: "Paulo Coelho",
-		},
-		{
-			id: "5",
-			"vibhag id": "55",
-			"book name": "Yoga",
-			author: "Swami Vivekananda",
-		},
-		{
-			id: "6",
-			"vibhag id": "66",
-			"book name": "Lorem Ipsum is simply dummy text",
-			author: "Lorem Ipsum",
-		},
-		{
-			id: "7",
-			"vibhag id": "77",
-			"book name": "The Alchemist",
-			author: "Paulo Coelho",
-		},
-		{
-			id: "8",
-			"vibhag id": "88",
-			"book name": "Yoga",
-			author: "Swami Vivekananda",
-		},
-		{
-			id: "9",
-			"vibhag id": "99",
-			"book name": "Lorem Ipsum is simply dummy text",
-			author: "Lorem Ipsum",
-		},
-		{
-			id: "1",
-			"vibhag id": "11",
-			"book name": "The Alchemist",
-			author: "Paulo Coelho",
-		},
-		{
-			id: "2",
-			"vibhag id": "22",
-			"book name": "Yoga",
-			author: "Swami Vivekananda",
-		},
-		{
-			id: "3",
-			"vibhag id": "33",
-			"book name": "Lorem Ipsum is simply dummy text",
-			author: "Lorem Ipsum",
-		},
-		{
-			id: "4",
-			"vibhag id": "44",
-			"book name": "The Alchemist",
-			author: "Paulo Coelho",
-		},
-		{
-			id: "5",
-			"vibhag id": "55",
-			"book name": "Yoga",
-			author: "Swami Vivekananda",
-		},
-		{
-			id: "6",
-			"vibhag id": "66",
-			"book name": "Lorem Ipsum is simply dummy text",
-			author: "Lorem Ipsum",
-		},
-		{
-			id: "7",
-			"vibhag id": "77",
-			"book name": "The Alchemist",
-			author: "Paulo Coelho",
-		},
-		{
-			id: "8",
-			"vibhag id": "88",
-			"book name": "Yoga",
-			author: "Swami Vivekananda",
-		},
-		{
-			id: "9",
-			"vibhag id": "99",
-			"book name": "Lorem Ipsum is simply dummy text",
-			author: "Lorem Ipsum",
-		},
-	];
+import book_details from "./book_detail";
 
-	const [input, setInput] = useState("");
-	const [table, setTable] = useState(null);
+class Listing extends Component {
+	constructor(props) {
+		super(props);
 
-	const filterTable = () => {
-		if (input.length > 0) {
-			let tableElements;
+		this.state = {
+			input: "",
+		};
+
+		// const [input, setInput] = useState("");
+		// const [table, setTable] = useState(null);
+	}
+
+	filterTable = () => {
+		if (this.state.input.length > 0) {
+			let tableElements = (
+				<div className="book-not-found">
+					<h3>No such book available</h3>
+					<h5>
+						Tip: Try searching for keywords matching the book name
+						or author name
+					</h5>
+				</div>
+			);
 			const tableHeaders = Object.keys(book_details[0]);
 
 			let matching_books = book_details.filter((book) => {
 				return (
-					book.author.toLowerCase().includes(input.toLowerCase()) ||
+					book.author
+						.toLowerCase()
+						.includes(this.state.input.toLowerCase()) ||
 					book["book name"]
 						.toLowerCase()
-						.includes(input.toLowerCase())
+						.includes(this.state.input.toLowerCase())
 				);
 			});
 
@@ -153,48 +62,45 @@ function Listing() {
 						</tbody>
 					</table>
 				);
-			} else {
-				tableElements = (
-					<div className="book-not-found">
-						<h3>No such book available</h3>
-						<h5>
-							Tip: Try searching for keywords matching the book
-							name or author name
-						</h5>
-					</div>
-				);
 			}
 
-			return tableElements;
+			// return tableElements;
+			document.querySelector(".table").innerHTML = tableElements;
 		}
 	};
 
-	return (
-		<div className="container">
-			<form className="form">
-				<input
-					className="search-bar"
-					type="text"
-					placeholder="Search by Book name / Author name"
-					onInput={(event) => {
-						setInput(event.target.value);
-					}}
-				/>
-				<button
-					className="search-button"
-					type="submit"
-					onClick={(event) => {
-						event.preventDefault();
-						setTable(filterTable());
-					}}
-				>
-					Search
-				</button>
-			</form>
-
-			<div className="table">{table}</div>
-		</div>
-	);
+	render() {
+		return (
+			<div className="container">
+				<form className="form">
+					<input
+						className="search-bar"
+						type="text"
+						placeholder="Search by Book name / Author name"
+						onInput={(event) => {
+							// setInput(event.target.value);
+							this.setState({ input: event.target.value });
+						}}
+					/>
+					<button
+						className="search-button"
+						type="submit"
+						onClick={(event) => {
+							event.preventDefault();
+							// setTable(filterTable());
+							this.filterTable();
+						}}
+					>
+						Search
+					</button>
+				</form>
+				{/* 
+						buttonClicked ? table : ""
+					*/}
+				<div className="table"></div>
+			</div>
+		);
+	}
 }
 
 export default Listing;
