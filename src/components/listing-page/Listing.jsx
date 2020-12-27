@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import "./listing.css";
-
+import ReactDOM from "react-dom";
 import book_details from "./book_detail";
 
 class Listing extends Component {
@@ -10,14 +10,16 @@ class Listing extends Component {
 		this.state = {
 			input: "",
 		};
-
-		// const [input, setInput] = useState("");
-		// const [table, setTable] = useState(null);
 	}
 
 	filterTable = () => {
+		let tableElements = "";
+		document.querySelector(".container").style.justifyContent = "center";
+		
 		if (this.state.input.length > 0) {
-			let tableElements = (
+			document.querySelector(".container").style.justifyContent =
+				"flex-start";
+			tableElements = (
 				<div className="book-not-found">
 					<h3>No such book available</h3>
 					<h5>
@@ -42,33 +44,32 @@ class Listing extends Component {
 			if (matching_books.length > 0) {
 				tableElements = (
 					<div className="table-super">
-					<table>
-						<thead>
-							<tr>
-								{tableHeaders.map((header, index) => (
-									<th key={index}>{header}</th>
-								))}
-							</tr>
-						</thead>
-
-						<tbody>
-							{matching_books.map((book, index) => (
-								<tr key={index}>
-									<td>{book["id"]}</td>
-									<td>{book["vibhag id"]}</td>
-									<td>{book["book name"]}</td>
-									<td>{book["author"]}</td>
+						<table>
+							<thead>
+								<tr>
+									{tableHeaders.map((header, index) => (
+										<th key={index}>{header}</th>
+									))}
 								</tr>
-							))}
-						</tbody>
-					</table>
+							</thead>
+
+							<tbody>
+								{matching_books.map((book, index) => (
+									<tr key={index}>
+										<td>{book["id"]}</td>
+										<td>{book["vibhag id"]}</td>
+										<td>{book["book name"]}</td>
+										<td>{book["author"]}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
 					</div>
 				);
 			}
-
-			// return tableElements;
-			document.querySelector(".table").innerHTML = tableElements;
 		}
+
+		ReactDOM.render(<>{tableElements}</>, document.querySelector(".table"));
 	};
 
 	render() {
@@ -80,7 +81,6 @@ class Listing extends Component {
 						type="text"
 						placeholder="Search by Book name / Author name"
 						onInput={(event) => {
-							// setInput(event.target.value);
 							this.setState({ input: event.target.value });
 						}}
 					/>
@@ -89,16 +89,12 @@ class Listing extends Component {
 						type="submit"
 						onClick={(event) => {
 							event.preventDefault();
-							// setTable(filterTable());
 							this.filterTable();
 						}}
 					>
 						Search
 					</button>
 				</form>
-				{/* 
-						buttonClicked ? table : ""
-					*/}
 				<div className="table"></div>
 			</div>
 		);
