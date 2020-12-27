@@ -1,25 +1,39 @@
 import './App.css';
-import Details from './Components/details'
+import Details from './components/details'
+import Listing from "./components/listing-page/Listing";
 import React, { Component } from 'react'
 
- class App extends Component {
+class App extends Component {
 
   constructor(){
     super();
+    
     this.state={
-      showListing : true 
+      showListing:true 
     };
   }
-
   
+  componentDidMount() {
+    const currURL = window.location.href.split('#');
+    if(currURL.length > 1) {
+      if(currURL[1].includes('details')) {
+        this.setState({ showListing : false });
+      }
+    }
+  }
 
 
   render() {
     return (
-      <div>
-        <Details />        
+      <div className="App">
+        {
+          this.state.showListing ?
+            <Listing />
+          :
+            <Details />
+        }
       </div>
-    )
+    );
   }
 }
 
