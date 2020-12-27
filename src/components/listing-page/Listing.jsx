@@ -41,6 +41,7 @@ class Listing extends Component {
 
 			if (matching_books.length > 0) {
 				tableElements = (
+					<div className="table-super">
 					<table>
 						<thead>
 							<tr>
@@ -61,6 +62,7 @@ class Listing extends Component {
 							))}
 						</tbody>
 					</table>
+					</div>
 				);
 			}
 
