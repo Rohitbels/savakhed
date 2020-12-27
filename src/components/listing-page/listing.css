@@ -1,81 +1,99 @@
 .container {
-	height: 100vh;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-direction: column;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .form {
-	padding: 1rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  min-height: 3rem;
+  width: 40vw; /* change */
+  /* width: 40rem; */
+  min-width: 10rem;
+  /* flex-wrap: wrap; */
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-bar {
-	width: 400px;
-	height: 30px;
-	padding: 0.5rem 1rem;
-	border: 1px solid #cccccc;
-	border-radius: 4px;
-	font-size: 1rem;
-	outline: none;
-	margin: 0px 0.05rem 0px 0px;
+  /* max-width: 600px; */
+  flex-basis: 380px;
+  /* flex-shrink: 1; */
+  flex: 80%;
+  /* width: 100px; */
+  /* flex: 1 1 auto; */
+  height: 30px;
+  padding: 0.5rem 1rem;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: none;
+  margin: 0px 0.05rem 0px 0px;
 }
 
 .search-button {
-	width: 100px;
-	height: 46px;
-	background: #337ab7;
-	outline: none;
-	color: #ffffff;
-	border-radius: 4px;
-	font-size: 1rem;
-	box-shadow: none;
-	border: none;
-	margin: 0 0.25rem;
+  flex: 20%;
+  /* flex-shrink: 0; */
+  /* width: 100px; */
+  height: 46px;
+  background: #337ab7;
+  outline: none;
+  color: #ffffff;
+  border-radius: 4px;
+  font-size: 1rem;
+  box-shadow: none;
+  border: none;
+  margin: 0 0.25rem;
 }
 
 table,
 th,
 td {
-	border: 1px solid #cccccc;
-	padding: 10px;
+  border: 1px solid #cccccc;
+  padding: 10px;
 }
 
 th {
-	text-transform: capitalize;
-	text-align: start;
+  text-transform: capitalize;
+  text-align: start;
 }
 
 table {
-	width: 800px;
-	border-collapse: collapse;
+  width: 800px;
+  border-collapse: collapse;
+}
+
+/* changes */
+.table-super {
+  max-width: 100vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: auto;
 }
 
 .table {
-	max-height: 400px;
-	overflow-y: scroll;
-	scrollbar-width: 10px;
-	scrollbar-color: #337ab7;
+  scrollbar-width: 10px;
+  scrollbar-color: #337ab7;
 }
 
 .book-not-found {
-	padding: 1rem;
-	border: 1px solid #cccccc;
-	border-left: 4px solid rgb(180, 34, 34);
-	border-radius: 6px;
-	background-color: rgba(180, 34, 34, 0.25);
+  padding: 1rem;
+  border: 1px solid #cccccc;
+  border-left: 4px solid rgb(180, 34, 34);
+  border-radius: 6px;
+  background-color: rgba(180, 34, 34, 0.25);
 }
 
 .book-not-found h3,
 .book-not-found h5 {
-	font-weight: 400;
+  font-weight: 400;
 }
 
 .book-not-found h5 {
-	margin: 4px;
-	font-style: italic;
+  margin: 4px;
+  font-style: italic;
 }

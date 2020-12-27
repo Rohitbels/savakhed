@@ -132,6 +132,7 @@ function Listing() {
 
 			if (matching_books.length > 0) {
 				tableElements = (
+					<div className="table-super">
 					<table>
 						<thead>
 							<tr>
@@ -152,6 +153,7 @@ function Listing() {
 							))}
 						</tbody>
 					</table>
+					</div>
 				);
 			} else {
 				tableElements = (
