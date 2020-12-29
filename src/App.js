@@ -19,6 +19,9 @@ class App extends Component {
       if(currURL[1].includes('details')) {
         this.setState({ showListing : false });
       }
+      else{
+        this.setState({showListing :true});
+      }
     }
   }
 

@@ -62,7 +62,7 @@ class Listing extends Component {
 									<tr key={index}>
 										<td>{book["id"]}</td>
 										<td>{book["vibhag id"]}</td>
-										<td><a href="#details">{book["book name"]}</a></td>
+										<td><a href="#/details">{book["book name"]}</a></td>
 										<td>{book["author"]}</td>
 									</tr>
 								))}

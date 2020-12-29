@@ -4,7 +4,7 @@ function details() {
     return (
 <div>
         <div className="details_back">
-        <a href="#">
+        <a href="#/search">
             <button className="back_btn">
                 Go Back
             </button>
