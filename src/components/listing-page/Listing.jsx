@@ -3,6 +3,10 @@ import "./listing.css";
 import ReactDOM from "react-dom";
 import book_details from "./book_detail";
 
+
+
+
+
 class Listing extends Component {
 	constructor(props) {
 		super(props);
@@ -58,7 +62,7 @@ class Listing extends Component {
 									<tr key={index}>
 										<td>{book["id"]}</td>
 										<td>{book["vibhag id"]}</td>
-										<td>{book["book name"]}</td>
+										<td><a href="#/details">{book["book name"]}</a></td>
 										<td>{book["author"]}</td>
 									</tr>
 								))}
