@@ -14,6 +14,15 @@ class App extends Component {
   }
   
   componentDidMount() {
+    const self = this;
+    window.addEventListener('hashchange', function() {
+      console.log('The hash has changed!')
+      self.setPath();
+    }, false);
+    this.setPath();
+  }
+
+  setPath = () => {
     const currURL = window.location.href.split('#');
     if(currURL.length > 1) {
       if(currURL[1].includes('details')) {
@@ -24,7 +33,6 @@ class App extends Component {
       }
     }
   }
-
 
   render() {
     return (
