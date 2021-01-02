@@ -41,7 +41,7 @@ class App extends Component {
           this.state.showListing ?
             <Listing />
           :
-            <Details />
+            <Details bookName="The Alchemist" author="Paulo Coelho" year="2006"/>
         }
       </div>
     );

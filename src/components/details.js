@@ -95,6 +95,7 @@ render(){
        
         </div>
         {/* here, the result of the google api can be passed as props to the Card Component */}
+        
         <Card bookName="The Alchemist">
                 <div>
                     <p>resultScore : {this.state.resultScore} </p>
