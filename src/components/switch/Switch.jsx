@@ -12,7 +12,7 @@ const Switch = ({ isToggled, onToggle, label }) => {
 				/>
 				<span className="slider" />
 			</label>
-			<span className="label">{label}</span>
+			<span className="tag">{label}</span>
 		</div>
 	);
 };
