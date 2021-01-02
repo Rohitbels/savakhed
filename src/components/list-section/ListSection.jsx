@@ -18,7 +18,9 @@ const ListSection = ({ tableHeaders, tableElements }) => {
 						<tr key={index}>
 							<td>{book["id"]}</td>
 							<td>{book["vibhag id"]}</td>
-							<td>{book["book name"]}</td>
+							<td>
+								<a href="#/details">{book["book name"]}</a>
+							</td>
 							<td>{book["author"]}</td>
 						</tr>
 					))}
