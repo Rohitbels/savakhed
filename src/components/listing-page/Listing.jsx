@@ -2,7 +2,10 @@ import React, { Component, useState } from "react";
 import "./listing.css";
 import ReactDOM from "react-dom";
 import book_details from "./book_detail";
-import ListingFragment from "./ListingFragment";
+
+
+
+
 
 class Listing extends Component {
 	constructor(props) {
@@ -36,16 +39,38 @@ class Listing extends Component {
 					book.author
 						.toLowerCase()
 						.includes(this.state.input.toLowerCase()) ||
-					book["bookname"]
+					book["book name"]
 						.toLowerCase()
 						.includes(this.state.input.toLowerCase())
 				);
 			});
 
 			if (matching_books.length > 0) {
-			tableElements = matching_books.map((book, index) => (
-									<ListingFragment bookDetails={book}/>
-			))}
+				tableElements = (
+					<div className="table-super">
+						<table>
+							<thead>
+								<tr>
+									{tableHeaders.map((header, index) => (
+										<th key={index}>{header}</th>
+									))}
+								</tr>
+							</thead>
+
+							<tbody>
+								{matching_books.map((book, index) => (
+									<tr key={index}>
+										<td>{book["id"]}</td>
+										<td>{book["vibhag id"]}</td>
+										<td><a href="#/details">{book["book name"]}</a></td>
+										<td>{book["author"]}</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+				);
+			}
 		}
 
 		ReactDOM.render(<>{tableElements}</>, document.querySelector(".table"));
