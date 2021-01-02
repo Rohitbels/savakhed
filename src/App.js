@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Listing from "./container/Listing";
 import Details from "./components/details/Details";
+// import { db } from "./firebase";
 
 class App extends Component {
 	constructor() {
@@ -22,6 +23,22 @@ class App extends Component {
 			false
 		);
 		this.setPath();
+
+		// db.collection("bookList")
+		// 	.get()
+		// 	.then((snapshot) => {
+		// 		let bookList = [];
+		// 		snapshot.forEach((doc) => {
+		// 			const data = doc.data();
+		// 			bookList.push(data);
+		// 		});
+		// 		console.log(
+		// 			bookList.map((book) => {
+		// 				console.log(book["pustakName"]);
+		// 			})
+		// 		);
+		// 	})
+		// 	.catch((error) => console.error(error));
 	}
 
 	setPath = () => {
