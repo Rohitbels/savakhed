@@ -1,0 +1,34 @@
+.form {
+	padding: 1rem;
+	display: grid;
+}
+
+.form section {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr minmax(100px, 20%);
+}
+
+.search-bar {
+	height: 30px;
+	padding: 0.5rem 1rem;
+	border-radius: 4px;
+	font-size: 1rem;
+	outline: none;
+	border: 1px solid #cccccc;
+	margin: 0.25rem;
+}
+
+.search-button {
+	height: 46px;
+	background: #337ab7;
+	outline: none;
+	color: #ffffff;
+	border-radius: 4px;
+	padding: 0 1rem;
+	margin: 0.25rem;
+	font-size: 1rem;
+	box-shadow: none;
+	border: none;
+	cursor: pointer;
+}

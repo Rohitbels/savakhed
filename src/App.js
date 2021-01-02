@@ -1,5 +1,5 @@
 import React from "react";
-import Listing from "./components/listing-page/Listing";
+import Listing from "./container/Listing";
 
 function App() {
 	return (
