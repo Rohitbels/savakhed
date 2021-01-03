@@ -1,0 +1,22 @@
+table,
+th,
+td {
+	border: 1px solid #cccccc;
+	padding: 10px;
+}
+
+th {
+	text-transform: capitalize;
+	text-align: start;
+}
+
+table {
+	width: 800px;
+	border-collapse: collapse;
+}
+
+.table-super {
+	max-width: 100vw;
+	max-height: 85vh;
+	overflow: auto;
+}
