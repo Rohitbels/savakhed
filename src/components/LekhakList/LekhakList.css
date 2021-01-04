@@ -1,0 +1,13 @@
+.ButtonContainer {
+    display : flex;
+    justify-content : center;
+    padding-left: 50px;
+    padding-right : 50px;
+    padding-top: 50px;
+    
+}
+
+.ButtonContainer button {
+    margin-left: 2px;
+    margin-right: 2px;
+}
