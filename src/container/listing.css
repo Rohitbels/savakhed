@@ -1,0 +1,26 @@
+.container {
+  width: 100vw;
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.container.searching {
+  justify-content: flex-start;
+  height: 100vh;
+}
+.searching {
+  margin-bottom: 0px;
+  margin-top: 0px;
+}
+
+.m-auto {
+  margin: auto;
+}
+.logo {
+  text-align: center;
+  font-size: 3em;
+  user-select: none;
+  font-weight: 600;
+}
