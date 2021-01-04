@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import './details.css'
-import Card from './Card'
+import Card from '../card/Card'
 
-
-class details extends Component {
+class Details extends Component {
     constructor(){
         super();
         this.state={
@@ -112,4 +111,4 @@ render(){
 }
 }
 
-export default details;
+export default Details;
