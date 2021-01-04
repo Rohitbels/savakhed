@@ -1,15 +1,17 @@
 .card{
-    width: min-content;
+    width: 680px;
     height: auto;
     border-radius: 5px;
     border: 1px solid #eee;
     padding: 30px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    transition: 0.2s;
     margin: 20px auto;
+    display: block;
 }
 
-
+.card:hover{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0 0 0 / 1%);
+    transition: box-shadow 0.3s ease-in-out;
+}
 
 .heading{
     font-size: 25px;

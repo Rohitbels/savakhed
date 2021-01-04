@@ -96,15 +96,15 @@ class Details extends Component {
                 {/* here, the result of the google api can be passed as props to the Card Component */}
                 
                 <Card bookName="The Alchemist">
-                        <div>
-                            <p>resultScore : {this.state.resultScore} </p>
-                            <p>url : {this.state.url} </p>
-                            <p>license : {this.state.license}</p>
-                            <p>articleBody : {this.state.articleBody} </p>
-                            <p>name : {this.state.name} </p>
-                            <p>description : {this.state.description}</p>
-                        </div>
-                </Card>
+                <div className="googleDetails">
+                    <div className="eachgoogleDetails">Result Score : <h6>{this.state.resultScore}</h6></div>
+                    <div className="eachgoogleDetails">Url : <h6>{this.state.url}</h6> </div>
+                    <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div>
+                    <div className="eachgoogleDetails">Article Body : <h6>{this.state.articleBody}</h6> </div>
+                    <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div>
+                    <div className="eachgoogleDetails">Description : <h6>{this.state.description}</h6></div>
+                </div>
+        </Card>
                 
             </div>
         )

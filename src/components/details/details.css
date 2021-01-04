@@ -1,7 +1,11 @@
 .flex-container{
     padding-top: 30px;
-    display: flex;
+    display: block;
     flex-direction: row;
+}
+
+.flex-container:hover .cardDetails{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0 0 0 / 1%);  
 }
 
 .back_btn{
@@ -25,13 +29,16 @@
     border-radius: 5px;
     border: 1px solid #eee;
     padding: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition: 0.2s;   
     display: flex;
     margin: auto;
 }
 
 
+.eachgoogleDetails{
+    font-weight: 400;
+    font-size: 25px;
+}
 
 .hr{
     width: 84%;
@@ -176,4 +183,6 @@
         font-weight: 30;
         font-size: 18px;
     }
+
+    
   }
