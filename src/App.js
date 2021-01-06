@@ -3,7 +3,7 @@ import Listing from "./container/Listing";
 import Details from "./components/details/Details";
 import LekhakList from "./components/LekhakList/LekhakList"
 
-// import { db } from "./firebase";
+import { db } from "./firebase";
 
 class App extends Component {
 	constructor() {
@@ -25,7 +25,7 @@ class App extends Component {
 			false
 		);
 		this.setPath();
-		
+
 		// db.collection("bookList")
 		// 	.get()
 		// 	.then((snapshot) => {
@@ -47,9 +47,9 @@ class App extends Component {
 		const currURL = window.location.href.split("#");
 		if (currURL.length > 1) {
 			if (currURL[1].includes("details")) {
-				this.setState({ show : "details" });
+				this.setState({ show: "details" });
 			} else if (currURL[1].includes("lekhakList")) {
-				this.setState({ show : "lekhakList" });
+				this.setState({ show: "lekhakList" });
 			}
 			else {
 				this.setState({ show: "listing" });
@@ -61,13 +61,13 @@ class App extends Component {
 		return (
 			<div className="App">
 				{this.state.show === "details" &&
-						<Details bookName="The Alchemist" author="Paulo Coelho" year="2006"/>
+					<Details bookName="The Alchemist" author="Paulo Coelho" year="2006" />
 				}
 				{this.state.show === "lekhakList" &&
-						<LekhakList />			//Change this route----------------------------------------
+					<LekhakList />			//Change this route----------------------------------------
 				}
 				{this.state.show === "listing" &&
-						<Listing />
+					<Listing />
 				}
 			</div>
 		);
