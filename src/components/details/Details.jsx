@@ -6,6 +6,7 @@ import { db } from '../../firebase'
 class Details extends Component {
     constructor() {
         super();
+        let matches = [];
         this.state = {
             gotData: false,
             resultScore: 0,
@@ -22,12 +23,22 @@ class Details extends Component {
         this.getData();
         //  this.setState({temp : this.props.bookName})
         
+        this.matches = [];       //Array of Strings to store the lekhakNames
+        let check = 'a';
+
+        this.matches = this.findLekhaks(check);
+        
+        console.log("matches outside : " + this.matches);
+    }
+
+    componentWillUnmount() {
+        console.log("Unmount matches : " + this.matches)
+    }
+
+    findLekhaks(check) {
         //Firebase for lekhakList
-        {
-            let check = 'a';
-            let matches = [];       //Array of Strings to store the lekhakNames
-            
-            db.collection("bookList")
+        let matches = [];
+        matches = db.collection("bookList")
                 .get()
                 .then((snapshot) => {
                     //Fetch all the data
@@ -36,7 +47,7 @@ class Details extends Component {
                         const data = doc.data();
                         bookList.push(data);
                     });
-
+                    matches = [];
                     //Iterate over the whole list
                     bookList.map((book) => {
                         let firstChar = [];
@@ -55,27 +66,29 @@ class Details extends Component {
                         
                         if(present) {
                             matches.push(this.toStringLekhakNameEnglish(lekhakNameEnglish));
-                            console.log(this.toStringLekhakNameEnglish(lekhakNameEnglish));
+                            //console.log(this.toStringLekhakNameEnglish(lekhakNameEnglish));
                         }
                     })
 
+                    //removeDuplicates
+                    matches = this.removeDuplicates(matches);
+                    console.log("matches : " + matches);
+                    return matches;
                 })
                 .catch((error) => console.error(error));
-
-            //removeDuplicates
-            console.log("matches : " + matches);
-            //this.removeDuplicates(matches);
-        }
+        
+        return matches;
     }
-/*
+
     removeDuplicates(lekhakNames) {
         let unique = [...new Set(lekhakNames)];
         console.log("Remove Dups");
         const array = [...unique];
-        console.log(unique);
         console.log(lekhakNames);
+        console.log(array);
+        return array;
     }
-*/
+
     toStringLekhakNameEnglish(lekhakNameEnglish) {
         let strName = "";
         for(let i = 0; i < lekhakNameEnglish.length; i++) {
