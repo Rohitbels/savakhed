@@ -2,35 +2,36 @@ import React from "react";
 import "./listsection.css";
 
 const ListSection = ({ tableHeaders = [], tableElements = [] }) => {
-	if (tableElements.length === 0) {
-		return <div>No Results found</div>;
-	}
 	return (
 		<div className="table-super">
-			<table>
-				<thead>
-					<tr>
-						{tableHeaders.map((header, index) => (
-							<th key={index}>{header}</th>
-						))}
-					</tr>
-				</thead>
-
-				<tbody>
-					{tableElements.map((book, index) => (
-						<tr key={index}>
-							<td>{book["dakhalId"]}</td>
-							<td>{book["vibhagId"]}</td>
-							<td>
-								<a href="#/details">
-									{book["pustakNameEnglish"].join(" ")}
-								</a>
-							</td>
-							<td>{book["lekhakNameEnglish"].join(" ")}</td>
+			{tableElements.length ? (
+				<table>
+					<thead>
+						<tr>
+							{tableHeaders.map((header, index) => (
+								<th key={index}>{header}</th>
+							))}
 						</tr>
-					))}
-				</tbody>
-			</table>
+					</thead>
+
+					<tbody>
+						{tableElements.map((book, index) => (
+							<tr key={index}>
+								<td>{book["dakhalId"]}</td>
+								<td>{book["vibhagId"]}</td>
+								<td>
+									<a href="#/details">
+										{book["pustakName"].join(" ")}
+									</a>
+								</td>
+								<td>{book["lekhak"].join(" ")}</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			) : (
+				<div>No results found</div>
+			)}
 		</div>
 	);
 };

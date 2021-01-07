@@ -9,9 +9,6 @@ class Listing extends Component {
 		super(props);
 
 		this.state = {
-			searched: false,
-			isSearching: false,
-			containerClass: "",
 			input: "",
 			tableHeaders: [],
 			results: [],
@@ -96,46 +93,31 @@ class Listing extends Component {
 		}
 	};
 
-	logger = (array) => {
-		console.log(array);
+	logger = (array, label) => {
+		console.log(label, array);
 	};
 
 	render() {
-		const { searched } = this.state;
 		return (
-			<>
-				<div className={`container ${searched ? "searching" : ""}`}>
-					<div
-						className={`input-box m-auto ${
-							searched ? "searching" : ""
-						}`}
-					>
-						<div className="logo">
-							सार्वजनिक वाचनालय <br /> राजगुरूनगर
-						</div>
-						<InputSection
-							onInput={(event) =>
-								this.setState({
-									seachString: event.target.value.toLowerCase(),
-								})
-							}
-							onSearch={(event) => this.fetchResults(event)}
-						/>
+			<div className="container">
+				<div>
+					<div className="logo">
+						सार्वजनिक वाचनालय <br /> राजगुरूनगर
 					</div>
-					{searched ? (
-						<div
-							className={`search-table m-auto ${
-								searched ? "searching" : ""
-							}`}
-						>
-							<ListSection
-								tableHeaders={this.state.tableHeaders}
-								tableElements={this.state.results}
-							/>
-						</div>
-					) : null}
+					<InputSection
+						onInput={(event) =>
+							this.setState({
+								input: event.target.value.toLowerCase(),
+							})
+						}
+						onSearch={(event) => this.fetchResults(event)}
+					/>
+					<ListSection
+						tableHeaders={this.state.tableHeaders}
+						tableElements={this.state.results}
+					/>
 				</div>
-			</>
+			</div>
 		);
 	}
 }
