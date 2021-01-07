@@ -1,40 +1,103 @@
 import React, { Component } from "react";
 import "./listing.css";
-import book_details from "./BookDetails";
 import InputSection from "../components/input-section/InputSection";
 import ListSection from "../components/list-section/ListSection";
+import { db } from "./../firebase";
 
 class Listing extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			seachString: "",
 			searched: false,
-			tableHeaders: ["id", "vibhag id", "bookName", "author"],
-			matching_books: [],
 			isSearching: false,
 			containerClass: "",
+			input: "",
+			tableHeaders: [],
+			results: [],
 		};
-
-		this.filterTable = this.filterTable.bind(this);
 	}
 
-	filterTable = (event) => {
+	fetchResults = (event) => {
 		event.preventDefault();
-		const { seachString } = this.state;
-		if (seachString.length) {
-			this.setState({
-				searched: true,
-				matching_books: book_details.filter(
-					({ author, bookName }) =>
-						author.toLowerCase().includes(seachString) ||
-						bookName.toLowerCase().includes(seachString)
-				),
+		document.querySelector(".container").style.placeItems = "center";
+
+		if (this.state.input.length > 0) {
+			document.querySelector(".container").style.placeItems =
+				"flex-start center";
+
+			this.setState({ tableHeaders: [], results: [], searched: true });
+
+			let commonWords = ["for", "the", "of", "a"];
+			let inputArray = this.state.input.toLowerCase().split(" ");
+
+			commonWords.forEach((word) => {
+				inputArray = inputArray.filter((item) => item !== word);
 			});
+
+			// sorting input-array in descending order
+			inputArray.sort(
+				(firstString, secondString) =>
+					-(firstString.length > secondString.length) ||
+					+(firstString.length < secondString.length)
+			);
+
+			// reducing the array to max length 10
+			if (inputArray.length > 10) {
+				let length = inputArray.length;
+				inputArray.splice(9, length - 10);
+			}
+
+			// query for book name
+			db.collection("bookList")
+				.where("pustakNameEnglish", "array-contains-any", inputArray)
+				.get()
+				.then((snapshot) => {
+					snapshot.forEach((doc) => {
+						this.setState({
+							results: this.state.results.concat([doc.data()]),
+						});
+					});
+
+					this.setState({
+						tableHeaders: [
+							"Dakhal-ID",
+							"Vibhag-ID",
+							"Book",
+							"Author",
+						],
+					});
+				})
+				.catch((error) => console.error(error));
+
+			// query for author name
+			db.collection("bookList")
+				.where("lekhakNameEnglish", "array-contains-any", inputArray)
+				.get()
+				.then((snapshot) => {
+					snapshot.forEach((doc) => {
+						this.setState({
+							results: this.state.results.concat([doc.data()]),
+						});
+					});
+
+					this.setState({
+						tableHeaders: [
+							"Dakhal-ID",
+							"Vibhag-ID",
+							"Book",
+							"Author",
+						],
+					});
+				})
+				.catch((error) => console.error(error));
 		} else {
-			this.setState({ matching_books: [] });
+			this.setState({ tableHeaders: [], results: [] });
 		}
+	};
+
+	logger = (array) => {
+		console.log(array);
 	};
 
 	render() {
@@ -56,7 +119,7 @@ class Listing extends Component {
 									seachString: event.target.value.toLowerCase(),
 								})
 							}
-							onSearch={(event) => this.filterTable(event)}
+							onSearch={(event) => this.fetchResults(event)}
 						/>
 					</div>
 					{searched ? (
@@ -67,7 +130,7 @@ class Listing extends Component {
 						>
 							<ListSection
 								tableHeaders={this.state.tableHeaders}
-								tableElements={this.state.matching_books}
+								tableElements={this.state.results}
 							/>
 						</div>
 					) : null}

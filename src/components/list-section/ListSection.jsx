@@ -19,12 +19,14 @@ const ListSection = ({ tableHeaders = [], tableElements = [] }) => {
 				<tbody>
 					{tableElements.map((book, index) => (
 						<tr key={index}>
-							<td>{book["id"]}</td>
-							<td>{book["vibhag id"]}</td>
+							<td>{book["dakhalId"]}</td>
+							<td>{book["vibhagId"]}</td>
 							<td>
-								<a href="/#/details">{book["bookName"]}</a>
+								<a href="#/details">
+									{book["pustakNameEnglish"].join(" ")}
+								</a>
 							</td>
-							<td>{book["author"]}</td>
+							<td>{book["lekhakNameEnglish"].join(" ")}</td>
 						</tr>
 					))}
 				</tbody>
