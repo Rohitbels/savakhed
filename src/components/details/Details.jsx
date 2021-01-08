@@ -108,6 +108,7 @@ class Details extends Component {
             //console.log(xhr.responseText)
 
             let jsonData = JSON.parse(xhr.responseText);
+            const {itemListElement : result} = jsonData
             this.setState({
                 gotData: true,
                 resultScore: jsonData.itemListElement[0].resultScore,
@@ -169,17 +170,19 @@ class Details extends Component {
 
                 </div>
                 {/* here, the result of the google api can be passed as props to the Card Component */}
-
-                <Card bookName="The Alchemist">
-                    <div className="googleDetails">
-                        <div className="eachgoogleDetails">Result Score : <h6>{this.state.resultScore}</h6></div>
-                        <div className="eachgoogleDetails">Url : <h6>{this.state.url}</h6> </div>
-                        <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div>
-                        <div className="eachgoogleDetails">Article Body : <h6>{this.state.articleBody}</h6> </div>
-                        <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div>
-                        <div className="eachgoogleDetails">Description : <h6>{this.state.description}</h6></div>
-                    </div>
-                </Card>
+            {this.state.resultScore > 0 && 
+                <Card bookName={this.state.name}>
+                <div className="googleDetails">
+                    <div className="eachgoogleDetails">Result Score : <h6>{this.state.resultScore}</h6></div>
+                    {/* <div className="eachgoogleDetails">Url : <h6>{this.state.url}</h6> </div>
+                    <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div> */}
+                    <div className="eachgoogleDetails">Article Body : <h6>{this.state.articleBody}</h6> </div>
+                    {/* <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div> */}
+                    <div className="eachgoogleDetails">Description : <h6>{this.state.description}</h6></div>
+                </div>
+            </Card>
+            }
+                
 
             </div>
         )

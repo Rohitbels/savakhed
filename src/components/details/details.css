@@ -183,6 +183,11 @@
         font-weight: 30;
         font-size: 18px;
     }
-
+    
+    .eachgoogleDetails{
+        font-weight: 400;
+        font-size: 20px;
+        width: 100%;
+    }
     
   }

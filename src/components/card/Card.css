@@ -26,8 +26,8 @@
 
 @media (max-width: 800px) {
     .card{
-        width: 400px;
-        height: 180px;
+        width: 280px;
+        height: auto;
         border-radius: 5px;
         border: 1px solid #eee;
         padding: 30px;
