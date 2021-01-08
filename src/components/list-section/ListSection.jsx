@@ -1,7 +1,7 @@
 import React from "react";
 import "./listsection.css";
 
-const ListSection = ({ tableHeaders, tableElements }) => {
+const ListSection = ({ tableHeaders, tableElements, setCurrentDetails }) => {
 	return (
 		<div className="table-super">
 			<table>
@@ -15,15 +15,15 @@ const ListSection = ({ tableHeaders, tableElements }) => {
 
 				<tbody>
 					{tableElements.map((book, index) => (
-						<tr key={index}>
+						<tr onClick={() => setCurrentDetails(book)} key={index}>
 							<td>{book["dakhalId"]}</td>
 							<td>{book["vibhagId"]}</td>
 							<td>
 								<a href="#/details">
-									{book["pustakNameEnglish"].join(" ")}
+									{book["pustakName"].join(" ")}
 								</a>
 							</td>
-							<td>{book["lekhakNameEnglish"].join(" ")}</td>
+							<td>{book["lekhak"].join(" ")}</td>
 						</tr>
 					))}
 				</tbody>

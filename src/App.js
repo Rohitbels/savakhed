@@ -8,6 +8,7 @@ class App extends Component {
 
 		this.state = {
 			showListing: true,
+			currentDetails: {},
 		};
 	}
 
@@ -38,7 +39,15 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{this.state.showListing ? <Listing /> : <Details />}
+				{this.state.showListing ? (
+					<Listing
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+					/>
+				) : (
+					<Details />
+				)}
 			</div>
 		);
 	}
