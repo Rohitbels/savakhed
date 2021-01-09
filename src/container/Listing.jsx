@@ -4,16 +4,55 @@ import InputSection from "../components/input-section/InputSection";
 import ListSection from "../components/list-section/ListSection";
 import { db } from "./../firebase";
 
+import mulakshare from "./../container/mulakshare";
+
 class Listing extends Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
+			searched: false,
 			input: "",
 			tableHeaders: [],
 			results: [],
 		};
 	}
+
+	search = (label, inputArray) => {
+		db.collection("bookList")
+			.where(label, "array-contains-any", inputArray)
+			.get()
+			.then((snapshot) => {
+				snapshot.forEach((doc) => {
+					let book = doc.data();
+
+					this.setState({
+						results: this.state.results.concat([book]),
+					});
+					this.getMulakshara(book["lekhak"]);
+					this.getMulakshara(book["pustakName"]);
+				});
+
+				this.setState({
+					tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
+				});
+			})
+			.catch((error) => console.error(error));
+	};
+
+	getMulakshara = (inputArray) => {
+		let superArray = [];
+		inputArray.forEach((word) => {
+			let array = [];
+			word.split("").forEach((letter) => {
+				if (mulakshare.includes(letter)) {
+					array.push(letter);
+				}
+			});
+			superArray.push(array);
+		});
+		console.log(superArray);
+	};
 
 	fetchResults = (event) => {
 		event.preventDefault();
@@ -25,12 +64,7 @@ class Listing extends Component {
 
 			this.setState({ tableHeaders: [], results: [], searched: true });
 
-			let commonWords = ["for", "the", "of", "a"];
 			let inputArray = this.state.input.toLowerCase().split(" ");
-
-			commonWords.forEach((word) => {
-				inputArray = inputArray.filter((item) => item !== word);
-			});
 
 			// sorting input-array in descending order
 			inputArray.sort(
@@ -45,51 +79,10 @@ class Listing extends Component {
 				inputArray.splice(9, length - 10);
 			}
 
-			// query for book name
-			db.collection("bookList")
-				.where("pustakNameEnglish", "array-contains-any", inputArray)
-				.get()
-				.then((snapshot) => {
-					snapshot.forEach((doc) => {
-						this.setState({
-							results: this.state.results.concat([doc.data()]),
-						});
-					});
-
-					this.setState({
-						tableHeaders: [
-							"Dakhal-ID",
-							"Vibhag-ID",
-							"Book",
-							"Author",
-						],
-					});
-				})
-				.catch((error) => console.error(error));
-
-			// query for author name
-			db.collection("bookList")
-				.where("lekhakNameEnglish", "array-contains-any", inputArray)
-				.get()
-				.then((snapshot) => {
-					snapshot.forEach((doc) => {
-						this.setState({
-							results: this.state.results.concat([doc.data()]),
-						});
-					});
-
-					this.setState({
-						tableHeaders: [
-							"Dakhal-ID",
-							"Vibhag-ID",
-							"Book",
-							"Author",
-						],
-					});
-				})
-				.catch((error) => console.error(error));
+			this.search("pustakName", inputArray);
+			this.search("lekhak", inputArray);
 		} else {
-			this.setState({ tableHeaders: [], results: [] });
+			this.setState({ tableHeaders: [], results: [], searched: false });
 		}
 	};
 
@@ -113,8 +106,10 @@ class Listing extends Component {
 						onSearch={(event) => this.fetchResults(event)}
 					/>
 					<ListSection
+						setCurrentDetails={this.props.setCurrentDetails}
 						tableHeaders={this.state.tableHeaders}
 						tableElements={this.state.results}
+						searched={this.state.searched}
 					/>
 				</div>
 			</div>

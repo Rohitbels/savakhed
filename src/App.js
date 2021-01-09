@@ -9,6 +9,7 @@ class App extends Component {
 
 		this.state = {
 			show: "listing",
+			currentDetails: {},
 		};
 	}
 
@@ -49,7 +50,13 @@ class App extends Component {
 					/>
 				)}
 				{this.state.show === "lekhakList" && <LekhakList />}
-				{this.state.show === "listing" && <Listing />}
+				{this.state.show === "listing" && (
+					<Listing
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+					/>
+				)}
 			</div>
 		);
 	}

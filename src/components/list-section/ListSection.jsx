@@ -1,10 +1,15 @@
 import React from "react";
 import "./listsection.css";
 
-const ListSection = ({ tableHeaders = [], tableElements = [] }) => {
+const ListSection = ({
+	tableHeaders = [],
+	tableElements = [],
+	searched,
+	setCurrentDetails,
+}) => {
 	return (
 		<div className="table-super">
-			{tableElements.length ? (
+			{tableElements.length && searched ? (
 				<table>
 					<thead>
 						<tr>
@@ -16,7 +21,10 @@ const ListSection = ({ tableHeaders = [], tableElements = [] }) => {
 
 					<tbody>
 						{tableElements.map((book, index) => (
-							<tr key={index}>
+							<tr
+								onClick={() => setCurrentDetails(book)}
+								key={index}
+							>
 								<td>{book["dakhalId"]}</td>
 								<td>{book["vibhagId"]}</td>
 								<td>
