@@ -28,16 +28,17 @@ class Details extends Component {
         this.getGoogleData();
     }
 
+    
+
     getGoogleData() {
         var xhr = new XMLHttpRequest()
-        var query = ["the", "alchemist"]
+        var query = this.props.bookDetail.pustakNameEnglish
 
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
             //console.log(xhr.responseText)
 
             let jsonData = JSON.parse(xhr.responseText);
-            const {itemListElement : result} = jsonData
             this.setState({
                 gotGoogleData: true,
                 resultScore: jsonData.itemListElement[0].resultScore,
@@ -53,9 +54,11 @@ class Details extends Component {
         xhr.send()
     }
 
+
     getFirebaseData() {
-        db.collection("bookList")
-            .where("pustakName", "array-contains", "alchemist").get()
+            var tempPustakName = this.props.bookDetail.pustakName;
+            db.collection("bookList")
+            .where("pustakName", "array-contains", this.props.bookDetail.pustakName[0] && this.props.bookDetail.pustakName[1]).get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     const obj = doc.data();
@@ -103,35 +106,19 @@ class Details extends Component {
                     </a>
                     <hr className="hr" />
                 </div>
+
+                {/* conditional rendering, if details are found */}
+                {this.state.gotFirebaseData  && 
                 <div className="flex-container">
                     <div className="cardDetails">
                         <div className="details_image">
                             <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
                         </div>
                         <div className="book_details">
-                            <div className="rows">
-                                <div className="label">Book Name</div>
-                                <span className="book_name">{this.props.bookName}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">Author</span>
-                                <span className="book_name">{this.props.author}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">Year Of Release</span>
-                                <span className="book_name">{this.props.year}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">Publication</span>
-                                <span className="book_name">The Alchemist</span>
-                            </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">dakhalId</span>
-                                <span className="book_name">{this.state.dakhalId}</span>
+                                <span className="book_name">{this.state.dakhalId} </span>
                             </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
@@ -141,7 +128,7 @@ class Details extends Component {
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">pustakName</span>
-                                <span className="book_name">{this.state.pustakName}</span>
+                               <a href={this.state.url} target="_blank" > <span className="book_name">{this.state.pustakName}</span></a> 
                             </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
@@ -157,19 +144,27 @@ class Details extends Component {
                             <br />
                         </div>
                     </div>
-
                 </div>
-                
+            }
+
+            {/* conditional rendering, if details not found!, will have to put a wait time of 2 secs*/}
+            {/* {this.state.gotFirebaseData === false &&
+                <div>
+                    <h3>Book details not found</h3>
+                </div>
+            } */}
+
 
                 {this.state.resultScore > 0 && 
                     <Card bookName={this.state.name}>
                     <div className="googleDetails">
-                        <div className="eachgoogleDetails">Result Score : <h6>{this.state.resultScore}</h6></div>
-                        {/* <div className="eachgoogleDetails">Url : <h6>{this.state.url}</h6> </div>
+                        <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.resultScore}</div></div>
+                        {/* <div className="eachgoogleDetails"> : <h6>{this.state.url}</h6> </div>
                         <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div> */}
-                        <div className="eachgoogleDetails">Article Body : <h6>{this.state.articleBody}</h6> </div>
+                        <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.articleBody}</div></div>
                         {/* <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div> */}
-                        <div className="eachgoogleDetails">Description : <h6>{this.state.description}</h6></div>
+                        <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.description}</div></div>
+                        <div className="source">source : Google </div>
                     </div>
                 </Card>
                 }

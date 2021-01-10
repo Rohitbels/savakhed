@@ -11,6 +11,14 @@ class App extends Component {
 
 		this.state = {
 			show: "listing",
+			currentDetails: {
+				"dakhalId" : 1,
+				"lekhak" : ["paulo","coelho"],
+				"lekhakNameEnglish" : ["paulo","coelho"],
+				"pustakName" : ["the","alchemist"],
+				"pustakNameEnglish" : ["the","alchemist"],
+				"pustakPrakar" : "कादंबरी"
+			},
 		};
 	}
 
@@ -61,7 +69,7 @@ class App extends Component {
 		return (
 			<div className="App">
 				{this.state.show === "details" &&
-					<Details bookName="The Alchemist" author="Paulo Coelho" year="2006" />
+					<Details bookDetail = {this.state.currentDetails} />
 				}
 				{this.state.show === "lekhakList" &&
 					<LekhakList />			//Change this route----------------------------------------
