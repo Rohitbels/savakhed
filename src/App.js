@@ -74,9 +74,13 @@ class App extends Component {
 				{this.state.show === "lekhakList" &&
 					<LekhakList />			//Change this route----------------------------------------
 				}
-				{this.state.show === "listing" &&
-					<Listing />
-				}
+				{this.state.show === "listing" && (
+					<Listing
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+					/>
+				)}
 			</div>
 		);
 	}

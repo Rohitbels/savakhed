@@ -1,72 +1,120 @@
 import React, { Component } from "react";
 import "./listing.css";
-import book_details from "./BookDetails";
 import InputSection from "../components/input-section/InputSection";
 import ListSection from "../components/list-section/ListSection";
+import { db } from "./../firebase";
+
+import mulakshare from "./../container/mulakshare";
 
 class Listing extends Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-      seachString: "",
-      searched: false,
-      tableHeaders: ["id", "vibhag id", "bookName", "author"],
-      matching_books: [],
-      isSearching: false,
-      containerClass: "",
-    };
+		this.state = {
+			searched: false,
+			input: "",
+			tableHeaders: [],
+			results: [],
+		};
+	}
 
-    this.filterTable = this.filterTable.bind(this);
-  }
+	search = (label, inputArray) => {
+		db.collection("bookList")
+			.where(label, "array-contains-any", inputArray)
+			.get()
+			.then((snapshot) => {
+				snapshot.forEach((doc) => {
+					let book = doc.data();
 
-  filterTable = (event) => {
-    event.preventDefault();
-    const { seachString } = this.state;
-    if (seachString.length) {
-      this.setState({
-        searched: true,
-        matching_books: book_details.filter(
-          ({ author, bookName }) =>
-            author.toLowerCase().includes(seachString) ||
-            bookName.toLowerCase().includes(seachString)
-        ),
-      });
-    } else {
-      this.setState({ matching_books: [] });
-    }
-  };
+					this.setState({
+						results: this.state.results.concat([book]),
+					});
+					this.getMulakshara(book["lekhak"]);
+					this.getMulakshara(book["pustakName"]);
+				});
 
-  render() {
-    const { searched } = this.state;
-    return (
-      <>
-        <div className={`container ${searched ? "searching" : ""}`}>
-          <div className={`input-box m-auto ${searched ? "searching" : ""}`}>
-            <div className="logo">
-              सार्वजनिक वाचनालय <br /> राजगुरूनगर
-            </div>
-            <InputSection
-              onInput={(event) =>
-                this.setState({ seachString: event.target.value.toLowerCase() })
-              }
-              onSearch={(event) => this.filterTable(event)}
-            />
-          </div>
-          {searched ? (
-            <div
-              className={`search-table m-auto ${searched ? "searching" : ""}`}
-            >
-              <ListSection
-                tableHeaders={this.state.tableHeaders}
-                tableElements={this.state.matching_books}
-              />
-            </div>
-          ) : null}
-        </div>
-      </>
-    );
-  }
+				this.setState({
+					tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
+				});
+			})
+			.catch((error) => console.error(error));
+	};
+
+	getMulakshara = (inputArray) => {
+		let superArray = [];
+		inputArray.forEach((word) => {
+			let array = [];
+			word.split("").forEach((letter) => {
+				if (mulakshare.includes(letter)) {
+					array.push(letter);
+				}
+			});
+			superArray.push(array);
+		});
+		console.log(superArray);
+	};
+
+	fetchResults = (event) => {
+		event.preventDefault();
+		document.querySelector(".container").style.placeItems = "center";
+
+		if (this.state.input.length > 0) {
+			document.querySelector(".container").style.placeItems =
+				"flex-start center";
+
+			this.setState({ tableHeaders: [], results: [], searched: true });
+
+			let inputArray = this.state.input.toLowerCase().split(" ");
+
+			// sorting input-array in descending order
+			inputArray.sort(
+				(firstString, secondString) =>
+					-(firstString.length > secondString.length) ||
+					+(firstString.length < secondString.length)
+			);
+
+			// reducing the array to max length 10
+			if (inputArray.length > 10) {
+				let length = inputArray.length;
+				inputArray.splice(9, length - 10);
+			}
+
+			this.search("pustakName", inputArray);
+			this.search("lekhak", inputArray);
+		} else {
+			this.setState({ tableHeaders: [], results: [], searched: false });
+		}
+	};
+
+	logger = (array, label) => {
+		console.log(label, array);
+	};
+
+	render() {
+		return (
+			<div className="container">
+				<div>
+					<div className="logo">
+						सार्वजनिक वाचनालय <br /> राजगुरूनगर
+					</div>
+					<InputSection
+						onInput={(event) =>
+							this.setState({
+								input: event.target.value.toLowerCase(),
+							})
+						}
+						onSearch={(event) => this.fetchResults(event)}
+					/>
+					<ListSection
+						setCurrentDetails={this.props.setCurrentDetails}
+						tableHeaders={this.state.tableHeaders}
+						tableElements={this.state.results}
+						searched={this.state.searched}
+					/>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default Listing;
