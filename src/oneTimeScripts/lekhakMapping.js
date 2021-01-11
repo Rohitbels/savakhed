@@ -59,10 +59,7 @@ inputStream
         
         count++;
         let firstChar = csvArrayToString(row[0])[0];
-        if(count % 100 == 0)
-            console.log(count);
-        if(count < 10)
-            console.log(firstChar);
+
         if(dict[firstChar] && dict[firstChar].length) {
             if(dict[firstChar].indexOf(csvArrayToString(row[0])) === -1)
                 dict[firstChar].push(csvArrayToString(row[0]));
@@ -85,13 +82,14 @@ inputStream
                 names: value
             }
             //console.log(dataTemp.char, dataTemp.names.length);
-            if(dataTemp.char === 'r') {
+            if(dataTemp.char === 'r') {         //Remove condition if you want to write to firebase all characters
                 db.collection('lekhakMapping').doc(dataTemp.char).set(dataTemp).then(console.log("Written to Firebase"));
             }
         }
         //console.log(dictToWrite);
 
         /*
+        //Writing to CSV File
         console.log("Start write");
 
         const createCsvWriter = require('csv-writer').createObjectCsvWriter;
