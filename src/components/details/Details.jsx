@@ -75,6 +75,7 @@ class Details extends Component {
         );
     }
 
+    //Return one string for array of name
     nameArrayToString(nameArray) {
         let strName = "";
         for(let i = 0; i < nameArray.length; i++) {
@@ -85,6 +86,7 @@ class Details extends Component {
         return strName;
     }
 
+    //Return a String with words having capital letters
     capitalizeString(lowerString) {
         let capitalized = "";
         capitalized += lowerString.charAt(0).toUpperCase();
@@ -157,21 +159,20 @@ class Details extends Component {
                             <br />
                         </div>
                     </div>
-
                 </div>
                 
 
                 {this.state.resultScore > 0 && 
                     <Card bookName={this.state.name}>
-                    <div className="googleDetails">
-                        <div className="eachgoogleDetails">Result Score : <h6>{this.state.resultScore}</h6></div>
-                        {/* <div className="eachgoogleDetails">Url : <h6>{this.state.url}</h6> </div>
-                        <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div> */}
-                        <div className="eachgoogleDetails">Article Body : <h6>{this.state.articleBody}</h6> </div>
-                        {/* <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div> */}
-                        <div className="eachgoogleDetails">Description : <h6>{this.state.description}</h6></div>
-                    </div>
-                </Card>
+                        <div className="googleDetails">
+                            <div className="eachgoogleDetails">Result Score : <h6>{this.state.resultScore}</h6></div>
+                            {/* <div className="eachgoogleDetails">Url : <h6>{this.state.url}</h6> </div>
+                            <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div> */}
+                            <div className="eachgoogleDetails">Article Body : <h6>{this.state.articleBody}</h6> </div>
+                            {/* <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div> */}
+                            <div className="eachgoogleDetails">Description : <h6>{this.state.description}</h6></div>
+                        </div>
+                    </Card>
                 }
                 
             </div>
