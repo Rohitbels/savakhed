@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Listing from "./container/Listing";
 import Details from "./components/details/Details";
-import LekhakList from "./components/LekhakList/LekhakList"
-
-// import { db } from "./firebase";
+import LekhakList from "./components/LekhakList/LekhakList";
 
 class App extends Component {
 	constructor() {
@@ -11,6 +9,7 @@ class App extends Component {
 
 		this.state = {
 			show: "listing",
+			currentDetails: {},
 		};
 	}
 
@@ -25,33 +24,16 @@ class App extends Component {
 			false
 		);
 		this.setPath();
-		
-		// db.collection("bookList")
-		// 	.get()
-		// 	.then((snapshot) => {
-		// 		let bookList = [];
-		// 		snapshot.forEach((doc) => {
-		// 			const data = doc.data();
-		// 			bookList.push(data);
-		// 		});
-		// 		console.log(
-		// 			bookList.map((book) => {
-		// 				console.log(book["pustakName"]);
-		// 			})
-		// 		);
-		// 	})
-		// 	.catch((error) => console.error(error));
 	}
 
 	setPath = () => {
 		const currURL = window.location.href.split("#");
 		if (currURL.length > 1) {
 			if (currURL[1].includes("details")) {
-				this.setState({ show : "details" });
+				this.setState({ show: "details" });
 			} else if (currURL[1].includes("lekhakList")) {
-				this.setState({ show : "lekhakList" });
-			}
-			else {
+				this.setState({ show: "lekhakList" });
+			} else {
 				this.setState({ show: "listing" });
 			}
 		}
@@ -60,15 +42,21 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{this.state.show === "details" &&
-						<Details bookName="The Alchemist" author="Paulo Coelho" year="2006"/>
-				}
-				{this.state.show === "lekhakList" &&
-						<LekhakList />			//Change this route----------------------------------------
-				}
-				{this.state.show === "listing" &&
-						<Listing />
-				}
+				{this.state.show === "details" && (
+					<Details
+						bookName="The Alchemist"
+						author="Paulo Coelho"
+						year="2006"
+					/>
+				)}
+				{this.state.show === "lekhakList" && <LekhakList />}
+				{this.state.show === "listing" && (
+					<Listing
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+					/>
+				)}
 			</div>
 		);
 	}
