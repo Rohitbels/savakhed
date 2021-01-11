@@ -14,8 +14,10 @@
 }
 
 .heading{
-    font-size: 25px;
-    font-weight: 600;
+    font-size: 28px;
+    font-weight: 400;
+    color: purple;
+
 }
 
 .description{
