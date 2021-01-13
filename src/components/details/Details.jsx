@@ -1,110 +1,175 @@
 import React, { Component } from 'react'
 import './details.css'
 import Card from '../card/Card'
+import { db } from '../../firebase'
 
 class Details extends Component {
-    constructor(){
+    constructor() {
         super();
-        this.state={
-          gotData : false,
-          resultScore : 0,
-          url : "",
-          license : "",
-          articleBody : "",
-          name : "",
-          description : "",
-          temp : ""
+        this.state = {
+            gotGoogleData: false,
+            resultScore: 0,
+            url: "",
+            license: "",
+            articleBody: "",
+            name: "",
+            description: "",
+            gotFirebaseData: false,
+            dakhalId: 0,
+            lekhak: "",
+            pustakName: "",
+            pustakPrakar: "",
+            vibhagId: 0
         };
     }
 
-    componentWillMount() {
-       
-        this.getData();
-      //  this.setState({temp : this.props.bookName})
+    componentDidMount() {
+        this.getFirebaseData();
+        this.getGoogleData();
     }
 
-    getData() {
+    
+
+    getGoogleData() {
         var xhr = new XMLHttpRequest()
-        var query = ["the","alchemist"]
-        
+        var query = this.props.bookDetail.pustakNameEnglish
+
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
-          //console.log(xhr.responseText)
-          
-          let jsonData = JSON.parse(xhr.responseText);
-          this.setState({
-              gotData : true,
-              resultScore : jsonData.itemListElement[0].resultScore,
-              url : jsonData.itemListElement[0].result.detailedDescription.url,
-              license : jsonData.itemListElement[0].result.detailedDescription.license,
-              articleBody : jsonData.itemListElement[0].result.detailedDescription.articleBody,
-              name : jsonData.itemListElement[0].result.name,
-              description : jsonData.itemListElement[0].result.description
-          });
+            //console.log(xhr.responseText)
 
-          //this.setState({ gotData : true, itemList : jsonData.itemListElement[0].resultScore });
-          
+            let jsonData = JSON.parse(xhr.responseText);
+            this.setState({
+                gotGoogleData: true,
+                resultScore: jsonData.itemListElement[0].resultScore,
+                url: jsonData.itemListElement[0].result.detailedDescription.url,
+                license: jsonData.itemListElement[0].result.detailedDescription.license,
+                articleBody: jsonData.itemListElement[0].result.detailedDescription.articleBody,
+                name: jsonData.itemListElement[0].result.name,
+                description: jsonData.itemListElement[0].result.description
+            });
+
         })
-        xhr.open('GET', 'https://kgsearch.googleapis.com/v1/entities:search?query='+query+'&key=AIzaSyAY9Boy7kdeOmi7JYAfI2zR8Ij3iF_zgxM&limit=1&indent=True')
+        xhr.open('GET', 'https://kgsearch.googleapis.com/v1/entities:search?query=' + query + '&key=AIzaSyAY9Boy7kdeOmi7JYAfI2zR8Ij3iF_zgxM&limit=1&indent=True')
         xhr.send()
-      }
+    }
 
 
-    render(){    
-        const {jsonData, resultScore, url, license, name, description} = this.state;
+    getFirebaseData() {
+            var tempPustakName = this.props.bookDetail.pustakName;
+            db.collection("bookList")
+            .where("dakhalId", "==", this.props.bookDetail.dakhalId).get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                    const obj = doc.data();
+                    console.log(obj);
+                    this.setState({
+                        gotFirebaseData: true,
+                        dakhalId: obj.dakhalId,
+                        lekhak: this.nameArrayToString(obj.lekhak),
+                        pustakName: this.nameArrayToString(obj.pustakName),
+                        pustakPrakar: obj.pustakPrakar,
+                        vibhagId: obj.vibhagId
+                    });
+                    console.log(this.state);
+                });
+            })
+            .catch((error) => console.error(error)
+        );
+    }
+
+    //Return one string for array of name
+    nameArrayToString(nameArray) {
+        let strName = "";
+        for(let i = 0; i < nameArray.length; i++) {
+            if(i !== 0)
+                strName += " ";
+            strName += this.capitalizeString(nameArray[i]);
+        }
+        return strName;
+    }
+
+    //Return a String with words having capital letters
+    capitalizeString(lowerString) {
+        let capitalized = "";
+        capitalized += lowerString.charAt(0).toUpperCase();
+        capitalized += lowerString.slice(1);
+        return capitalized;
+    }
+
+    render() {
         return (
-        <div>
-            <div className="details_back">
-            <a href="#/search">
-                <button className="back_btn">
-                    Go Back
-                </button>
-            </a>
-            <hr className="hr"/>
-            </div>
-            <div className="flex-container">
-                <div className="cardDetails">
-                    <div className="details_image">
-                        <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Image" className="book_image" />
-                    </div>
-                <div className="book_details">
-                    <div className="rows">
-                        <div className="label">Book Name</div>
-                        <span className="book_name">{this.props.bookName}</span>
-                    </div>
-                    <hr className="hr-inLabel"/>
-                    <div className="rows">
-                        <span className="label">Author</span>
-                        <span className="book_name">{this.props.author}</span>
-                    </div>
-                    <hr className="hr-inLabel" />
-                    <div className="rows">
-                        <span className="label">Year Of Release</span>
-                        <span className="book_name">{this.props.year}</span>
-                    </div>
-                    <hr className="hr-inLabel" />
-                    <div className="rows">
-                        <span className="label">Publication</span>
-                        <span className="book_name">The Alchemist</span>
-                    </div>
-                    <hr className="hr-inLabel" />
-                    <br/>
+            <div>
+                <div className="details_back">
+                    <a href="#/search">
+                        <button className="back_btn">
+                            Go Back
+                        </button>
+                    </a>
+                    <hr className="hr" />
                 </div>
-            </div>
-        
-            </div>
-                {/* here, the result of the google api can be passed as props to the Card Component */}
-                
-                <Card bookName="The Alchemist">
-                <div className="googleDetails">
-                    <div className="eachgoogleDetails">Result Score : <h6>{this.state.resultScore}</h6></div>
-                    <div className="eachgoogleDetails">Url : <h6>{this.state.url}</h6> </div>
-                    <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div>
-                    <div className="eachgoogleDetails">Article Body : <h6>{this.state.articleBody}</h6> </div>
-                    <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div>
-                    <div className="eachgoogleDetails">Description : <h6>{this.state.description}</h6></div>
+
+                {/* conditional rendering, if details are found */}
+                {this.state.gotFirebaseData  && 
+                <div className="flex-container">
+                    <div className="cardDetails">
+                        <div className="details_image">
+                            <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
+                        </div>
+                        <div className="book_details">
+                            <hr className="hr-inLabel" />
+                            <div className="rows">
+                                <span className="label">dakhalId</span>
+                                <span className="book_name">{this.state.dakhalId} </span>
+                            </div>
+                            <hr className="hr-inLabel" />
+                            <div className="rows">
+                                <span className="label">vibhagId</span>
+                                <span className="book_name">{this.state.vibhagId}</span>
+                            </div>
+                            <hr className="hr-inLabel" />
+                            <div className="rows">
+                                <span className="label">pustakName</span>
+                               <a href={this.state.url} target="_blank" > <span className="book_name">{this.state.pustakName}</span></a> 
+                            </div>
+                            <hr className="hr-inLabel" />
+                            <div className="rows">
+                                <span className="label">lekhak</span>
+                                <span className="book_name">{this.state.lekhak}</span>
+                            </div>
+                            <hr className="hr-inLabel" />
+                            <div className="rows">
+                                <span className="label">pustakPrakar</span>
+                                <span className="book_name">{this.state.pustakPrakar}</span>
+                            </div>
+                            <hr className="hr-inLabel" />
+                            <br />
+                        </div>
+                    </div>
                 </div>
-        </Card>
+            }
+
+            {/* conditional rendering, if details not found!, will have to put a wait time of 2 secs*/}
+            {/* {this.state.gotFirebaseData === false &&
+                <div>
+                    <h3>Book details not found</h3>
+                </div>
+            } */}
+
+
+                {this.state.resultScore > 0 && 
+                    <Card bookName={this.state.name}>
+                    <div className="googleDetails">
+                        <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.resultScore}</div></div>
+                        {/* <div className="eachgoogleDetails"> : <h6>{this.state.url}</h6> </div>
+                        <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div> */}
+                        <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.articleBody}</div></div>
+                        {/* <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div> */}
+                        <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.description}</div></div>
+                        <div className="source">source : Google </div>
+                    </div>
+                </Card>
+                }
                 
             </div>
         )

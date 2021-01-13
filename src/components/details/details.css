@@ -98,6 +98,26 @@
     font-size: 25px;
 }
 
+.googleResult{
+    font-size: 15px;
+    padding: 5px;
+    color: black;
+}
+
+.eachgoogleDetails{
+    font-weight: 400;
+    font-size: 20px;
+    width: 100%;
+    padding: 10px;
+    color: purple;
+}
+
+.source{
+    font-size: 10px;
+    padding: 10px 10px 0px 10px;
+    color: gray;
+}
+
 /* .author{
     margin-left: 20px;
     font-weight: 30;
@@ -183,6 +203,11 @@
         font-weight: 30;
         font-size: 18px;
     }
-
+    
+    .eachgoogleDetails{
+        font-weight: 400;
+        font-size: 20px;
+        width: 100%;
+    }
     
   }
