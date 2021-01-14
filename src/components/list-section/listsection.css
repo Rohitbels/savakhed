@@ -24,8 +24,10 @@ table {
 }
 
 .table-super {
-	width: 50vw;
+	/* max-width: 100vw; */
+	min-width: 320px;
 	place-items: center;
-	display: grid;
+	/* display: grid; */
 	margin-bottom: 25px;
+	overflow: auto;
 }

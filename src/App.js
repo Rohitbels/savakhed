@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Listing from "./container/Listing";
 import Details from "./container/details/Details";
-import LekhakList from "./components/LekhakList/LekhakList"
-
-import { db } from "./firebase";
+import LekhakList from "./components/LekhakList/LekhakList";
+import Header from './components/header/Header'
 
 class App extends Component {
 	constructor() {
@@ -11,8 +10,7 @@ class App extends Component {
 
 		this.state = {
 			show: "listing",
-			currentDetails: {
-			},
+			currentDetails: {},
 		};
 	}
 
@@ -36,8 +34,7 @@ class App extends Component {
 				this.setState({ show: "details" });
 			} else if (currURL[1].includes("lekhakList")) {
 				this.setState({ show: "lekhakList" });
-			}
-			else {
+			} else {
 				this.setState({ show: "listing" });
 			}
 		}
@@ -46,11 +43,12 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{this.state.show === "details" &&
-					<Details bookDetail = {this.state.currentDetails} />
-				}
-				{this.state.show === "lekhakList" &&
-					<LekhakList />			//Change this route----------------------------------------
+				<Header/>
+				{this.state.show === "details" && (
+					<Details bookDetail={this.state.currentDetails} />
+				)}
+				{
+					this.state.show === "lekhakList" && <LekhakList /> //Change this route----------------------------------------
 				}
 				{this.state.show === "listing" && (
 					<Listing

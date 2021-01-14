@@ -1,32 +1,59 @@
 .form {
-	padding: 1rem;
-	display: grid;
+	display: flex;
+	width: 50vw;
+	min-width: 320px;
+	flex-direction: column;
+	margin-bottom: 3.5rem;
 }
 
-.form section {
+.input-section {
 	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr minmax(100px, 20%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .search-bar {
-	height: 30px;
-	padding: 0.5rem 1rem;
+	height: 100%;
+	display: flex;
+	flex: 63%;
 	border-radius: 4px;
 	font-size: 1rem;
 	outline: none;
+	margin: 0.2rem;
+}
+
+.search-bar input {
+	height: 30px;
+	padding: 0.5rem 1rem;
+	flex: 85%;
+	font-size: 1rem;
+	outline: none;
 	border: 1px solid #cccccc;
-	margin: 0.25rem;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.search-bar select {
+	height: 48px;
+	flex: 15%;
+	padding: 0 0rem;
+	font-size: 0.95rem;
+	outline: none;
+	border: 1px solid #cccccc;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
 }
 
 .search-button {
 	height: 46px;
+	flex: 20%;
 	background: #337ab7;
 	outline: none;
 	color: #ffffff;
 	border-radius: 4px;
+	margin: 0.2rem;
 	padding: 0 1rem;
-	margin: 0.25rem;
 	font-size: 1rem;
 	box-shadow: none;
 	border: none;

@@ -14,6 +14,7 @@ class Listing extends Component {
 			searched: false,
 			loading: false,
 			input: "",
+			searchAgainst: "lekhak",
 			tableHeaders: [],
 			results: [],
 		};
@@ -32,7 +33,9 @@ class Listing extends Component {
 					let book = doc.data();
 
 					this.setState({
-						results: this.state.results.concat([{...book, id: doc.id }]),
+						results: this.state.results.concat([
+							{ ...book, id: doc.id },
+						]),
 					});
 					this.getMulakshara(book["lekhak"]);
 					this.getMulakshara(book["pustakName"]);
@@ -85,8 +88,7 @@ class Listing extends Component {
 				inputArray.splice(9, length - 10);
 			}
 
-			this.search("pustakName", inputArray);
-			this.search("lekhak", inputArray);
+			this.search(this.state.searchAgainst, inputArray);
 		} else {
 			this.setState({ tableHeaders: [], results: [], searched: false });
 		}
@@ -96,30 +98,16 @@ class Listing extends Component {
 		return (
 			<div className="container">
 				<div>
-					<div className="logo">
-						सार्वजनिक वाचनालय <br /> राजगुरूनगर
-					</div>
-					<div className="search-filter">
-						<span>Search across </span>
-						<input
-							type="radio"
-							id="lekhak"
-							name="lekhak"
-							value="male"
-						/>
-						<label for="lekhak">लेखक</label>
-						<input
-							type="radio"
-							id="pustak"
-							name="pustak"
-							value="pustak"
-						/>
-						<label for="pustak">पुस्तक</label>
-					</div>
 					<InputSection
 						onInput={(event) =>
 							this.setState({
 								input: event.target.value.toLowerCase(),
+							})
+						}
+						searchAgainst={this.state.searchAgainst}
+						onChange={(event) =>
+							this.setState({
+								searchAgainst: event.target.value,
 							})
 						}
 						onSearch={(event) => this.fetchResults(event)}

@@ -14,7 +14,7 @@
 
 .tag {
 	margin-left: 5px;
-	font-size: 0.75rem;
+	font-size: 0.9rem;
 	transition: 0.4s;
 }
 
@@ -34,7 +34,7 @@
 	left: 0;
 	border-radius: 34px;
 	transition: 0.4s;
-	background-color: #cccccc;
+	background-color: #aaaaaa;
 }
 
 .slider::before {
