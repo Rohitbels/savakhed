@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './details.css'
-import Card from '../card/Card'
+import Card from '../../components/card/Card'
 import { db } from '../../firebase'
 
 class Details extends Component {
@@ -15,17 +15,18 @@ class Details extends Component {
             name: "",
             description: "",
             gotFirebaseData: false,
-            dakhalId: 0,
-            lekhak: "",
-            pustakName: "",
-            pustakPrakar: "",
-            vibhagId: 0
+            bookDetail: {}
         };
+        
     }
 
     componentDidMount() {
-        this.getFirebaseData();
-        this.getGoogleData();
+        const { bookDetail = {} } = this.props;
+        if(!bookDetail.pustakName) {
+            //this.getFirebaseData();
+            this.getGoogleData();
+        }
+
     }
 
     
@@ -56,22 +57,14 @@ class Details extends Component {
 
 
     getFirebaseData() {
-            var tempPustakName = this.props.bookDetail.pustakName;
             db.collection("bookList")
             .where("dakhalId", "==", this.props.bookDetail.dakhalId).get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
-                    const obj = doc.data();
-                    console.log(obj);
+                    const bookDetail = doc.data();
                     this.setState({
-                        gotFirebaseData: true,
-                        dakhalId: obj.dakhalId,
-                        lekhak: this.nameArrayToString(obj.lekhak),
-                        pustakName: this.nameArrayToString(obj.pustakName),
-                        pustakPrakar: obj.pustakPrakar,
-                        vibhagId: obj.vibhagId
+                        bookDetail
                     });
-                    console.log(this.state);
                 });
             })
             .catch((error) => console.error(error)
@@ -98,6 +91,11 @@ class Details extends Component {
     }
 
     render() {
+        const { bookDetail: stateBookDetails } = this.state;
+        const { bookDetail: propsBookDetails } = this.props;
+        console.log(propsBookDetails)
+        debugger
+        const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div>
                 <div className="details_back">
@@ -110,7 +108,7 @@ class Details extends Component {
                 </div>
 
                 {/* conditional rendering, if details are found */}
-                {this.state.gotFirebaseData  && 
+                {currentBook.pustakName  && 
                 <div className="flex-container">
                     <div className="cardDetails">
                         <div className="details_image">
@@ -120,27 +118,27 @@ class Details extends Component {
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">dakhalId</span>
-                                <span className="book_name">{this.state.dakhalId} </span>
+                                <span className="book_name">{currentBook.dakhalId} </span>
                             </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">vibhagId</span>
-                                <span className="book_name">{this.state.vibhagId}</span>
+                                <span className="book_name">{currentBook.vibhagId}</span>
                             </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">pustakName</span>
-                               <a href={this.state.url} target="_blank" > <span className="book_name">{this.state.pustakName}</span></a> 
+                               <a href={currentBook.url} target="_blank" > <span className="book_name">{currentBook.pustakName.join(" ")}</span></a> 
                             </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">lekhak</span>
-                                <span className="book_name">{this.state.lekhak}</span>
+                                <span className="book_name">{currentBook.lekhak.join(" ")}</span>
                             </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">pustakPrakar</span>
-                                <span className="book_name">{this.state.pustakPrakar}</span>
+                                <span className="book_name">{currentBook.pustakPrakar}</span>
                             </div>
                             <hr className="hr-inLabel" />
                             <br />

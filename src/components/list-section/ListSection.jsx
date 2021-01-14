@@ -28,7 +28,7 @@ const ListSection = ({
 								<td>{book["dakhalId"]}</td>
 								<td>{book["vibhagId"]}</td>
 								<td>
-									<a href="#/details">
+									<a href={`#/details/${book['id']}`}>
 										{book["pustakName"].join(" ")}
 									</a>
 								</td>

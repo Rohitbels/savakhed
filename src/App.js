@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Listing from "./container/Listing";
-import Details from "./components/details/Details";
+import Details from "./container/details/Details";
 import LekhakList from "./components/LekhakList/LekhakList"
 
 import { db } from "./firebase";
@@ -12,12 +12,6 @@ class App extends Component {
 		this.state = {
 			show: "listing",
 			currentDetails: {
-				"dakhalId" : 1,
-				"lekhak" : ["paulo","coelho"],
-				"lekhakNameEnglish" : ["paulo","coelho"],
-				"pustakName" : ["the","alchemist"],
-				"pustakNameEnglish" : ["the","alchemist"],
-				"pustakPrakar" : "कादंबरी"
 			},
 		};
 	}
