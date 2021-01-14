@@ -1,4 +1,5 @@
 import React from "react";
+import Loader from "../loader/Loader";
 import "./listsection.css";
 
 const ListSection = ({
@@ -6,7 +7,12 @@ const ListSection = ({
 	tableElements = [],
 	searched,
 	setCurrentDetails,
+	loading,
 }) => {
+	if (loading && searched) {
+		return <Loader />;
+	}
+
 	return (
 		<div className="table-super">
 			{tableElements.length && searched ? (

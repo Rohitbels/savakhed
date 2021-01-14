@@ -12,6 +12,7 @@ class Listing extends Component {
 
 		this.state = {
 			searched: false,
+			loading: false,
 			input: "",
 			tableHeaders: [],
 			results: [],
@@ -19,6 +20,10 @@ class Listing extends Component {
 	}
 
 	search = (label, inputArray) => {
+		this.setState({
+			loading: true,
+		});
+
 		db.collection("bookList")
 			.where(label, "array-contains-any", inputArray)
 			.get()
@@ -35,6 +40,7 @@ class Listing extends Component {
 
 				this.setState({
 					tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
+					loading: false,
 				});
 			})
 			.catch((error) => console.error(error));
@@ -86,16 +92,29 @@ class Listing extends Component {
 		}
 	};
 
-	logger = (array, label) => {
-		console.log(label, array);
-	};
-
 	render() {
 		return (
 			<div className="container">
 				<div>
 					<div className="logo">
 						सार्वजनिक वाचनालय <br /> राजगुरूनगर
+					</div>
+					<div className="search-filter">
+						<span>Search across </span>
+						<input
+							type="radio"
+							id="lekhak"
+							name="lekhak"
+							value="male"
+						/>
+						<label for="lekhak">लेखक</label>
+						<input
+							type="radio"
+							id="pustak"
+							name="pustak"
+							value="pustak"
+						/>
+						<label for="pustak">पुस्तक</label>
 					</div>
 					<InputSection
 						onInput={(event) =>
@@ -110,6 +129,7 @@ class Listing extends Component {
 						tableHeaders={this.state.tableHeaders}
 						tableElements={this.state.results}
 						searched={this.state.searched}
+						loading={this.state.loading}
 					/>
 				</div>
 			</div>
