@@ -32,7 +32,7 @@ class Listing extends Component {
 					let book = doc.data();
 
 					this.setState({
-						results: this.state.results.concat([book]),
+						results: this.state.results.concat([{...book, id: doc.id }]),
 					});
 					this.getMulakshara(book["lekhak"]);
 					this.getMulakshara(book["pustakName"]);
