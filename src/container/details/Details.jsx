@@ -3,33 +3,39 @@ import './details.css'
 import Card from '../../components/card/Card'
 import { db } from '../../firebase'
 
+
+
 class Details extends Component {
     constructor() {
         super();
         this.state = {
             gotGoogleData: false,
-            resultScore: 0,
-            url: "",
-            license: "",
-            articleBody: "",
-            name: "",
-            description: "",
+            GresultScore: 0,
+            GarticleBody: "",
+            Gname: "",
+            Gdescription: "",
             gotFirebaseData: false,
-            bookDetail: {}
+            jsonData:[],
+            bookDetail: {},
+            
         };
-        
+
     }
 
     componentDidMount() {
+        const currURL = window.location.href.split("/");
+        const urlID  = currURL[currURL.length-1];
+        console.log("url id", urlID)
+
         const { bookDetail = {} } = this.props;
-        if(!bookDetail.pustakName) {
-            //this.getFirebaseData();
-            this.getGoogleData();
-        }
+         if(!bookDetail.pustakName) {
+             this.getFirebaseData();
+         }
+         this.getGoogleData();
 
     }
 
-    
+
 
     getGoogleData() {
         var xhr = new XMLHttpRequest()
@@ -37,17 +43,21 @@ class Details extends Component {
 
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
-            //console.log(xhr.responseText)
+            console.log(xhr.responseText)
 
-            let jsonData = JSON.parse(xhr.responseText);
+            this.setState({ jsonData: JSON.parse(xhr.responseText) })
+            // destructuring
+            const { jsonData } = this.state;
+            const { itemListElement = [0] } = jsonData;
+            const { result = {}, resultScore = {} } = itemListElement[0];
+            const { detailedDescription = '', name = {}, description = '' } = result;
+            const { articleBody = '' } = detailedDescription;
             this.setState({
                 gotGoogleData: true,
-                resultScore: jsonData.itemListElement[0].resultScore,
-                url: jsonData.itemListElement[0].result.detailedDescription.url,
-                license: jsonData.itemListElement[0].result.detailedDescription.license,
-                articleBody: jsonData.itemListElement[0].result.detailedDescription.articleBody,
-                name: jsonData.itemListElement[0].result.name,
-                description: jsonData.itemListElement[0].result.description
+                GresultScore: resultScore,
+                GarticleBody: articleBody,
+                Gname: name,
+                Gdescription: description
             });
 
         })
@@ -57,8 +67,8 @@ class Details extends Component {
 
 
     getFirebaseData() {
-            db.collection("bookList")
-            .where("dakhalId", "==", this.props.bookDetail.dakhalId).get()
+        db.collection("bookList")
+            .where("id", "==", this.props.bookDetail.dakhalId).get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     const bookDetail = doc.data();
@@ -68,14 +78,14 @@ class Details extends Component {
                 });
             })
             .catch((error) => console.error(error)
-        );
+            );
     }
 
     //Return one string for array of name
     nameArrayToString(nameArray) {
         let strName = "";
-        for(let i = 0; i < nameArray.length; i++) {
-            if(i !== 0)
+        for (let i = 0; i < nameArray.length; i++) {
+            if (i !== 0)
                 strName += " ";
             strName += this.capitalizeString(nameArray[i]);
         }
@@ -108,67 +118,61 @@ class Details extends Component {
                 </div>
 
                 {/* conditional rendering, if details are found */}
-                {currentBook.pustakName  && 
-                <div className="flex-container">
-                    <div className="cardDetails">
-                        <div className="details_image">
-                            <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
-                        </div>
-                        <div className="book_details">
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">dakhalId</span>
-                                <span className="book_name">{currentBook.dakhalId} </span>
+                {currentBook.pustakName &&
+                    <div className="flex-container">
+                        <div className="cardDetails">
+                            <div className="details_image">
+                                <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
                             </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">vibhagId</span>
-                                <span className="book_name">{currentBook.vibhagId}</span>
+                            <div className="book_details">
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">dakhalId</span>
+                                    <span className="book_name">{currentBook.dakhalId} </span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">vibhagId</span>
+                                    <span className="book_name">{currentBook.vibhagId}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">pustakName</span>
+                                    <span className="book_name">{currentBook.pustakName.join(" ")}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">lekhak</span>
+                                    <span className="book_name">{currentBook.lekhak.join(" ")}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">pustakPrakar</span>
+                                    <span className="book_name">{currentBook.pustakPrakar}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <br />
                             </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">pustakName</span>
-                               <a href={currentBook.url} target="_blank" > <span className="book_name">{currentBook.pustakName.join(" ")}</span></a> 
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">lekhak</span>
-                                <span className="book_name">{currentBook.lekhak.join(" ")}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">pustakPrakar</span>
-                                <span className="book_name">{currentBook.pustakPrakar}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <br />
                         </div>
                     </div>
-                </div>
-            }
-
-            {/* conditional rendering, if details not found!, will have to put a wait time of 2 secs*/}
-            {/* {this.state.gotFirebaseData === false &&
-                <div>
-                    <h3>Book details not found</h3>
-                </div>
-            } */}
-
-
-                {this.state.resultScore > 0 && 
-                    <Card bookName={this.state.name}>
-                    <div className="googleDetails">
-                        <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.resultScore}</div></div>
-                        {/* <div className="eachgoogleDetails"> : <h6>{this.state.url}</h6> </div>
-                        <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div> */}
-                        <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.articleBody}</div></div>
-                        {/* <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div> */}
-                        <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.description}</div></div>
-                        <div className="source">source : Google </div>
-                    </div>
-                </Card>
                 }
-                
+
+                {this.state.GresultScore > 100 &&
+                    <Card bookName={this.state.Gname}>
+                        <div className="googleDetails">
+                            <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
+                            {this.state.GarticleBody != "" &&
+                            <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.GarticleBody}</div></div>
+                            } 
+                            {this.state.Gdescription != "" &&
+                            <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.Gdescription}</div></div>
+                            }    
+
+                            <div className="source">source : Google </div>
+                        </div>
+                    </Card>
+                }
+
             </div>
         )
     }
