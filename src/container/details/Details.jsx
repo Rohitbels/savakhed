@@ -8,28 +8,27 @@ class Details extends Component {
         super();
         this.state = {
             gotGoogleData: false,
-            resultScore: 0,
-            url: "",
-            license: "",
-            articleBody: "",
-            name: "",
-            description: "",
+            GresultScore: 0,
+            GarticleBody: "",
+            Gname: "",
+            Gdescription: "",
             gotFirebaseData: false,
+            jsonData:[],
             bookDetail: {}
         };
-        
+
     }
 
     componentDidMount() {
         const { bookDetail = {} } = this.props;
-        if(!bookDetail.pustakName) {
-            //this.getFirebaseData();
-            this.getGoogleData();
-        }
+         if(!bookDetail.pustakName) {
+             this.getFirebaseData();
+         }
+         this.getGoogleData();
 
     }
 
-    
+
 
     getGoogleData() {
         var xhr = new XMLHttpRequest()
@@ -37,17 +36,21 @@ class Details extends Component {
 
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
-            //console.log(xhr.responseText)
+            console.log(xhr.responseText)
 
-            let jsonData = JSON.parse(xhr.responseText);
+            this.setState({jsonData : JSON.parse(xhr.responseText)})
+            // destructuring
+            const {jsonData} = this.state;
+            const {itemListElement=[0]} = jsonData;
+            const{result = {}, resultScore = {}} = itemListElement[0];
+            const{detailedDescription='', name={}, description={}}= result;
+            const{articleBody=''} = detailedDescription;
             this.setState({
                 gotGoogleData: true,
-                resultScore: jsonData.itemListElement[0].resultScore,
-                url: jsonData.itemListElement[0].result.detailedDescription.url,
-                license: jsonData.itemListElement[0].result.detailedDescription.license,
-                articleBody: jsonData.itemListElement[0].result.detailedDescription.articleBody,
-                name: jsonData.itemListElement[0].result.name,
-                description: jsonData.itemListElement[0].result.description
+                GresultScore: resultScore,
+                GarticleBody: articleBody,
+                Gname: name,
+                Gdescription: description
             });
 
         })
@@ -108,7 +111,7 @@ class Details extends Component {
                 </div>
 
                 {/* conditional rendering, if details are found */}
-                {currentBook.pustakName  && 
+                {currentBook.pustakName  &&
                 <div className="flex-container">
                     <div className="cardDetails">
                         <div className="details_image">
@@ -128,7 +131,7 @@ class Details extends Component {
                             <hr className="hr-inLabel" />
                             <div className="rows">
                                 <span className="label">pustakName</span>
-                               <a href={currentBook.url} target="_blank" > <span className="book_name">{currentBook.pustakName.join(" ")}</span></a> 
+                                <span className="book_name">{currentBook.pustakName.join(" ")}</span>
                             </div>
                             <hr className="hr-inLabel" />
                             <div className="rows">
@@ -155,20 +158,17 @@ class Details extends Component {
             } */}
 
 
-                {this.state.resultScore > 0 && 
-                    <Card bookName={this.state.name}>
+                {this.state.GresultScore > 100 &&
+                    <Card bookName={this.state.Gname}>
                     <div className="googleDetails">
-                        <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.resultScore}</div></div>
-                        {/* <div className="eachgoogleDetails"> : <h6>{this.state.url}</h6> </div>
-                        <div className="eachgoogleDetails">License : <h6>{this.state.license}</h6></div> */}
-                        <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.articleBody}</div></div>
-                        {/* <div className="eachgoogleDetails">Name : <h6>{this.state.name} </h6></div> */}
-                        <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.description}</div></div>
+                        <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
+                        <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.GarticleBody}</div></div>
+                        <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.Gdescription}</div></div>
                         <div className="source">source : Google </div>
                     </div>
                 </Card>
                 }
-                
+
             </div>
         )
     }
