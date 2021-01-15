@@ -3,6 +3,8 @@ import './details.css'
 import Card from '../../components/card/Card'
 import { db } from '../../firebase'
 
+
+
 class Details extends Component {
     constructor() {
         super();
@@ -14,12 +16,17 @@ class Details extends Component {
             Gdescription: "",
             gotFirebaseData: false,
             jsonData:[],
-            bookDetail: {}
+            bookDetail: {},
+            
         };
 
     }
 
     componentDidMount() {
+        const currURL = window.location.href.split("/");
+        const urlID  = currURL[currURL.length-1];
+        console.log("url id", urlID)
+
         const { bookDetail = {} } = this.props;
          if(!bookDetail.pustakName) {
              this.getFirebaseData();
@@ -61,7 +68,7 @@ class Details extends Component {
 
     getFirebaseData() {
         db.collection("bookList")
-            .where("dakhalId", "==", this.props.bookDetail.dakhalId).get()
+            .where("id", "==", this.props.bookDetail.dakhalId).get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     const bookDetail = doc.data();
