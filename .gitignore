@@ -26,4 +26,7 @@ yarn-error.log*
 #Temporary
 package.json
 .eslintcache
-.eslintcache
+
+#Unique
+src/oneTimeScripts/Recheck - संकीर्ण.csv
+src/oneTimeScripts/Write - संकीर्ण.csv

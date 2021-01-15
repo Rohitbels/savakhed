@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Listing from "./container/Listing";
-import Details from "./components/details/Details";
+import Details from "./container/details/Details";
 import LekhakList from "./components/LekhakList/LekhakList"
 
 import { db } from "./firebase";
@@ -12,12 +12,6 @@ class App extends Component {
 		this.state = {
 			show: "listing",
 			currentDetails: {
-				"dakhalId" : 1,
-				"lekhak" : ["paulo","coelho"],
-				"lekhakNameEnglish" : ["paulo","coelho"],
-				"pustakName" : ["the","alchemist"],
-				"pustakNameEnglish" : ["the","alchemist"],
-				"pustakPrakar" : "कादंबरी"
 			},
 		};
 	}
@@ -33,22 +27,6 @@ class App extends Component {
 			false
 		);
 		this.setPath();
-
-		// db.collection("bookList")
-		// 	.get()
-		// 	.then((snapshot) => {
-		// 		let bookList = [];
-		// 		snapshot.forEach((doc) => {
-		// 			const data = doc.data();
-		// 			bookList.push(data);
-		// 		});
-		// 		console.log(
-		// 			bookList.map((book) => {
-		// 				console.log(book["pustakName"]);
-		// 			})
-		// 		);
-		// 	})
-		// 	.catch((error) => console.error(error));
 	}
 
 	setPath = () => {
@@ -74,9 +52,13 @@ class App extends Component {
 				{this.state.show === "lekhakList" &&
 					<LekhakList />			//Change this route----------------------------------------
 				}
-				{this.state.show === "listing" &&
-					<Listing />
-				}
+				{this.state.show === "listing" && (
+					<Listing
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+					/>
+				)}
 			</div>
 		);
 	}
