@@ -17,20 +17,37 @@ const InputSection = ({ onInput, onSearch, searchAgainst, onChange }) => {
 
 	return (
 		<form className="form">
-			<section className="input-section">
-				<div className="search-bar">
+			<form className="search-filter-section">
+				<label>
 					<input
-						type="text"
-						placeholder={`Search by ${
-							searchAgainst === "lekhak" ? "Author" : "Book"
-						} name`}
-						onInput={onInput}
+						type="radio"
+						name="lekhak"
+						value="lekhak"
+						checked={searchAgainst === "lekhak"}
+						onChange={onChange}
 					/>
-					<select onChange={onChange}>
-						<option value="lekhak">लेखक</option>
-						<option value="pustakName">पुस्तक</option>
-					</select>
-				</div>
+					लेखक
+				</label>
+				<label>
+					<input
+						type="radio"
+						name="pustakName"
+						value="pustakName"
+						checked={searchAgainst === "pustakName"}
+						onChange={onChange}
+					/>
+					पुस्तक
+				</label>
+			</form>
+			<section className="input-section">
+				<input
+					className="search-bar"
+					type="text"
+					placeholder={`Search by ${
+						searchAgainst === "lekhak" ? "Author" : "Book"
+					} name`}
+					onInput={onInput}
+				/>
 				<button
 					className="search-button"
 					type="submit"

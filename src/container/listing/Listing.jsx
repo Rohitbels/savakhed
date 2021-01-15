@@ -1,10 +1,30 @@
 import React, { Component } from "react";
 import "./listing.css";
-import InputSection from "../components/input-section/InputSection";
-import ListSection from "../components/list-section/ListSection";
-import { db } from "./../firebase";
+import InputSection from "../../components/input-section/InputSection";
+import ListSection from "../../components/list-section/ListSection";
+import { db } from "../../firebase";
 
-import mulakshare from "./../container/mulakshare";
+import levenshteinDistance from "./levenshtein";
+
+const chinha = [
+	"्",
+	"ा",
+	"ि",
+	"ी",
+	"ु",
+	"ू",
+	"े",
+	"ै",
+	"ो",
+	"ौ",
+	"ं",
+	"ॅ",
+	"ॉ",
+	"ः",
+	"ृ",
+];
+
+let mainString = "";
 
 class Listing extends Component {
 	constructor(props) {
@@ -12,10 +32,9 @@ class Listing extends Component {
 
 		this.state = {
 			searched: false,
-			loading: false,
 			input: "",
 			searchAgainst: "lekhak",
-			tableHeaders: [],
+			tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
 			results: [],
 		};
 	}
@@ -32,17 +51,21 @@ class Listing extends Component {
 				snapshot.forEach((doc) => {
 					let book = doc.data();
 
+					this.getMulakshara(book[this.state.searchAgainst]);
+
+					const distance = levenshteinDistance(
+						mainString,
+						book[this.state.searchAgainst]
+					);
+
 					this.setState({
 						results: this.state.results.concat([
-							{ ...book, id: doc.id },
+							{ ...book, id: doc.id, distance },
 						]),
 					});
-					this.getMulakshara(book["lekhak"]);
-					this.getMulakshara(book["pustakName"]);
 				});
 
 				this.setState({
-					tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
 					loading: false,
 				});
 			})
@@ -51,46 +74,33 @@ class Listing extends Component {
 
 	getMulakshara = (inputArray) => {
 		let superArray = [];
+
 		inputArray.forEach((word) => {
-			let array = [];
-			word.split("").forEach((letter) => {
-				if (mulakshare.includes(letter)) {
-					array.push(letter);
-				}
+			chinha.forEach((chinh) => {
+				word = word.replace(new RegExp(chinh, "g"), "");
 			});
-			superArray.push(array);
+			superArray.push(word);
 		});
-		console.log(superArray);
+
+		mainString = superArray.join(" ");
+		// console.log(superArray);
 	};
 
 	fetchResults = (event) => {
 		event.preventDefault();
-		document.querySelector(".container").style.placeItems = "center";
 
-		if (this.state.input.length > 0) {
-			document.querySelector(".container").style.placeItems =
-				"flex-start center";
-
-			this.setState({ tableHeaders: [], results: [], searched: true });
-
-			let inputArray = this.state.input.toLowerCase().split(" ");
-
-			// sorting input-array in descending order
-			inputArray.sort(
-				(firstString, secondString) =>
-					-(firstString.length > secondString.length) ||
-					+(firstString.length < secondString.length)
-			);
+		if (this.state.input.length) {
+			this.setState({ results: [], searched: true });
+			let inputArray = this.state.input.split(" ");
 
 			// reducing the array to max length 10
 			if (inputArray.length > 10) {
-				let length = inputArray.length;
-				inputArray.splice(9, length - 10);
+				inputArray.splice(9, inputArray.length - 10);
 			}
 
 			this.search(this.state.searchAgainst, inputArray);
 		} else {
-			this.setState({ tableHeaders: [], results: [], searched: false });
+			this.setState({ results: [], searched: false });
 		}
 	};
 
@@ -98,10 +108,17 @@ class Listing extends Component {
 		return (
 			<div className="container">
 				<div>
+					{console.log(
+						this.state.results.sort((first, second) => {
+							if (first.distance < second.distance) return -1;
+							if (first.distance > second.distance) return 1;
+							return 0;
+						})
+					)}
 					<InputSection
 						onInput={(event) =>
 							this.setState({
-								input: event.target.value.toLowerCase(),
+								input: event.target.value.toLowerCase().trim(),
 							})
 						}
 						searchAgainst={this.state.searchAgainst}
@@ -117,7 +134,6 @@ class Listing extends Component {
 						tableHeaders={this.state.tableHeaders}
 						tableElements={this.state.results}
 						searched={this.state.searched}
-						loading={this.state.loading}
 					/>
 				</div>
 			</div>

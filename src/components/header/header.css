@@ -1,14 +1,29 @@
 .nav-bar {
-  /* border-bottom: 1px solid grey; */
-  font-size: 1.25rem;
-  padding: 0.5rem 1rem;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+	/* border-bottom: 1px solid grey; */
+	font-size: 1.25rem;
+	padding: 0.5rem 1rem;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .nav-bar > a {
-  text-decoration: none;
-  color: black;
-  padding-bottom: 0.3125rem;
-  padding-top: 0.3125rem;
-  margin: 0px;
+	text-decoration: none;
+	color: black;
+	padding-bottom: 0.3125rem;
+	padding-top: 0.3125rem;
+	margin: 0px;
+}
+
+.nav-bar button {
+	height: 25px;
+	width: 25px;
+	background: #007b5e;
+	outline: none;
+	color: #ffffff;
+	border-radius: 4px;
+	margin-right: 5px;
+	padding: 0;
+	font-size: 1.5rem;
+	box-shadow: none;
+	border: none;
+	cursor: pointer;
 }

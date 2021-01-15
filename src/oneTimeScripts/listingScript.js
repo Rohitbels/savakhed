@@ -1,4 +1,4 @@
-const packageDetails = require("./../package.json");
+const packageDetails = require("../../package.json");
 
 const firebase = require("firebase/app");
 require("firebase/auth");
@@ -47,7 +47,7 @@ setDetails = (id, pustakName, lekhakName) => {
 	let arrayP = [];
 	pustakName.forEach((word) => {
 		chinha.forEach((chinh) => {
-			word = word.split(chinh).join("");
+			word = word.replace(new RegExp(chinh, "g"), "");
 		});
 		arrayP.push(word);
 	});
