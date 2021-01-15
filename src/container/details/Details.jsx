@@ -38,13 +38,13 @@ class Details extends Component {
         xhr.addEventListener('load', () => {
             console.log(xhr.responseText)
 
-            this.setState({jsonData : JSON.parse(xhr.responseText)})
+            this.setState({ jsonData: JSON.parse(xhr.responseText) })
             // destructuring
-            const {jsonData} = this.state;
-            const {itemListElement=[0]} = jsonData;
-            const{result = {}, resultScore = {}} = itemListElement[0];
-            const{detailedDescription='', name={}, description={}}= result;
-            const{articleBody=''} = detailedDescription;
+            const { jsonData } = this.state;
+            const { itemListElement = [0] } = jsonData;
+            const { result = {}, resultScore = {} } = itemListElement[0];
+            const { detailedDescription = '', name = {}, description = '' } = result;
+            const { articleBody = '' } = detailedDescription;
             this.setState({
                 gotGoogleData: true,
                 GresultScore: resultScore,
@@ -60,7 +60,7 @@ class Details extends Component {
 
 
     getFirebaseData() {
-            db.collection("bookList")
+        db.collection("bookList")
             .where("dakhalId", "==", this.props.bookDetail.dakhalId).get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
@@ -71,14 +71,14 @@ class Details extends Component {
                 });
             })
             .catch((error) => console.error(error)
-        );
+            );
     }
 
     //Return one string for array of name
     nameArrayToString(nameArray) {
         let strName = "";
-        for(let i = 0; i < nameArray.length; i++) {
-            if(i !== 0)
+        for (let i = 0; i < nameArray.length; i++) {
+            if (i !== 0)
                 strName += " ";
             strName += this.capitalizeString(nameArray[i]);
         }
@@ -111,62 +111,59 @@ class Details extends Component {
                 </div>
 
                 {/* conditional rendering, if details are found */}
-                {currentBook.pustakName  &&
-                <div className="flex-container">
-                    <div className="cardDetails">
-                        <div className="details_image">
-                            <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
-                        </div>
-                        <div className="book_details">
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">dakhalId</span>
-                                <span className="book_name">{currentBook.dakhalId} </span>
+                {currentBook.pustakName &&
+                    <div className="flex-container">
+                        <div className="cardDetails">
+                            <div className="details_image">
+                                <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
                             </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">vibhagId</span>
-                                <span className="book_name">{currentBook.vibhagId}</span>
+                            <div className="book_details">
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">dakhalId</span>
+                                    <span className="book_name">{currentBook.dakhalId} </span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">vibhagId</span>
+                                    <span className="book_name">{currentBook.vibhagId}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">pustakName</span>
+                                    <span className="book_name">{currentBook.pustakName.join(" ")}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">lekhak</span>
+                                    <span className="book_name">{currentBook.lekhak.join(" ")}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <span className="label">pustakPrakar</span>
+                                    <span className="book_name">{currentBook.pustakPrakar}</span>
+                                </div>
+                                <hr className="hr-inLabel" />
+                                <br />
                             </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">pustakName</span>
-                                <span className="book_name">{currentBook.pustakName.join(" ")}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">lekhak</span>
-                                <span className="book_name">{currentBook.lekhak.join(" ")}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <div className="rows">
-                                <span className="label">pustakPrakar</span>
-                                <span className="book_name">{currentBook.pustakPrakar}</span>
-                            </div>
-                            <hr className="hr-inLabel" />
-                            <br />
                         </div>
                     </div>
-                </div>
-            }
-
-            {/* conditional rendering, if details not found!, will have to put a wait time of 2 secs*/}
-            {/* {this.state.gotFirebaseData === false &&
-                <div>
-                    <h3>Book details not found</h3>
-                </div>
-            } */}
-
+                }
 
                 {this.state.GresultScore > 100 &&
                     <Card bookName={this.state.Gname}>
-                    <div className="googleDetails">
-                        <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
-                        <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.GarticleBody}</div></div>
-                        <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.Gdescription}</div></div>
-                        <div className="source">source : Google </div>
-                    </div>
-                </Card>
+                        <div className="googleDetails">
+                            <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
+                            {this.state.GarticleBody != "" &&
+                            <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.GarticleBody}</div></div>
+                            } 
+                            {this.state.Gdescription != "" &&
+                            <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.Gdescription}</div></div>
+                            }    
+
+                            <div className="source">source : Google </div>
+                        </div>
+                    </Card>
                 }
 
             </div>
