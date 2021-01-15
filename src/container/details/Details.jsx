@@ -4,7 +4,6 @@ import Card from '../../components/card/Card'
 import { db } from '../../firebase'
 
 
-
 class Details extends Component {
     constructor() {
         super();
@@ -22,11 +21,8 @@ class Details extends Component {
 
     }
 
-    componentDidMount() {
-        const currURL = window.location.href.split("/");
-        const urlID  = currURL[currURL.length-1];
-        console.log("url id", urlID)
 
+    componentDidMount() {
         const { bookDetail = {} } = this.props;
          if(!bookDetail.pustakName) {
              this.getFirebaseData();
@@ -35,6 +31,13 @@ class Details extends Component {
 
     }
 
+
+    getIdFromUrl() {
+        const currURL = window.location.href.split("/");
+        const urlID  = currURL[currURL.length-1];
+        console.log("url id", urlID);
+        return urlID;
+    }
 
 
     getGoogleData() {
@@ -68,7 +71,7 @@ class Details extends Component {
 
     getFirebaseData() {
         db.collection("bookList")
-            .where("id", "==", this.props.bookDetail.dakhalId).get()
+            .doc(this.getIdFromUrl()).get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     const bookDetail = doc.data();
@@ -81,6 +84,7 @@ class Details extends Component {
             );
     }
 
+
     //Return one string for array of name
     nameArrayToString(nameArray) {
         let strName = "";
@@ -92,6 +96,7 @@ class Details extends Component {
         return strName;
     }
 
+
     //Return a String with words having capital letters
     capitalizeString(lowerString) {
         let capitalized = "";
@@ -99,6 +104,7 @@ class Details extends Component {
         capitalized += lowerString.slice(1);
         return capitalized;
     }
+
 
     render() {
         const { bookDetail: stateBookDetails } = this.state;
