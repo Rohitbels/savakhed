@@ -15,6 +15,7 @@ firebase.initializeApp(config);
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+
 //Function to convert given array of strings to a proper string after removing honorifics.
 const honorifics = ['श्री', 'सौ', 'प्रा', 'ऍड', 'डॉ', 'सीए', 'अनु', 'dr', 'संग्रा', 'प्रो', 'संपा', 'आचार्य', 'कॅ', 'संक', 'कौ', 'स्वा', 'गुरु', 'कै', 'पं', 'ऍडव्होकेट'];
 function csvArrayToString(csvString) {
@@ -36,53 +37,93 @@ function csvArrayToString(csvString) {
     return string;
 }
 
-//Reading Input from the CSV using csv-reader package
-const Fs = require('fs');
-const { format } = require('path');
-const dict = { }
-const dictToWrite = { }
-const CsvReadableStream = require('csv-reader');
-let inputStream = Fs.createReadStream('src/oneTimeScripts/Recheck - संकीर्ण.csv', 'utf8');
-inputStream
-    .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
-    .on('data', function (row) {
-        let nameString = csvArrayToString(row[0]);
-        let firstChar = nameString[0];
-        if(dict[firstChar] && dict[firstChar].length) {
-            if(dict[firstChar].indexOf(nameString) === -1)
-                dict[firstChar].push(nameString);
-        } 
-        else {
-            dict[firstChar] = [nameString];
-        }
-    })
-    .on('end', function (data) {
-        for (const [key, value] of Object.entries(dict)) {
-            //-----------Uncomment for writing into CSV----------------
-            //dictToWrite[key] = value.toString();              //Dict for writing to csv, has different format from our dict
 
-            //Writing to Firebase
-            const dataTemp = {
-                char: key,
-                names: value
-            }
-            if(dataTemp.char === 'r') {         //Remove condition if you want to write to firebase all characters
-                db.collection('lekhakMapping').doc(dataTemp.char).set(dataTemp).then(console.log("Written to Firebase"));
-                //const unionRes = await washingtonRef.update({
-                //    regions: firebase.firestore.FieldValue.arrayUnion('greater_virginia')
-                //});                  
-            }
+//Create empty docs of all chars at start.
+const allChars = ['अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ऌ', 'ऍ', 'ऎ', 'ए', 'ऐ', 'ऑ', 'ऒ', 'ओ', 'औ', 'क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'ऩ', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ऱ', 'ल', 'ळ', 'ऴ', 'व', 'श', 'ष', 'स', 'ह', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+async function createAllCharDocuments() {
+    for(let l = 0; l < allChars.length; l++) {
+        const dataTemp = {
+            char : allChars[l],
+            names : []
         }
-        /*-----------Uncomment for writing into CSV----------------
-        const createCsvWriter = require('csv-writer').createObjectCsvWriter;
-        const csvWriter = createCsvWriter({
-            path: 'src/oneTimeScripts/Write - संकीर्ण.csv',
-            header: ['र', 'उ', 'श', 'ग', 'क', 'ज', 'म', 'भ', 'ड', 'व', 'स', 'प', 'इ', 'अ', 'आ', 'ह', 'ए', 'द', 'ब', 'न', 'ख', 'त', 'च', 'ल', 'छ', 'य', 'फ', 'ओ', 'घ', 'ध', 'ऍ', 'n', 'd']
-        });
-        records = [dictToWrite]
-        csvWriter.writeRecords(records)       // returns a promise
-            .then(() => {
-                console.log('...Done');
-            });
-        */
+        const doc = await db.collection('lekhakMapping').doc(dataTemp.char).get();   
+        if (!doc.exists) {
+            const setRes = await db.collection('lekhakMapping').doc(dataTemp.char).set(dataTemp);
+        } 
+    }
+}   //Tested : Declares names as an array too.
+
+
+//Writing to a CSV File
+async function writeToCSV(dict) {
+    const dictToWrite = { };
+    head = [];
+    for (const [key, value] of Object.entries(dict)) {
+        dictToWrite[key] = value.toString();              //Dict for writing to csv, has different format from dict for firebase
+        head.push(key);
+    }
+    const createCsvWriter = require('csv-writer').createObjectCsvWriter;
+    const csvWriter = createCsvWriter({
+        path: 'src/oneTimeScripts/Write trials.csv',
+        header: head
     });
+    records = [dictToWrite]
+    csvWriter.writeRecords(records)       // returns a promise
+        .then(() => {
+            console.log('Done writing to CSV');
+        });
+
+}
+
+
+//Writing to Firebase
+async function writeToFirebase(dict) {
+    for (const [key, value] of Object.entries(dict)) {
+        //Writing to Firebase
+        if(key === 'l')            //Remove condition if you want to write to firebase all characters
+            for(let k = 0; k < value.length; k++) {
+                const unionRes = await db.collection('lekhakMapping').doc(key).update({
+                    names: firebase.firestore.FieldValue.arrayUnion(value[k])
+                });
+            }
+        
+    }
+}
+
+
+//Main Body
+async function main() {
+    //Run when new database started
+    //await createAllCharDocuments();
+
+    //Reading Input from the CSV using csv-reader package
+    const Fs = require('fs');
+    const { format } = require('path');
+    const dict = { };
+    const CsvReadableStream = require('csv-reader');
+    let inputStream = Fs.createReadStream('src/oneTimeScripts/trials.csv', 'utf8');
+    inputStream
+        .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
+        .on('data', function (row) {
+            let nameString = csvArrayToString(row[0]);
+            let firstChar = nameString[0];
+            if(dict[firstChar] && dict[firstChar].length) {
+                if(dict[firstChar].indexOf(nameString) === -1)
+                    dict[firstChar].push(nameString);
+            } 
+            else {
+                dict[firstChar] = [nameString];
+            }
+        })
+        .on('end', async function(data) {
+            
+            //Uncomment to write to Firebase
+            writeToFirebase(dict);
+
+            //Uncomment to write to CSV
+            //writeToCSV(dict);
+        })
+    return;
+}
+
+main();
