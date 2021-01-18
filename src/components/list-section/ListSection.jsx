@@ -1,21 +1,15 @@
-import React from "react";
-import Loader from "../loader/Loader";
+import React, { useState, useEffect } from "react";
 import "./listsection.css";
 
 const ListSection = ({
-	tableHeaders = [],
-	tableElements = [],
+	tableHeaders,
+	tableElements,
 	searched,
 	setCurrentDetails,
-	loading,
 }) => {
-	if (loading && searched) {
-		return <Loader />;
-	}
-
 	return (
 		<div className="table-super">
-			{tableElements.length ? (
+			{tableElements.length && searched ? (
 				<table>
 					<thead>
 						<tr>

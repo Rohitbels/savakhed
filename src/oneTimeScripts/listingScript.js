@@ -1,4 +1,4 @@
-const packageDetails = require("./../package.json");
+const packageDetails = require("../../package.json");
 
 const firebase = require("firebase/app");
 require("firebase/auth");
