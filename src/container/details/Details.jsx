@@ -51,7 +51,7 @@ class Details extends Component {
             this.setState({ jsonData: JSON.parse(xhr.responseText) })
             // destructuring
             const { jsonData } = this.state;
-            const { itemListElement = [0] } = jsonData;
+            const { itemListElement = [] } = jsonData;
             const { result = {}, resultScore = {} } = itemListElement[0];
             const { detailedDescription = '', name = {}, description = '' } = result;
             const { articleBody = '' } = detailedDescription;
