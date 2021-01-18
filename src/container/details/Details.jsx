@@ -51,7 +51,7 @@ class Details extends Component {
             this.setState({ jsonData: JSON.parse(xhr.responseText) })
             // destructuring
             const { jsonData } = this.state;
-            const { itemListElement = [0] } = jsonData;
+            const { itemListElement = [] } = jsonData;
             const { result = {}, resultScore = {} } = itemListElement[0];
             const { detailedDescription = '', name = {}, description = '' } = result;
             const { articleBody = '' } = detailedDescription;
@@ -157,7 +157,7 @@ class Details extends Component {
                     </div>
                 }
 
-                {this.state.GresultScore > 100 && this.state.GarticleBody !== "" &&
+                {this.state.GresultScore > 150 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname}>
                         <div className="googleDetails">
                             <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
