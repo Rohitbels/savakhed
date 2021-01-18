@@ -88,20 +88,12 @@ class Details extends Component {
         for (let i = 0; i < nameArray.length; i++) {
             if (i !== 0)
                 strName += " ";
-            strName += this.capitalizeString(nameArray[i]);
         }
         return strName;
     }
 
 
-    //Return a String with words having capital letters
-    capitalizeString(lowerString) {
-        let capitalized = "";
-        capitalized += lowerString.charAt(0).toUpperCase();
-        capitalized += lowerString.slice(1);
-        return capitalized;
-    }
-
+  
 
     render() {
         const { bookDetail: stateBookDetails } = this.state;
