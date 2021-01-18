@@ -5,6 +5,7 @@ import { TabContent, TabPane, NavLink} from 'reactstrap';
 import classnames from 'classnames';
 import Alphabets from './Alphabets';
 import Akshar from './Akshar';
+import { db } from '../../firebase'
 
 const BookDetails = [
 	{
@@ -97,18 +98,56 @@ class LekhakList extends Component {
           authorList : BookDetails,
           tableHeaders: ["id", "vibhag id", "bookName", "author"],
           matching_authors : [],
-          activeTab : '1'
+          activeTab : '1',
+          lekhakArray : []
         };
         this.handleChange = this.handleChange.bind(this);
         this.toggle = this.toggle.bind(this);
     }
 
-
-  toggle(tab) {
-    if (this.state.activeTab !== tab) {
-      this.setState({ activeTab: tab });
+    componentDidMount() {
+        this.getFirebaseLekhaks();
     }
-  }
+
+    getLekhakNames(val){
+        let value = val;
+        console.log(value);
+    }
+
+
+    async getFirebaseLekhaks() {
+        console.log("Firebase Query.");
+        const doc = await db.collection("lekhakMapping").doc('a').get();
+        const lekhakNamesArray = doc.data().names;
+        this.setState(
+            { lekhakArray : lekhakNamesArray }
+        );
+        console.log(lekhakNamesArray);
+        // .then((snapshot) => {
+			// 	snapshot.forEach((doc) => {
+            //         console.log(doc.data)
+            //         // let book = doc.data();
+
+			// 		// this.setState({
+			// 		// 	results: this.state.results.concat([{...book, id: doc.id }]),
+			// 		// });
+			// 		// this.getMulakshara(book["lekhak"]);
+			// 		// this.getMulakshara(book["pustakName"]);
+			// 	});
+
+			// 	// this.setState({
+			// 	// 	tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
+			// 	// });
+			// })
+			// .catch((error) => console.error(error));
+    }
+
+
+    toggle(tab) {
+        if (this.state.activeTab !== tab) {
+            this.setState({ activeTab: tab });
+        }
+    }
 
 
     handleChange(e) {
@@ -132,25 +171,25 @@ class LekhakList extends Component {
     
 
     renderAuthors = () => {
-        return(
-        this.state.authorList.map ((data) =>(         
-          <div className="renderAuthors">
-            <Card bookName={data.author} /> 
-         </div>)))
-      }
+        return (
+            this.state.lekhakArray.map((data) => (
+                <div className="renderAuthors">
+                    <Card bookName={data} />
+                </div>)))
+    }
 
-      renderAlphabets = () => {
-          return(
-              Alphabets.map((letter) =>(
-                <button value={letter.value}>{letter.key}</button>
-              )
-              )
-          )
-      }
-      renderAkshars = () => {
-        return(
-            Akshar.map((letter) =>(
-              <button value={letter.key}>{letter.key}</button>
+    renderAlphabets = () => {
+        return (
+            Alphabets.map((letter) => (
+                <button value={letter.value} onClick={this.getLekhakNames(this.value)}>{letter.key}</button>
+            )
+            )
+        )
+    }
+    renderAkshars = () => {
+        return (
+            Akshar.map((letter) => (
+                <button value={letter.key} onClick={this.getLekhakNames(this.value)}>{letter.key}</button>
             )
             )
         )
