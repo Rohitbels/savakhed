@@ -99,7 +99,6 @@ class Details extends Component {
         const { bookDetail: stateBookDetails } = this.state;
         const { bookDetail: propsBookDetails } = this.props;
         //console.log(propsBookDetails)
-        debugger
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div>
@@ -154,7 +153,7 @@ class Details extends Component {
                     </div>
                 }
 
-                {this.state.GresultScore > 100 && this.state.GarticleBody !== "" &&
+                {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname}>
                         <div className="googleDetails">
                             <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
