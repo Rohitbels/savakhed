@@ -88,10 +88,6 @@ const BookDetails = [
 ];
 
 
-
-
-
-
 class LekhakList extends Component {
     constructor(props){
         super(props);
@@ -195,12 +191,6 @@ class LekhakList extends Component {
                     </TabContent>
                 </div>
 
-                
-                {/* {this.state.character==1 &&
-                    <div>
-                        this is b
-                    </div>
-                    } */}
                 <div >
                     {this.renderAuthors()}
                 </div>
