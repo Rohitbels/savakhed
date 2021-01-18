@@ -47,7 +47,7 @@ setDetails = (id, pustakName, lekhakName) => {
 	let arrayP = [];
 	pustakName.forEach((word) => {
 		chinha.forEach((chinh) => {
-			word = word.split(chinh).join("");
+			word = word.replace(new RegExp(chinh, "g"), "");
 		});
 		arrayP.push(word);
 	});
@@ -59,7 +59,7 @@ setDetails = (id, pustakName, lekhakName) => {
 		});
 		arrayL.push(word);
 	});
-
+	console.log(arrayP);
 	LekhakMulakshara.push(arrayL);
 	PustakMulakshara.push(arrayP);
 };
@@ -89,5 +89,5 @@ new Promise((resolve, reject) => {
 		})
 		.catch((error) => console.error(error));
 }).then(() => {
-	addDetails(LekhakMulakshara[0], PustakMulakshara[0], IDs[0]);
+	// addDetails(LekhakMulakshara[0], PustakMulakshara[0], IDs[0]);
 });

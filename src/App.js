@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Listing from "./container/Listing";
+import Listing from "./container/listing/Listing";
 import Details from "./container/details/Details";
 import LekhakList from "./components/LekhakList/LekhakList";
 import Header from './components/header/Header'

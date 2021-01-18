@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./listing.css";
-import InputSection from "../components/input-section/InputSection";
-import ListSection from "../components/list-section/ListSection";
-import { db } from "./../firebase";
+import InputSection from "../../components/input-section/InputSection";
+import ListSection from "../../components/list-section/ListSection";
+import { db } from "../../firebase";
 
-import mulakshare from "./../container/mulakshare";
+import mulakshare from "./mulakshare";
 
 class Listing extends Component {
 	constructor(props) {

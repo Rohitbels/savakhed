@@ -94,7 +94,6 @@ class Details extends Component {
         const { bookDetail: stateBookDetails } = this.state;
         const { bookDetail: propsBookDetails } = this.props;
         console.log(propsBookDetails)
-        debugger
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div>
