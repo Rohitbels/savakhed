@@ -22,10 +22,6 @@
     text-transform: capitalize;
 }
 
-.description{
-
-}
-
 
 
 @media (max-width: 800px) {
@@ -43,8 +39,5 @@
     .heading{
         font-size: 20px;
         font-weight: 600;
-    }
-    .description{
-    
     }
 }
