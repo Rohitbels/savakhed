@@ -17,7 +17,9 @@
     font-size: 28px;
     font-weight: 400;
     color: purple;
-
+    display: flex;
+    justify-content: center;
+    text-transform: capitalize;
 }
 
 .description{
