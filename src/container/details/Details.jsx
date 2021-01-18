@@ -153,11 +153,7 @@ class Details extends Component {
                     </div>
                 }
 
-<<<<<<< HEAD
-                {this.state.GresultScore > 150 && this.state.GarticleBody !== "" &&
-=======
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
->>>>>>> 18ca853bd138999ef4951df077accaa45ad78e13
                     <Card bookName={this.state.Gname}>
                         <div className="googleDetails">
                             <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
