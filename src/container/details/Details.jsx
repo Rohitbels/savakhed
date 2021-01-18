@@ -126,6 +126,7 @@ class Details extends Component {
                 {/* conditional rendering, if details are found */}
                 {currentBook.pustakName &&
                     <div className="flex-container">
+                        <Card bookName="Book Details">
                         <div className="cardDetails">
                             <div className="details_image">
                                 <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
@@ -160,6 +161,7 @@ class Details extends Component {
                                 <br />
                             </div>
                         </div>
+                        </Card>
                     </div>
                 }
 

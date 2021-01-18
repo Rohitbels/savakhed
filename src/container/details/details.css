@@ -4,9 +4,6 @@
     flex-direction: row;
 }
 
-.flex-container:hover .cardDetails{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0 0 0 / 1%);  
-}
 
 .back_btn{
     width: 130px;
@@ -24,10 +21,8 @@
 }
 
 .cardDetails{
-    width: 700px;
     height: auto;
     border-radius: 5px;
-    border: 1px solid #eee;
     padding: 20px;
     transition: 0.2s;   
     display: flex;

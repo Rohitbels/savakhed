@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import './LekhakList.css'
 import Card from '../card/Card'
-
+import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
+import classnames from 'classnames';
+import Alphabets from './Alphabets';
+import Akshar from './Akshar';
 
 const BookDetails = [
 	{
@@ -88,6 +91,7 @@ const BookDetails = [
 
 
 
+
 class LekhakList extends Component {
     constructor(props){
         super(props);
@@ -96,16 +100,20 @@ class LekhakList extends Component {
           newItem : BookDetails,
           authorList : BookDetails,
           tableHeaders: ["id", "vibhag id", "bookName", "author"],
-          matching_authors : []
+          matching_authors : [],
+          activeTab : '1'
         };
         this.handleChange = this.handleChange.bind(this);
+        this.toggle = this.toggle.bind(this);
     }
 
-    componentWillMount(){
-        this.setState({
-            //authorList : BookDetails
-        })
+
+  toggle(tab) {
+    if (this.state.activeTab !== tab) {
+      this.setState({ activeTab: tab });
     }
+  }
+
 
     handleChange(e) {
         let temp = e.target.value;
@@ -135,58 +143,66 @@ class LekhakList extends Component {
          </div>)))
       }
 
+      renderAlphabets = () => {
+          return(
+              Alphabets.map((letter) =>(
+                <button value={letter.value}>{letter.key}</button>
+              )
+              )
+          )
+      }
+      renderAkshars = () => {
+        return(
+            Akshar.map((letter) =>(
+              <button value={letter.key}>{letter.key}</button>
+            )
+            )
+        )
+    }
+
     render(){    
         const {character} = this.state;
         return (
             <div>
-                <div className="ButtonContainer">
-                    <button onClick={this.handleChange} value="a">A</button>
-                    <button onClick={this.handleChange} value="b">B</button>
-                    <button onClick={this.handleChange} value="c">C</button>
-                    <button onClick={this.handleChange} value="d">D</button>
-                    <button onClick={this.handleChange} value="e">E</button>
-                    <button onClick={this.handleChange} value="f">F</button>
-                    <button onClick={this.handleChange} value="g">G</button>
-                    <button onClick={this.handleChange} value="h">H</button>
-                    <button onClick={this.handleChange} value="i">I</button>
-                    <button onClick={this.handleChange} value="j">J</button>
-                    <button onClick={this.handleChange} value="k">K</button>
-                    <button onClick={this.handleChange} value="l">L</button>
-                    <button onClick={this.handleChange} value="m">M</button>
-                    <button onClick={this.handleChange} value="n">N</button>
-                    <button onClick={this.handleChange} value="o">O</button>
-                    <button onClick={this.handleChange} value="p">P</button>
-                    <button onClick={this.handleChange} value="q">Q</button>
-                    <button onClick={this.handleChange} value="r">R</button>
-                    <button onClick={this.handleChange} value="s">S</button>
-                    <button onClick={this.handleChange} value="t">T</button>
-                    <button onClick={this.handleChange} value="u">U</button>
-                    <button onClick={this.handleChange} value="v">V</button>
-                    <button onClick={this.handleChange} value="w">W</button>
-                    <button onClick={this.handleChange} value="x">X</button>
-                    <button onClick={this.handleChange} value="y">Y</button>
-                    <button onClick={this.handleChange} value="z">Z</button>
-                </div>
-                <div className="ButtonContainer">
-                        <button onClick={this.handleChange} value="0">0</button>
-                        <button onClick={this.handleChange} value="1">1</button>
-                        <button onClick={this.handleChange} value="2">2</button>
-                        <button onClick={this.handleChange} value="3">3</button>
-                        <button onClick={this.handleChange} value="4">4</button>
-                        <button onClick={this.handleChange} value="5">5</button>
-                        <button onClick={this.handleChange} value="6">6</button>
-                        <button onClick={this.handleChange} value="7">7</button>
-                        <button onClick={this.handleChange} value="8">8</button>
-                        <button onClick={this.handleChange} value="9">9</button>
+                <div>
+                    <div className="toggleBtn">
+                        <NavLink
+                            className={classnames({ active: this.state.activeTab === '1' })}
+                            onClick={() => { this.toggle('1'); }}>
+                            <button className="marBtn">Marathi</button>
+                        </NavLink>
+                        <NavLink
+                            className={classnames({ active: this.state.activeTab === '2' })}
+                            onClick={() => { this.toggle('2'); }}>
+                            <button className="engBtn">English</button>
+                        </NavLink>
                     </div>
+                    <TabContent activeTab={this.state.activeTab}>
+                        <TabPane tabId="1">
+                            {this.state.activeTab == 1 ? 
+                            <div className="ButtonContainer">
+                            {this.renderAkshars()}
+                            </div> 
+                            : null}
+                        </TabPane>
+                        <TabPane tabId="2">
+                            {this.state.activeTab == 2 ? 
+                            <div className="ButtonContainer">
+                                {this.renderAlphabets()}
+                        </div>
+                            : null}
+                        </TabPane>
+                    </TabContent>
+                </div>
 
-                    {/* {this.state.character==1 &&
+                
+                {/* {this.state.character==1 &&
                     <div>
                         this is b
                     </div>
                     } */}
                 <div >
-                {this.renderAuthors()}
+                    {this.renderAuthors()}
                 </div>
             </div>
         )
