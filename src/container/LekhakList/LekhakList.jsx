@@ -106,40 +106,19 @@ class LekhakList extends Component {
     }
 
     componentDidMount() {
-        this.getFirebaseLekhaks();
+        
     }
 
-    getLekhakNames(val){
-        let value = val;
-        console.log(value);
-    }
-
-
-    async getFirebaseLekhaks() {
+    getLekhakNames = value => async () => {
+        let val = value;
+        console.log(val);
         console.log("Firebase Query.");
-        const doc = await db.collection("lekhakMapping").doc('a').get();
+        const doc = await db.collection("lekhakMapping").doc(value).get();
         const lekhakNamesArray = doc.data().names;
         this.setState(
             { lekhakArray : lekhakNamesArray }
         );
         console.log(lekhakNamesArray);
-        // .then((snapshot) => {
-			// 	snapshot.forEach((doc) => {
-            //         console.log(doc.data)
-            //         // let book = doc.data();
-
-			// 		// this.setState({
-			// 		// 	results: this.state.results.concat([{...book, id: doc.id }]),
-			// 		// });
-			// 		// this.getMulakshara(book["lekhak"]);
-			// 		// this.getMulakshara(book["pustakName"]);
-			// 	});
-
-			// 	// this.setState({
-			// 	// 	tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
-			// 	// });
-			// })
-			// .catch((error) => console.error(error));
     }
 
 
@@ -181,7 +160,7 @@ class LekhakList extends Component {
     renderAlphabets = () => {
         return (
             Alphabets.map((letter) => (
-                <button value={letter.value} onClick={this.getLekhakNames(this.value)}>{letter.key}</button>
+                <button value={letter.value} onClick={this.getLekhakNames(letter.value)}>{letter.key}</button>
             )
             )
         )
@@ -189,7 +168,7 @@ class LekhakList extends Component {
     renderAkshars = () => {
         return (
             Akshar.map((letter) => (
-                <button value={letter.key} onClick={this.getLekhakNames(this.value)}>{letter.key}</button>
+                <button value={letter.key} onClick={this.getLekhakNames(letter.value)}>{letter.key}</button>
             )
             )
         )
@@ -233,7 +212,9 @@ class LekhakList extends Component {
                 <div >
                     {this.renderAuthors()}
                 </div>
+                <div id="pranavTest"></div>
             </div>
+            
         )
     }
 
