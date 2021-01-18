@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import './LekhakList.css'
-import Card from '../card/Card'
-import { TabContent, TabPane, Nav, NavItem, NavLink} from 'reactstrap';
+import Card from '../../components/card/Card'
+import { TabContent, TabPane, NavLink} from 'reactstrap';
 import classnames from 'classnames';
 import Alphabets from './Alphabets';
 import Akshar from './Akshar';

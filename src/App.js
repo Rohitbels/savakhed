@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Listing from "./container/Listing";
 import Details from "./container/details/Details";
-import LekhakList from "./components/LekhakList/LekhakList"
+import LekhakList from "./container/LekhakList/LekhakList"
 
 import { db } from "./firebase";
 

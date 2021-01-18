@@ -165,7 +165,7 @@ class Details extends Component {
                     </div>
                 }
 
-                {this.state.GresultScore > 100 &&
+                {this.state.GresultScore > 100 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname}>
                         <div className="googleDetails">
                             <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
