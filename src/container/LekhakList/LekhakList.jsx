@@ -168,7 +168,7 @@ class LekhakList extends Component {
     renderAkshars = () => {
         return (
             Akshar.map((letter) => (
-                <button value={letter.key} onClick={this.getLekhakNames(letter.value)}>{letter.key}</button>
+                <button value={letter.key} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
             )
             )
         )
