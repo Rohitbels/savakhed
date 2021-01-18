@@ -80,7 +80,7 @@ async function writeToCSV(dict) {
 async function writeToFirebase(dict) {
     for (const [key, value] of Object.entries(dict)) {
         //Writing to Firebase
-        if(key === 'l')            //Remove condition if you want to write to firebase all characters
+        //if(key === 'l')            //Remove condition if you want to write to firebase all characters
             for(let k = 0; k < value.length; k++) {
                 const unionRes = await db.collection('lekhakMapping').doc(key).update({
                     names: firebase.firestore.FieldValue.arrayUnion(value[k])
@@ -101,7 +101,7 @@ async function main() {
     const { format } = require('path');
     const dict = { };
     const CsvReadableStream = require('csv-reader');
-    let inputStream = Fs.createReadStream('src/oneTimeScripts/trials.csv', 'utf8');
+    let inputStream = Fs.createReadStream('src/oneTimeScripts/Recheck - संकीर्ण.csv', 'utf8');
     inputStream
         .pipe(new CsvReadableStream({ parseNumbers: true, parseBooleans: true, trim: true }))
         .on('data', function (row) {

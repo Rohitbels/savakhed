@@ -35,7 +35,7 @@ class Details extends Component {
     getIdFromUrl() {
         const currURL = window.location.href.split("/");
         const urlID  = currURL[currURL.length-1];
-        console.log("url id", urlID);
+        //console.log("url id", urlID);
         return urlID;
     }
 
@@ -46,7 +46,7 @@ class Details extends Component {
 
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
-            console.log(xhr.responseText)
+            //console.log(xhr.responseText)
 
             this.setState({ jsonData: JSON.parse(xhr.responseText) })
             // destructuring
@@ -69,19 +69,16 @@ class Details extends Component {
     }
 
 
-    getFirebaseData() {
-        db.collection("bookList")
+    async getFirebaseData() {
+        const doc = await db.collection("bookList")
             .doc(this.getIdFromUrl()).get()
-            .then((snapshot) => {
-                snapshot.forEach((doc) => {
-                    const bookDetail = doc.data();
-                    this.setState({
-                        bookDetail
-                    });
-                });
-            })
-            .catch((error) => console.error(error)
-            );
+
+        const firebaseBookDetail = doc.data();
+        this.setState({
+            bookDetail : firebaseBookDetail
+        });
+        // console.log("Firebase Book Details");
+        // console.log(firebaseBookDetail);
     }
 
 
@@ -109,7 +106,7 @@ class Details extends Component {
     render() {
         const { bookDetail: stateBookDetails } = this.state;
         const { bookDetail: propsBookDetails } = this.props;
-        console.log(propsBookDetails)
+        //console.log(propsBookDetails)
         debugger
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
