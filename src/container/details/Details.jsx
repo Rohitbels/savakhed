@@ -48,12 +48,10 @@ class Details extends Component {
         xhr.addEventListener('load', () => {
             //console.log(xhr.responseText)
 
-            this.setState({ jsonData: JSON.parse(xhr.responseText) })
             // destructuring
-            const { jsonData } = this.state;
-            const { itemListElement = [] } = jsonData;
-            const { result = {}, resultScore = {} } = itemListElement[0];
-            const { detailedDescription = '', name = {}, description = '' } = result;
+            const { itemListElement = [] } = JSON.parse(xhr.responseText);
+            const { result = {}, resultScore = {} } = itemListElement.length && itemListElement[0] || {};
+            const { detailedDescription = '', name = '', description = '' } = result;
             const { articleBody = '' } = detailedDescription;
             this.setState({
                 gotGoogleData: true,
