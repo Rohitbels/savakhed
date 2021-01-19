@@ -1,92 +1,9 @@
 import React, { Component } from 'react'
 import './LekhakList.css'
-import Card from '../../components/card/Card'
-import { TabContent, TabPane, NavLink} from 'reactstrap';
-import classnames from 'classnames';
 import Alphabets from './Alphabets';
 import Akshar from './Akshar';
 import { db } from '../../firebase'
 
-const BookDetails = [
-	{
-		id: "1",
-		"vibhag id": "11",
-		"bookName": "The Alchemist",
-		"author": "Paulo Coelho",
-	},
-	{
-		id: "2",
-		"vibhag id": "22",
-		"bookName": "Yoga",
-		"author": "Swami Vivekananda",
-	},
-	{
-		id: "3",
-		"vibhag id": "33",
-		"bookName": "Lorem Ipsum is simply dummy text",
-		"author": "Lorem Ipsum",
-	},
-	{
-		id: "4",
-		"vibhag id": "44",
-		"bookName": "The Alchemist",
-		"author": "Paulo Coelho",
-	},
-	{
-		id: "5",
-		"vibhag id": "55",
-		"bookName": "Yoga",
-		"author": "Swami Vivekananda",
-	},
-	{
-		id: "6",
-		"vibhag id": "66",
-		"bookName": "Lorem Ipsum is simply dummy text",
-		"author": "Lorem Ipsum",
-	},
-	{
-		id: "7",
-		"vibhag id": "77",
-		"bookName": "The Alchemist",
-		"author": "Paulo Coelho",
-	},
-	{
-		id: "8",
-		"vibhag id": "88",
-		"bookName": "Yoga",
-		"author": "Swami Vivekananda",
-	},
-	{
-		id: "9",
-		"vibhag id": "99",
-		"bookName": "Lorem Ipsum is simply dummy text",
-		"author": "Lorem Ipsum",
-	},
-	{
-		id: "1",
-		"vibhag id": "11",
-		"bookName": "Wings of Fire",
-		"author": "APJ",
-	},
-	{
-		id: "2",
-		"vibhag id": "22",
-		"bookName": "Yoga",
-		"author": "Swami Vivekananda",
-	},
-	{
-		id: "3",
-		"vibhag id": "33",
-		"bookName": "Lorem Ipsum is simply dummy text",
-		"author": "Lorem Ipsum",
-	},
-	{
-		id: "4",
-		"vibhag id": "44",
-		"bookName": "The Alchemist",
-		"author": "Paulo Coelho",
-	},
-];
 
 
 class LekhakList extends Component {
@@ -153,7 +70,8 @@ class LekhakList extends Component {
         return (
             this.state.lekhakArray.map((data) => (
                 <div className="renderAuthors">
-                    <Card bookName={data} />
+                    <div className="authorName">{data}</div>
+                    <div className="bookNames"><a href="#" >View Books</a></div>
                 </div>)))
     }
 
@@ -177,39 +95,35 @@ class LekhakList extends Component {
     render(){    
         const {character} = this.state;
         return (
-            <div>
+            <div className="lekhakList">
                 <div>
                     <div className="toggleBtn">
-                        <NavLink
-                            className={classnames({ active: this.state.activeTab === '1' })}
-                            onClick={() => { this.toggle('1'); }}>
-                            <button className="marBtn">Marathi</button>
-                        </NavLink>
-                        <NavLink
-                            className={classnames({ active: this.state.activeTab === '2' })}
-                            onClick={() => { this.toggle('2'); }}>
-                            <button className="engBtn">English</button>
-                        </NavLink>
+                        
+                            
+                            
+                            <button className="marBtn" onClick={() => { this.toggle('1'); }}>Marathi</button>
+                            
+                            <button className="engBtn" onClick={() => { this.toggle('2'); }}>English</button>
+                        
                     </div>
-                    <TabContent activeTab={this.state.activeTab}>
-                        <TabPane tabId="1">
+                    <div >
+                        <div>
                             {this.state.activeTab == 1 ? 
                             <div className="ButtonContainer">
                             {this.renderAkshars()}
                             </div> 
                             : null}
-                        </TabPane>
-                        <TabPane tabId="2">
+                        </div>
+                        <div>
                             {this.state.activeTab == 2 ? 
                             <div className="ButtonContainer">
                                 {this.renderAlphabets()}
                         </div>
                             : null}
-                        </TabPane>
-                    </TabContent>
-                </div>
-
-                <div >
+                        </div>
+                    </div>
+                </div>                
+                <div className="authorsList">
                     {this.renderAuthors()}
                 </div>
                 <div id="pranavTest"></div>
