@@ -1,11 +1,12 @@
 .card{
-    width: 680px;
+    width: 480px;
     height: auto;
     border-radius: 5px;
     border: 1px solid #eee;
     padding: 30px;
     margin: 20px auto;
     display: block;
+
 }
 
 .card:hover{
@@ -14,11 +15,11 @@
 }
 
 .heading{
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 400;
     color: purple;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     text-transform: capitalize;
 }
 
@@ -26,18 +27,18 @@
 
 @media (max-width: 800px) {
     .card{
-        width: 280px;
+        width: 200px;
         height: auto;
         border-radius: 5px;
         border: 1px solid #eee;
-        padding: 30px;
+        padding: 10px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         transition: 0.2s;
-        margin: 20px auto;
+        margin: 20px 0px;
     }
     
     .heading{
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
     }
 }

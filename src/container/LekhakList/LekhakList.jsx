@@ -7,24 +7,18 @@ import { db } from '../../firebase'
 
 
 class LekhakList extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
-          character : 'a',
-          newItem : BookDetails,
-          authorList : BookDetails,
-          tableHeaders: ["id", "vibhag id", "bookName", "author"],
-          matching_authors : [],
-          activeTab : '1',
-          lekhakArray : []
+        this.state = {
+            authorList: [],
+            matching_authors: [],
+            activeTab: '1',
+            lekhakArray: []
         };
-        this.handleChange = this.handleChange.bind(this);
+
         this.toggle = this.toggle.bind(this);
     }
 
-    componentDidMount() {
-        
-    }
 
     getLekhakNames = value => async () => {
         let val = value;
@@ -33,7 +27,7 @@ class LekhakList extends Component {
         const doc = await db.collection("lekhakMapping").doc(value).get();
         const lekhakNamesArray = doc.data().names;
         this.setState(
-            { lekhakArray : lekhakNamesArray }
+            { lekhakArray: lekhakNamesArray }
         );
         console.log(lekhakNamesArray);
     }
@@ -45,27 +39,6 @@ class LekhakList extends Component {
         }
     }
 
-
-    handleChange(e) {
-        let temp = e.target.value;
-        this.setState({
-            character : e.target.value
-        })
-        const tempAuthor = this.state.newItem.filter((item) => {
-            if(item.author.toLowerCase().includes(temp.toLowerCase())){
-                return item
-            }
-            else{
-                return null
-            }
-        })
-        this.setState({
-            authorList: tempAuthor,
-          })
-    }
-
-    
-
     renderAuthors = () => {
         return (
             this.state.lekhakArray.map((data) => (
@@ -75,60 +48,46 @@ class LekhakList extends Component {
                 </div>)))
     }
 
-    renderAlphabets = () => {
+    renderAlphabets = (alpha) => {
         return (
-            Alphabets.map((letter) => (
-                <button value={letter.value} onClick={this.getLekhakNames(letter.value)}>{letter.key}</button>
-            )
-            )
-        )
-    }
-    renderAkshars = () => {
-        return (
-            Akshar.map((letter) => (
+            alpha.map((letter) => (
                 <button value={letter.key} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
             )
             )
         )
     }
 
-    render(){    
-        const {character} = this.state;
+    render() {
+        const { character } = this.state;
         return (
             <div className="lekhakList">
                 <div>
                     <div className="toggleBtn">
-                        
-                            
-                            
-                            <button className="marBtn" onClick={() => { this.toggle('1'); }}>Marathi</button>
-                            
-                            <button className="engBtn" onClick={() => { this.toggle('2'); }}>English</button>
-                        
+                        <button className="marBtn" onClick={() => { this.toggle('1'); }}>Marathi</button>
+                        <button className="engBtn" onClick={() => { this.toggle('2'); }}>English</button>
                     </div>
-                    <div >
+                    <div>
                         <div>
-                            {this.state.activeTab == 1 ? 
-                            <div className="ButtonContainer">
-                            {this.renderAkshars()}
-                            </div> 
-                            : null}
+                            {this.state.activeTab == 1 ?
+                                <div className="ButtonContainer">
+                                    {this.renderAlphabets(Akshar)}
+                                </div>
+                                : null}
                         </div>
                         <div>
-                            {this.state.activeTab == 2 ? 
-                            <div className="ButtonContainer">
-                                {this.renderAlphabets()}
-                        </div>
-                            : null}
+                            {this.state.activeTab == 2 ?
+                                <div className="ButtonContainer">
+                                    {this.renderAlphabets(Alphabets)}
+                                </div>
+                                : null}
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div className="authorsList">
                     {this.renderAuthors()}
                 </div>
-                <div id="pranavTest"></div>
             </div>
-            
+
         )
     }
 

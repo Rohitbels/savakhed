@@ -1,103 +1,103 @@
 const Alphabets = [
     {
-        key : "A",
-        value : "a"
+        key : "a",
+    
     },
     {
-        key : "B",
-        value : "b"
+        key : "b",
+   
     },
     {
-        key : "C",
-        value : "c"
+        key : "c",
+      
     },
     {
-        key : "D",
-        value : "d"
+        key : "d",
+    
     },
     {
-        key : "E",
-        value : "e"
+        key : "e",
+      
     },
     {
-        key : "F",
-        value : "f"
+        key : "f",
+   
     },
     {
-        key : "G",
-        value : "g"
+        key : "g",
+     
     },
     {
-        key : "H",
-        value : "h"
+        key : "h",
+   
     },
     {
-        key : "I",
-        value : "i"
+        key : "i",
+   
     },
     {
-        key : "J",
-        value : "j"
+        key : "j",
+
     },
     {
-        key : "K",
-        value : "k"
+        key : "k",
+
     },
     {
-        key : "L",
-        value : "l"
+        key : "l",
+
     },
     {
-        key : "M",
-        value : "m"
+        key : "m",
+ 
     },
     {
-        key : "O",
-        value : "o"
+        key : "o",
+
     },
     {
-        key : "P",
-        value : "p"
+        key : "p",
+
     },
     {
-        key : "Q",
-        value : "q"
+        key : "q",
+    
     },
     {
-        key : "R",
-        value : "r"
+        key : "r",
+    
     },
     {
-        key : "S",
-        value : "s"
+        key : "s",
+ 
     },
     {
-        key : "T",
-        value : "t"
+        key : "t",
+    
     },
     {
-        key : "U",
-        value : "u"
+        key : "u",
+      
     },
     {
-        key : "V",
-        value : "v"
+        key : "v",
+    
     },
     {
-        key : "W",
-        value : "w"
+        key : "w",
+
     },
     {
-        key : "X",
-        value : "x"
+        key : "x",
+    
     },
     {
-        key : "Y",
-        value : "y"
+        key : "y",
+       
     },
     {
-        key : "Z",
-        value : "z"
+        key : "z",
+     
     },
     ];
 

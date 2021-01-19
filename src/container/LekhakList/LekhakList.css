@@ -14,6 +14,7 @@
     color: black;
     border-radius: 5px;
     border: 1px solid gray;
+    cursor: pointer;
 }
 .marBtn:focus{
     background-color: #3596CA;
@@ -28,6 +29,7 @@
     padding: 7px;   
     border-radius: 5px;
     border: 1px solid gray;
+    cursor: pointer;
 }
 .engBtn:focus{
     background-color: #3596CA;
@@ -52,6 +54,9 @@
     border-radius: 5px;
     color: white;
     outline: none;
+    border: 0.2px solid lightgray;
+    cursor: pointer;
+    text-transform: uppercase;
 }
 .ButtonContainer button:focus{
     color: black;
@@ -100,16 +105,15 @@
     }
 
     .ButtonContainer {
-        display : flow-root;
-        justify-content : center;
-        padding-left: 10px;
-        padding-right : 10px;
+        display : contents;
+        padding-left: 5px;
+        padding-right : 5px;
         padding-top: 50px;
     }
     
     .ButtonContainer button {
         margin-left: 2px;
-        width: 66px;
+        width: 63px;
         margin-right: 2px;
         margin-top: 6px;
         padding: 10px;

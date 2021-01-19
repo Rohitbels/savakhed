@@ -110,47 +110,46 @@ class Details extends Component {
                 </div>
 
                 {/* conditional rendering, if details are found */}
+                <div className="flex-container">
                 {currentBook.pustakName &&
-                    <div className="flex-container">
+                    
                         <Card bookName="Book Details">
                         <div className="cardDetails">
-                            <div className="details_image">
-                                <img src="https://m.media-amazon.com/images/I/51Z0nLAfLmL.jpg" alt="Book Cover" className="book_image" />
-                            </div>
                             <div className="book_details">
-                                <hr className="hr-inLabel" />
+                                
                                 <div className="rows">
-                                    <span className="label">dakhalId</span>
-                                    <span className="book_name">{currentBook.dakhalId} </span>
-                                </div>
-                                <hr className="hr-inLabel" />
-                                <div className="rows">
-                                    <span className="label">vibhagId</span>
-                                    <span className="book_name">{currentBook.vibhagId}</span>
-                                </div>
-                                <hr className="hr-inLabel" />
-                                <div className="rows">
+                                    <div className="col1">
                                     <span className="label">pustakName</span>
-                                    <span className="book_name">{currentBook.pustakName.join(" ")}</span>
-                                </div>
-                                <hr className="hr-inLabel" />
-                                <div className="rows">
+                                    <div className="book_name">{currentBook.pustakName.join(" ")}</div>
+                                    </div>
+                                    <div className="col2">
                                     <span className="label">lekhak</span>
-                                    <span className="book_name">{currentBook.lekhak.join(" ")}</span>
+                                    <div className="book_name">{currentBook.lekhak.join(" ")}</div>
+                                    </div>
                                 </div>
-                                <hr className="hr-inLabel" />
                                 <div className="rows">
-                                    <span className="label">pustakPrakar</span>
-                                    <span className="book_name">{currentBook.pustakPrakar}</span>
+                                    <div className="col1">
+                                    <span className="label">dakhalId</span>
+                                    <div className="book_name">{currentBook.dakhalId} </div>
+                                    </div>
+                                    <div className="col2">
+                                    <span className="label">vibhagId</span>
+                                    <div className="book_name">{currentBook.vibhagId}</div>
+                                    </div>
                                 </div>
-                                <hr className="hr-inLabel" />
+                                <div className="rows">
+                                    <div>
+                                    <span className="label">pustakPrakar</span>
+                                    <div className="book_name">{currentBook.pustakPrakar}</div>
+                                    </div>
+                                </div>
+                                {/* <hr className="hr-inLabel" /> */}
                                 <br />
                             </div>
                         </div>
                         </Card>
-                    </div>
-                }
 
+                }
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname}>
                         <div className="googleDetails">
@@ -166,6 +165,9 @@ class Details extends Component {
                         </div>
                     </Card>
                 }
+
+                </div>
+                
 
             </div>
         )
