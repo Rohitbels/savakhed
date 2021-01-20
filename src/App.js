@@ -21,7 +21,7 @@ class App extends Component {
 		window.addEventListener(
 			"hashchange",
 			function () {
-				console.log("The hash has changed!");
+				//console.log("The hash has changed!");
 				self.setPath();
 			},
 			false
@@ -49,9 +49,13 @@ class App extends Component {
 				{this.state.show === "details" &&
 					<Details bookDetail = {this.state.currentDetails} />
 				}
-				{this.state.show === "lekhakList" &&
-					<LekhakList />			//Change this route----------------------------------------
-				}
+				{this.state.show === "lekhakList" &&(
+					<LekhakList
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+					/>
+				)}
 				{this.state.show === "listing" && (
 					<Listing
 						setCurrentDetails={(book) =>
