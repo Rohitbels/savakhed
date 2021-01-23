@@ -3,6 +3,7 @@ import Listing from "./container/listing/Listing";
 import Details from "./container/details/Details";
 import LekhakList from "./components/LekhakList/LekhakList";
 import Header from "./components/header/Header";
+import AboutUs from "./components/about-us/AboutUs";
 
 class App extends Component {
 	constructor() {
@@ -41,6 +42,14 @@ class App extends Component {
 	};
 
 	render() {
+
+		// return (
+		// 	<div className="App">
+		// 		<Header/>
+		// 		<AboutUs/>
+		// 	</div>
+		// )
+		
 		return (
 			<div className="App">
 				<Header />
