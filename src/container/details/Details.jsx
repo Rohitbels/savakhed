@@ -110,12 +110,10 @@ class Details extends Component {
 
                 {/* conditional rendering, if details are found */}
                 <div className="flex-container">
-                {currentBook.pustakName &&
-                    
+                {currentBook.pustakName &&    
                         <Card bookName="Book Details">
                         <div className="cardDetails">
-                            <div className="book_details">
-                                
+                            <div className="book_details">     
                                 <div className="rows">
                                     <div className="col1">
                                     <span className="label">Pustak Name</span>
@@ -150,7 +148,7 @@ class Details extends Component {
 
                 }
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
-                    <Card bookName={this.state.Gname}>
+                    <Card bookName={this.state.Gname} whichCard="google">
                         <div className="googleDetails">
                             <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
                             {this.state.GarticleBody != "" &&
