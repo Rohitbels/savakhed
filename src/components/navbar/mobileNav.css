@@ -16,8 +16,12 @@
         z-index: 40;
         overflow: hidden;
     }
-    .mobileNav_search{
+    .mobileNav_clicked{
         background-color: lightgrey;
+        padding: 5px 8px;
+        border-radius: 5px;
+    }
+    .mobileNav_unclicked{
         padding: 5px 8px;
         border-radius: 5px;
     }
