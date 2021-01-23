@@ -2,19 +2,20 @@ import React, { Component } from 'react'
 import './mobileNav.css';
 import searchSvg from "../../svg/search.svg"
 import authorSvg from "../../svg/author.svg"
+import authorSvg2 from "../../svg/author2.svg"
 import aboutSvg from "../../svg/about.svg"
 export default class mobileNav extends Component {
     render() {
         return (
             <div className="mobileNav">
                 <div className="mobileNav_search">
-                <img src={searchSvg} className="searchSvg" alt="Search Books"/>
+                <a href="#/search"><img src={searchSvg} className="searchSvg" alt="Search Books"/></a>
                 </div>
                 <div className="mobileNav_lekhaklist">
-                <img src={authorSvg} className="searchSvg" alt="Lekhak List"/>
+                <a href="#/lekhaklist"><img src={authorSvg2} className="lekhakSvg" alt="Lekhak List"/></a>
                 </div>
                 <div className="mobileNav_aboutus">
-                <img src={aboutSvg} className="searchSvg" alt="About US"/>
+                <a href="#"><img src={aboutSvg} className="lekhakSvg" alt="About US"/></a>
                 </div>
             </div>
         )

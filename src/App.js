@@ -35,8 +35,8 @@ class App extends Component {
 		if (currURL.length > 1) {
 			if (currURL[1].includes("details")) {
 				this.setState({ show: "details" });
-			} else if (currURL[1].includes("lekhakList")) {
-				this.setState({ show: "lekhakList" });
+			} else if (currURL[1].includes("lekhaklist")) {
+				this.setState({ show: "lekhaklist" });
 			}
 			else {
 				this.setState({ show: "listing" });
@@ -50,7 +50,7 @@ class App extends Component {
 				{this.state.show === "details" &&
 					<Details bookDetail = {this.state.currentDetails} />
 				}
-				{this.state.show === "lekhakList" &&(
+				{this.state.show === "lekhaklist" &&(
 					<LekhakList
 						setCurrentDetails={(book) =>
 							this.setState({ currentDetails: book })
