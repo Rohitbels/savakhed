@@ -1,3 +1,4 @@
+
 .flex-container{
     padding-top: 30px;
     display: flex;
@@ -71,7 +72,6 @@
     padding-bottom: 20px;
     /* padding-right: 15px; */
     display: flex;
-    transition: 0.3s;
 }
 
 .col1{
@@ -116,7 +116,9 @@
     color: gray;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 576px) {
+
+  
     .flex-container {
       flex-direction: column;
       padding-left: 20px;  
@@ -124,16 +126,9 @@
     }
 
     .cardDetails{
-         height: auto;
         display: flex;
-        margin: auto;
+        margin: 0 !important;
         flex-direction: column;
-    }
-    
-
-    .book_image{
-        width: 260px;
-        height: auto;
     }
 
     .back_btn{
@@ -144,21 +139,9 @@
         margin-left: 20px;
         margin-top: 60px;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-
     }
 
-    .hr{
-        width: 88%;
-        align-self: flex-start;
-        display: inline-flex;
-        margin-left: 20px;
-    }
     
-    .hr-inLabel{
-        width: 100% ;
-        margin-left: 20px;
-    }   
-
     .rows{
         padding-left: 0px;
     }
@@ -169,7 +152,7 @@
     
     .col2{
         width: 50%;
-        padding-left: 25%;
+        padding-left: 2%;
     }
 
     .label{

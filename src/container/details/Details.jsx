@@ -99,14 +99,13 @@ class Details extends Component {
         //console.log(propsBookDetails)
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
-            <div>
+            <div className="fullDetails">
                 <div className="details_back">
                     <a href="#/search">
                         <button className="back_btn">
                             Go Back
                         </button>
                     </a>
-                    <hr className="hr" />
                 </div>
 
                 {/* conditional rendering, if details are found */}
@@ -119,27 +118,27 @@ class Details extends Component {
                                 
                                 <div className="rows">
                                     <div className="col1">
-                                    <span className="label">pustakName</span>
+                                    <span className="label">Pustak Name</span>
                                     <div className="book_name">{currentBook.pustakName.join(" ")}</div>
                                     </div>
                                     <div className="col2">
-                                    <span className="label">lekhak</span>
+                                    <span className="label">Lekhak</span>
                                     <div className="book_name">{currentBook.lekhak.join(" ")}</div>
                                     </div>
                                 </div>
                                 <div className="rows">
                                     <div className="col1">
-                                    <span className="label">dakhalId</span>
+                                    <span className="label">Dakhal Id</span>
                                     <div className="book_name">{currentBook.dakhalId} </div>
                                     </div>
                                     <div className="col2">
-                                    <span className="label">vibhagId</span>
+                                    <span className="label">Vibhag Id</span>
                                     <div className="book_name">{currentBook.vibhagId}</div>
                                     </div>
                                 </div>
                                 <div className="rows">
                                     <div>
-                                    <span className="label">pustakPrakar</span>
+                                    <span className="label">Pustak Prakar</span>
                                     <div className="book_name">{currentBook.pustakPrakar}</div>
                                     </div>
                                 </div>

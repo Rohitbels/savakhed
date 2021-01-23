@@ -25,9 +25,9 @@
 
 
 
-@media (max-width: 800px) {
+@media (max-width: 576px) {
     .card{
-        width: 200px;
+        width: 300px;
         height: auto;
         border-radius: 5px;
         border: 1px solid #eee;
