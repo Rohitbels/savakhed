@@ -1,0 +1,23 @@
+.mobileNav{
+    display: none;
+}
+
+@media (max-width: 576px) {
+    .mobileNav{
+        width: 90vw;
+        bottom: 0;
+        position: fixed;
+        display: flex;
+        padding: 5px 20px 5px 20px;
+        background-color: white;
+        justify-content: space-between;
+    }
+    .mobileNav_search{
+        
+    }
+    .searchSvg{
+        width: 2rem;
+        height: auto;
+    
+    }
+}

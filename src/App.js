@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Listing from "./container/Listing";
 import Details from "./container/details/Details";
 import LekhakList from "./container/LekhakList/LekhakList"
+import MobileNav from "./components/navbar/mobileNav"
 
 import { db } from "./firebase";
 
@@ -63,6 +64,7 @@ class App extends Component {
 						}
 					/>
 				)}
+				<MobileNav/>
 			</div>
 		);
 	}
