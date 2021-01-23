@@ -17,7 +17,9 @@
         overflow: hidden;
     }
     .mobileNav_search{
-        
+        background-color: lightgrey;
+        padding: 5px 8px;
+        border-radius: 5px;
     }
     .searchSvg{
         width: 1.5rem;
