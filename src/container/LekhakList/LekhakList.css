@@ -7,7 +7,7 @@
     justify-content: center;
     padding: 45px 0px 0px 0px;
 }
-.marBtn{
+.unclickedBtn{
     background-color: white;
     margin: 10px;
     padding: 7px;
@@ -15,27 +15,19 @@
     border-radius: 5px;
     border: 1px solid gray;
     cursor: pointer;
+    outline: none;
 }
-.marBtn:focus{
+.clickedBtn{
     background-color: #3596CA;
+    margin: 10px;
+    padding: 7px;
     color: white;
+    border-radius: 5px;
     border: none;
     outline: none;
-}
-.engBtn{
-    background-color: white;
-    color: black;
-    margin: 10px;
-    padding: 7px;   
-    border-radius: 5px;
-    border: 1px solid gray;
     cursor: pointer;
 }
-.engBtn:focus{
-    background-color: #3596CA;
-    color: white;
-    outline: none;
-}
+
 .ButtonContainer {
     display : flex;
     justify-content : center;
@@ -44,10 +36,10 @@
     padding-top: 15px;
 }
 
-.ButtonContainer button {
+.alphabetsClicked {
     margin-left: 2px;
     margin-right: 2px;
-    padding: 6px;
+    padding: 7px;
     font-size: 15px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     background-color: #3596CA;
@@ -58,14 +50,24 @@
     cursor: pointer;
     text-transform: uppercase;
 }
-.ButtonContainer button:focus{
+.alphabetsUnclicked{
+    text-transform: uppercase;
+    margin-left: 2px;
+    margin-right: 2px;
+    border-radius: 3px;
+    padding: 7px;
+    font-size: 15px;
     color: black;
-    background-color: darkgray;
-} 
+    background-color: white;
+    border: 0.2px solid lightgray;
+    cursor: pointer;
+}
+
 .renderAuthors{
     display: flex;
     justify-content: space-between;
     width: 100%;
+    height: 40px;
 }
 
 .renderAuthors:nth-child(even){
@@ -81,9 +83,9 @@
 }
 
 .authorName{
-    padding: 10px;
-    font-size: 1.5em;
-    margin-left: 2%;
+    padding: 5px;
+    font-size: 1.2em;
+    margin-left: 1%;
     text-transform: capitalize;
 }
 
@@ -92,9 +94,10 @@
     align-items: center;
     margin-right: 2%;
     cursor:pointer;
+    color: blue;
 }
 
-.bookNames a{
+.bookNames p{
     text-decoration: none;
 }
 

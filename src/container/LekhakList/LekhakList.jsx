@@ -19,7 +19,8 @@ class LekhakList extends Component {
             searched: false,
 			tableHeaders: [],
             results: [],
-            currentLekhak :""
+            currentLekhak :"",
+            isBtnClicked : null
         };
 
         this.toggle = this.toggle.bind(this);
@@ -27,6 +28,7 @@ class LekhakList extends Component {
 
 
     getLekhakNames = value => async () => {
+        this.setState({isBtnClicked : value})
         let val = value;
         //console.log(val);
         const doc = await db.collection("lekhakMapping").doc(value).get();
@@ -84,7 +86,7 @@ class LekhakList extends Component {
     renderAlphabets = (alpha) => {
         return (
             alpha.map((letter) => (
-                <button value={letter.key} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
+                <button value={letter.key} className={this.state.isBtnClicked === letter.key? "alphabetsClicked" : "alphabetsUnclicked"} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
             )
             )
         )
@@ -98,8 +100,18 @@ class LekhakList extends Component {
                     <div>
                         <div>
                             <div className="toggleBtn">
-                                <button className="marBtn" onClick={() => { this.toggle('1'); }}>Marathi</button>
-                                <button className="engBtn" onClick={() => { this.toggle('2'); }}>English</button>
+                                <button 
+                                className={this.state.activeTab === "1" ? "clickedBtn" : "unclickedBtn"} 
+                                onClick={() => { this.toggle('1'); }}
+                                >
+                                    Marathi
+                                </button>
+                                <button 
+                                className={this.state.activeTab === "2" ? "clickedBtn" : "unclickedBtn"} 
+                                onClick={() => { this.toggle('2'); }}
+                                >
+                                    English
+                                </button>
                             </div>
                             <div>
                                 <div>
