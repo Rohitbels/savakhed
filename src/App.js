@@ -6,6 +6,7 @@ import MobileNav from "./components/navbar/mobileNav"
 
 import { db } from "./firebase";
 
+const detailsURLPattern = /\/?details\/[a-z0-9A-Z]{20}/;
 class App extends Component {
 	constructor() {
 		super();
@@ -33,9 +34,12 @@ class App extends Component {
 	setPath = () => {
 		const currURL = window.location.href.split("#");
 		if (currURL.length > 1) {
-			if (currURL[1].includes("details")) {
-				this.setState({ show: "details" });
-			} else if (currURL[1].includes("lekhaklist")) {
+			let endPart = currURL[1].toLowerCase();
+			if (endPart.includes("details")) {
+				var patt = detailsURLPattern;
+  				if(patt.test(endPart))
+					this.setState({ show: "details" });
+			} else if (endPart.includes("lekhaklist")) {
 				this.setState({ show: "lekhaklist" });
 			}
 			else {
@@ -50,7 +54,7 @@ class App extends Component {
 				{this.state.show === "details" &&
 					<Details bookDetail = {this.state.currentDetails} />
 				}
-				{this.state.show === "lekhaklist" &&(
+				{this.state.show === "lekhaklist" && (
 					<LekhakList
 						setCurrentDetails={(book) =>
 							this.setState({ currentDetails: book })
