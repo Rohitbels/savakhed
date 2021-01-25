@@ -16,6 +16,7 @@ class LekhakList extends Component {
             matching_authors: [],
             activeTab: '1',
             lekhakArray: [],
+            lekhakDict: {},
             searched: false,
 			tableHeaders: [],
             results: [],
@@ -31,19 +32,19 @@ class LekhakList extends Component {
         this.setState({isBtnClicked : value})
         let val = value;
         //console.log(val);
-        const doc = await db.collection("lekhakMapping").doc(value).get();
-        const lekhakNamesArray = doc.data().names;
+        const doc = await db.collection("newMappingTrial").doc(value).get();
+        const lekhakNamesDict = doc.data().names;
         this.setState(
-            { lekhakArray: lekhakNamesArray }
+            { lekhakDict: lekhakNamesDict }
         );
-        //console.log(lekhakNamesArray);
+        console.log(lekhakNamesDict);
     }
 
     getLekhakBooks = value => async () => {
         
         let lekhakName = value;
         this.setState({
-            lekhakArray: [],
+            lekhakDict: {},
             searched: false,
 			tableHeaders: [],
             results: [],
@@ -76,10 +77,10 @@ class LekhakList extends Component {
 
     renderAuthors = () => {
         return (
-            this.state.lekhakArray.map((data) => (
+            Object.keys(this.state.lekhakDict).map((key, index) => (
                 <div className="renderAuthors">
-                    <div className="authorName">{data}</div>
-                    <div className="bookNames"><p onClick={this.getLekhakBooks(data)}>View Books</p></div>
+                    <div className="authorName">{key}</div>
+                    <div className="bookNames"><p onClick={this.getLekhakBooks(key)}>View <span>{this.state.lekhakDict[key]}</span> Books</p></div>
                 </div>)));
     }
 
@@ -87,8 +88,7 @@ class LekhakList extends Component {
         return (
             alpha.map((letter) => (
                 <button value={letter.key} className={this.state.isBtnClicked === letter.key? "alphabetsClicked" : "alphabetsUnclicked"} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
-            )
-            )
+            ))
         )
     }
 

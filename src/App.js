@@ -39,7 +39,8 @@ class App extends Component {
 				var patt = detailsURLPattern;
   				if(patt.test(endPart))
 					this.setState({ show: "details" });
-			} else if (endPart.includes("lekhaklist")) {
+			}
+			else if (endPart.includes("lekhaklist")) {
 				this.setState({ show: "lekhaklist" });
 			}
 			else {
