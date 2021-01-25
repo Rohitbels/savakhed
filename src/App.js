@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Listing from "./container/Listing";
+import Listing from "./container/listing/Listing";
 import Details from "./container/details/Details";
-import LekhakList from "./components/LekhakList/LekhakList"
-
-import { db } from "./firebase";
+import LekhakList from "./components/LekhakList/LekhakList";
+import Header from "./components/header/Header";
+import AboutUs from "./components/about-us/AboutUs";
 
 class App extends Component {
 	constructor() {
@@ -11,8 +11,7 @@ class App extends Component {
 
 		this.state = {
 			show: "listing",
-			currentDetails: {
-			},
+			currentDetails: {},
 		};
 	}
 
@@ -36,8 +35,9 @@ class App extends Component {
 				this.setState({ show: "details" });
 			} else if (currURL[1].includes("lekhakList")) {
 				this.setState({ show: "lekhakList" });
-			}
-			else {
+			} else if (currURL[1].includes("aboutUs")) {
+				this.setState({ show: "aboutUs" });
+			} else {
 				this.setState({ show: "listing" });
 			}
 		}
@@ -46,12 +46,11 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{this.state.show === "details" &&
-					<Details bookDetail = {this.state.currentDetails} />
-				}
-				{this.state.show === "lekhakList" &&
-					<LekhakList />			//Change this route----------------------------------------
-				}
+				<Header url={this.state.show} />
+				{this.state.show === "details" && (
+					<Details bookDetail={this.state.currentDetails} />
+				)}
+				{this.state.show === "lekhakList" && <LekhakList />}
 				{this.state.show === "listing" && (
 					<Listing
 						setCurrentDetails={(book) =>
@@ -59,6 +58,7 @@ class App extends Component {
 						}
 					/>
 				)}
+				{this.state.show === "aboutUs" && <AboutUs />}
 			</div>
 		);
 	}

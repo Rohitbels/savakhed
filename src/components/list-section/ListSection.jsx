@@ -2,8 +2,8 @@ import React from "react";
 import "./listsection.css";
 
 const ListSection = ({
-	tableHeaders = [],
-	tableElements = [],
+	tableHeaders,
+	tableElements,
 	searched,
 	setCurrentDetails,
 }) => {
@@ -28,7 +28,7 @@ const ListSection = ({
 								<td>{book["dakhalId"]}</td>
 								<td>{book["vibhagId"]}</td>
 								<td>
-									<a href={`#/details/${book['id']}`}>
+									<a href={`#/details/${book["id"]}`}>
 										{book["pustakName"].join(" ")}
 									</a>
 								</td>
@@ -37,9 +37,9 @@ const ListSection = ({
 						))}
 					</tbody>
 				</table>
-			) : (
+			) : searched ? (
 				<div>No results found</div>
-			)}
+			) : null}
 		</div>
 	);
 };
