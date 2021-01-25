@@ -103,6 +103,10 @@
 
 
 @media (max-width: 800px) {
+    .toggleBtn{
+        padding: 20px 0px 0px 0px;
+    }
+
     .lekhakList{
         padding-left: 10px;
         padding-right: 10px;
@@ -127,6 +131,10 @@
     .renderAuthors{
         width: 100%;
         margin: auto;
+    }
+
+    .authorsList{
+        margin-bottom: 55px;
     }
 }
 
