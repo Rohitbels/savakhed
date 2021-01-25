@@ -63,7 +63,7 @@ function Header() {
 				</button>
 			) : null}
 			<a
-				href="/#/search"
+				href="/savakhed/#/search"
 				onClick={() => {
 					onClickHandler("search");
 				}}
@@ -73,7 +73,7 @@ function Header() {
 				</div>
 			</a>
 			<a
-				href="/#/lekhakList"
+				href="/savakhed/#/lekhakList"
 				onClick={() => {
 					onClickHandler("lekhak-list");
 				}}
@@ -83,7 +83,7 @@ function Header() {
 				</div>
 			</a>
 			<a
-				href="/#/aboutUs"
+				href="/savakhed/#/aboutUs"
 				onClick={() => {
 					onClickHandler("about-us");
 				}}
