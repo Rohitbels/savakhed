@@ -3,43 +3,91 @@ import "./header.css";
 // import { ReactComponent as Arrow } from "./caret.svg";
 
 function Header() {
-	
 	const setLabel = () => {
 		const href = window.location.href;
-		if (href.includes("lekhak-list")) return "lekhak-list";
-		if (href.includes("about-us")) return "about-us";
+		if (href.includes("lekhakList")) return "lekhak-list";
+		if (href.includes("aboutUs")) return "about-us";
 		if (href.includes("details")) return "details";
 		if (href.includes("search")) return "search";
-		return "search"
+		return "search";
 	};
-	const [tab, setTab] = useState(setLabel)
-	const [prevTab, setPrevTab] = useState()
 
-	const changeCSS = () => {
-		document.getElementById(tab).classList.add("active");
-	}
+	const removeActive = () => {
+		const nav = document.getElementsByClassName("nav-bar")[0];
+		const children = nav.children;
 
-	useEffect(() => document.getElementById(tab).classList.add("active"), [])
+		if (children) {
+			[...children].forEach((element) => {
+				element
+					? element.children[0].classList.remove("active")
+					: console.log();
+			});
+		}
+	};
+
+	const hashChange = () => {
+		window.addEventListener(
+			"hashchange",
+			function () {
+				console.log("The hash has changed!");
+				if (document.getElementById(setLabel()) != null) {
+					removeActive();
+					document.getElementById(setLabel()).classList.add("active");
+				}
+			},
+			false
+		);
+	};
+
+	const onClickHandler = (target) => {
+		removeActive();
+		document.getElementById(target).classList.add("active");
+	};
+
+	useEffect(() => {
+		if (document.getElementById(setLabel()) != null) {
+			document.getElementById(setLabel()).classList.add("active");
+		}
+		hashChange();
+	}, []);
 
 	return (
 		<nav className="nav-bar">
 			{window.location.href.includes("details") ? (
-				<a href="/search">
-					<button>&lt;</button>
-				</a>
+				<button
+					onClick={() => {
+						window.history.go(-1);
+					}}
+				>
+					&lt;
+				</button>
 			) : null}
-			{/* <a href="/search">{label(window.location.href)}</a> */}
-			<a href="/search" onClick={() => {setPrevTab(tab);setTab("search")}}>
+			<a
+				href="/#/search"
+				onClick={() => {
+					onClickHandler("search");
+				}}
+			>
 				<div className="link-placeholders" id="search">
 					Search
 				</div>
 			</a>
-			<a href="/lekhak-list" onClick={() => {setPrevTab(tab);setTab("lekhak-list")}}>
+			<a
+				href="/#/lekhakList"
+				onClick={() => {
+					onClickHandler("lekhak-list");
+				}}
+			>
 				<div className="link-placeholders" id="lekhak-list">
-						Lekhak List
+					Lekhak List
 				</div>
 			</a>
-			<a href="/about-us" onClick={() => {setPrevTab(tab);setTab("about-us")}}>
+			<a
+				href="/#/aboutUs"
+				onClick={() => {
+					onClickHandler("about-us");
+				}}
+			>
 				<div className="link-placeholders" id="about-us">
 					About Us
 				</div>

@@ -35,6 +35,8 @@ class App extends Component {
 				this.setState({ show: "details" });
 			} else if (currURL[1].includes("lekhakList")) {
 				this.setState({ show: "lekhakList" });
+			} else if (currURL[1].includes("aboutUs")) {
+				this.setState({ show: "aboutUs" });
 			} else {
 				this.setState({ show: "listing" });
 			}
@@ -42,23 +44,13 @@ class App extends Component {
 	};
 
 	render() {
-
-		// return (
-		// 	<div className="App">
-		// 		<Header/>
-		// 		<AboutUs/>
-		// 	</div>
-		// )
-		
 		return (
 			<div className="App">
-				<Header />
+				<Header url={this.state.show} />
 				{this.state.show === "details" && (
 					<Details bookDetail={this.state.currentDetails} />
 				)}
-				{
-					this.state.show === "lekhakList" && <LekhakList /> //Change this route----------------------------------------
-				}
+				{this.state.show === "lekhakList" && <LekhakList />}
 				{this.state.show === "listing" && (
 					<Listing
 						setCurrentDetails={(book) =>
@@ -66,6 +58,7 @@ class App extends Component {
 						}
 					/>
 				)}
+				{this.state.show === "aboutUs" && <AboutUs />}
 			</div>
 		);
 	}

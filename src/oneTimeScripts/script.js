@@ -1,10 +1,10 @@
+// 														||श्री||
+
 /**
  *  To-Do:
  *  + Modifying `addDetails` to iterate through ids and add details appropriately
  *  + `IDs`, `LekhakMulakshara`, `PustakMulakshara` needs to be flushed (other method can work as well)
  */
-
-
 
 const firebase = require("firebase/app");
 require("firebase/auth");
@@ -42,12 +42,16 @@ firebase.initializeApp(config);
 
 firebase.auth();
 const db = firebase.firestore();
-const docRef = db.collection("bookList")
+const docRef = db.collection("bookList");
 const IDs = [];
 const LekhakMulakshara = [];
 const PustakMulakshara = [];
 
-setDetails = (id, pustakName, lekhakName) => {
+const logger = (type, message) => {
+	console.log(new Date().toLocaleString() + " |  " + type + ": " + message);
+};
+
+setDetails = (id, pustakName, lekhakName, dakhalId) => {
 	IDs.push(id);
 
 	let arrayP = [];
@@ -65,9 +69,20 @@ setDetails = (id, pustakName, lekhakName) => {
 		});
 		arrayL.push(word);
 	});
-	// console.log('arrayP :',arrayP);
 	LekhakMulakshara.push(arrayL);
 	PustakMulakshara.push(arrayP);
+
+	logger(
+		"info",
+		"Details set for Document-ID: " +
+			id +
+			", Dakhal-ID: " +
+			dakhalId +	
+			", PustakName: " +
+			pustakName.join(" ") +
+			", LekhakName: " +
+			lekhakName.join(" ")
+	);
 };
 
 async function addDetails(arrayL, arrayP, id) {
@@ -77,44 +92,61 @@ async function addDetails(arrayL, arrayP, id) {
 		pustakMulakshare: arrayP,
 		lekhakNameMulakshare: arrayL.join(" "),
 	});
-	console.log("details added");
+
+	logger("info", "Details added");
 }
 
 async function run() {
-
 	// Getting inital docs (can be optimised to be inside the while loop)
-	let snapshot = await docRef.limit(3).get().catch((e) => console.log(e))
+	let snapshot = await docRef
+		.limit(3)
+		.get()
+		.catch((error) => logger("error", error));
 
 	// For first iteration last is set to first doc in snapshot
-	let last = snapshot.docs[0]
+	let last = snapshot.docs[0];
 
 	try {
 		while (true) {
-			
-			// Getting `5` snapshots starting after last, alternative being `startAt` 
-			snapshot = await docRef.limit(5).startAfter(last).get().catch((e) => console.log(e))
-			
+			// Getting `5` snapshots starting after last, alternative being `startAt`
+			snapshot = await docRef
+				.limit(5)
+				.startAfter(last)
+				.get()
+				.catch((error) => logger("error", "Script ended!"));
+
 			// Setting details for each doc in snapshot
 			snapshot.forEach((doc) => {
-				console.log(doc.data()['dakhalId']);
-				setDetails(doc["id"], doc.data()["pustakName"], doc.data()["lekhak"]);
-			})
+				setDetails(
+					doc["id"],
+					doc.data()["pustakName"],
+					doc.data()["lekhak"],
+					doc.data()["dakhalId"]
+				);
+			});
 
 			// Setting `last` to last snapshot doc
-			last = snapshot.docs[snapshot.docs.length - 1]
+			last = snapshot.docs[snapshot.docs.length - 1];
+
 
 			// Adds entries to database (hardcoded values for testing)
-			await addDetails(["123"], ["test"], "123test");
+			IDs.forEach((index) => {
 
+			})
+			for (i = 0; i < 3; i++) {
+				await addDetails(
+					LekhakMulakshara[i],
+					PustakMulakshara[i],
+					IDs[i]
+				);
+			}
 		}
 	} catch (error) {
-		console.log(LekhakMulakshara);
-		console.log(PustakMulakshara);
-		console.log("stopped");	
-		console.log(error);
+		logger("Lekhak Mulakshara", LekhakMulakshara);
+		logger("Pustak Mulakshara", PustakMulakshara);
+		logger("error", error);
+		logger("error", "Script ended!");
 	}
-	
 }
 
-
-run()
+run();

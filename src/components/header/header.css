@@ -1,65 +1,50 @@
 .nav-bar {
-  display: flex;
-  background-color: white;
-  width: 100vw;
-  /* position: fixed; */
-  font-size: 1.25rem;
-  height: 2.2rem;
-  padding: 0rem 1rem;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+	display: flex;
+	background-color: white;
+	width: 100vw;
+	/* position: fixed; */
+	font-size: 1.15rem;
+	height: 2.5rem;
+	padding: 0rem 1rem;
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .link-placeholders {
-  padding-left: 5px;
-  padding-right: 5px;
-  padding: auto auto;
-  text-align: center;
-  height: 100%;
+	padding: 0 1.25rem;
+	text-align: center;
+	height: 100%;
 }
 
 .active {
-  border-bottom: 2px solid black;
+	color: #337ab7;
+	font-weight: 600;
+	border-bottom: 3px solid #337ab7;
 }
 
 .nav-bar a:hover {
-  background-color: #dcdcdc;
+	background-color: #dcdcdc;
 }
 
 .nav-bar a {
-  margin: 0px;
+	margin: 0px;
 
-  text-decoration: none;
-  color: black;
+	text-decoration: none;
+	color: black;
 
-  padding-top: 0.3125rem;
+	padding-top: 0.3125rem;
 }
 
 .nav-bar button {
-  height: 25px;
-  width: 25px;
-  background: #007b5e;
-  outline: none;
-  color: #ffffff;
-  border-radius: 4px;
-  margin-right: 5px;
-  padding: 0;
-  font-size: 1.5rem;
-  box-shadow: none;
-  border: none;
-  cursor: pointer;
-}
-
-.nav-bar button {
-  height: 25px;
-  width: 25px;
-  background: #007b5e;
-  outline: none;
-  color: #ffffff;
-  border-radius: 4px;
-  margin: 0.2rem;
-  padding: ;
-  font-size: 1.5rem;
-  box-shadow: none;
-  border: none;
-  cursor: pointer;
+	height: 25px;
+	width: 25px;
+	background: #337ab7;
+	outline: none;
+	color: #ffffff;
+	border-radius: 4px;
+	margin: auto 0.5rem;
+	padding: 0;
+	font-size: 1.5rem;
+	box-shadow: none;
+	border: none;
+	cursor: pointer;
 }

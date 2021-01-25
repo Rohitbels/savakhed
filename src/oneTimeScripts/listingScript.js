@@ -1,8 +1,21 @@
-const packageDetails = require("../../package.json");
-
 const firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/firestore");
+
+const config = {
+	apiKey: "AIzaSyCzHYtN3HUc7uNhG15YD3hrnyiX_poQUrM",
+	authDomain: "devsavakhed.firebaseapp.com",
+	projectId: "devsavakhed",
+	storageBucket: "devsavakhed.appspot.com",
+	messagingSenderId: "774083254382",
+	appId: "1:774083254382:web:b184cb1b0851be9474ae7f",
+	measurementId: "G-RCY6EWCX6V",
+};
+
+firebase.initializeApp(config);
+firebase.auth();
+
+const db = firebase.firestore();
 
 const chinha = [
 	"्",
@@ -22,28 +35,13 @@ const chinha = [
 	"ृ",
 ];
 
-const config = {
-	apiKey: "AIzaSyCzHYtN3HUc7uNhG15YD3hrnyiX_poQUrM",
-	authDomain: "devsavakhed.firebaseapp.com",
-	projectId: "devsavakhed",
-	storageBucket: "devsavakhed.appspot.com",
-	messagingSenderId: "774083254382",
-	appId: "1:774083254382:web:b184cb1b0851be9474ae7f",
-	measurementId: "G-RCY6EWCX6V",
+let dbEntries = new Map();
+
+const logger = (type, message) => {
+	console.log(new Date().toLocaleString() + " |  " + type + ": " + message);
 };
 
-firebase.initializeApp(config);
-
-firebase.auth();
-const db = firebase.firestore();
-
-const IDs = [];
-const LekhakMulakshara = [];
-const PustakMulakshara = [];
-
-setDetails = (id, pustakName, lekhakName) => {
-	IDs.push(id);
-
+setDetails = (id, pustakName, lekhakName, dakhalId) => {
 	let arrayP = [];
 	pustakName.forEach((word) => {
 		chinha.forEach((chinh) => {
@@ -59,30 +57,60 @@ setDetails = (id, pustakName, lekhakName) => {
 		});
 		arrayL.push(word);
 	});
-	console.log(arrayP);
-	LekhakMulakshara.push(arrayL);
-	PustakMulakshara.push(arrayP);
-};
 
-async function addDetails(arrayL, arrayP, id) {
-	const cityRef = db.collection("bookList").doc(id);
-	const res = await cityRef.update({
+	dbEntries.set(dakhalId, {
+		docId: id,
 		lekhakMulakshare: arrayL,
 		pustakMulakshare: arrayP,
-		lekhakNameMulakshare: arrayL.join(" "),
+		lekhakFullName: lekhakName.join(" "),
 	});
+};
+
+async function addDetails(
+	lekhakMulakshare,
+	pustakMulakshare,
+	lekhakFullName,
+	id
+) {
+	const cityRef = db.collection("bookList").doc(id);
+	const res = await cityRef
+		.update({
+			lekhakMulakshare: lekhakMulakshare,
+			pustakMulakshare: pustakMulakshare,
+			lekhakFullName: lekhakFullName,
+			lekhakNameMulakshare: lekhakMulakshare.join(" "),
+		})
+		.then(() =>
+			logger(
+				"info",
+				"Entry added for Dakhal-ID: " +
+					doc["id"].dakhalId +
+					",  Document-ID: " +
+					doc["id"]
+			)
+		);
 }
 
 new Promise((resolve, reject) => {
+	logger("info", "Script has started succesfully");
+
 	db.collection("bookList")
 		.get()
 		.then((snapshot) => {
 			snapshot.forEach((doc) => {
 				let book = doc.data();
-				setDetails(doc["id"], book["pustakName"], book["lekhak"]);
+				if (book["pustakName"] && book["lekhak"]) {
+					setDetails(
+						doc["id"],
+						book["pustakName"],
+						book["lekhak"],
+						book["dakhalId"]
+					);
+				}
 			});
 
-			console.log("details are set");
+			dbEntries = new Map([...dbEntries.entries()].sort());
+			console.log(dbEntries.entries());
 
 			resolve();
 			reject();
