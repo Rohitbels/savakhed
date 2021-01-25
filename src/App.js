@@ -1,10 +1,12 @@
 import React, { Component } from "react";
-import Listing from "./container/Listing";
+import Listing from "./container/listing/Listing";
 import Details from "./container/details/Details";
 import LekhakList from "./container/LekhakList/LekhakList"
 import MobileNav from "./components/navbar/mobileNav"
 
 import { db } from "./firebase";
+import Header from "./components/header/Header";
+import AboutUs from "./components/about-us/AboutUs";
 
 const detailsURLPattern = /\/?details\/[a-z0-9A-Z]{20}/;
 class App extends Component {
@@ -13,8 +15,7 @@ class App extends Component {
 
 		this.state = {
 			show: "listing",
-			currentDetails: {
-			},
+			currentDetails: {},
 		};
 	}
 
@@ -43,7 +44,9 @@ class App extends Component {
 			else if (endPart.includes("lekhaklist")) {
 				this.setState({ show: "lekhaklist" });
 			}
-			else {
+			else if (currURL[1].includes("aboutUs")) {
+				this.setState({ show: "aboutUs" });
+			} else {
 				this.setState({ show: "listing" });
 			}
 		}
@@ -52,6 +55,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
+				<Header url={this.state.show} />
 				{this.state.show === "details" &&
 					<Details bookDetail = {this.state.currentDetails} />
 				}
@@ -62,6 +66,7 @@ class App extends Component {
 						}
 					/>
 				)}
+				
 				{this.state.show === "listing" && (
 					<Listing
 						setCurrentDetails={(book) =>
@@ -69,6 +74,7 @@ class App extends Component {
 						}
 					/>
 				)}
+				{this.state.show === "aboutUs" && <AboutUs />}
 				<MobileNav/>
 			</div>
 		);

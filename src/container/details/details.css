@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 .flex-container{
     padding-top: 30px;
@@ -5,35 +6,58 @@
     padding-left: 140px;
 }
 
-
-.back_btn{
-    width: 130px;
-    height: 45px;
-    padding: 10px;
-    font-size: 20px;
-    font-family: sans-serif;
-    font-weight: 300;
-    background-color: #007b5e;
-    color: white;
-    text-decoration: none;
-    margin-left: 80px;
-    margin-top: 30px;
-    margin-bottom: 20px;
+=======
+.flex-container {
+	padding-top: 30px;
+	display: block;
+	flex-direction: row;
 }
 
+.flex-container:hover .cardDetails {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0 0 0 / 1%);
+}
+>>>>>>> upstream/master
+
+.back_btn {
+	width: 130px;
+	height: 45px;
+	padding: 10px;
+	font-size: 20px;
+	font-family: sans-serif;
+	font-weight: 300;
+	background-color: #007b5e;
+	color: white;
+	text-decoration: none;
+	margin-left: 80px;
+	margin-top: 30px;
+	margin-bottom: 20px;
+}
+
+<<<<<<< HEAD
 .cardDetails{
     height: auto;
     transition: 0.2s;   
     display: flex;
     margin: auto;
+=======
+.cardDetails {
+	width: 700px;
+	height: auto;
+	border-radius: 5px;
+	border: 1px solid #eee;
+	padding: 20px;
+	transition: 0.2s;
+	display: flex;
+	margin: auto;
+>>>>>>> upstream/master
 }
 
-
-.eachgoogleDetails{
-    font-weight: 400;
-    font-size: 25px;
+.eachgoogleDetails {
+	font-weight: 400;
+	font-size: 25px;
 }
 
+<<<<<<< HEAD
 
 .book_details{
     display: flex;
@@ -89,16 +113,89 @@
     width: 100%;
     padding: 10px;
     color: purple;
+=======
+.hr {
+	width: 84%;
+	justify-content: left;
+	margin-left: 80px;
 }
 
-.source{
-    font-size: 10px;
-    padding: 10px 10px 0px 10px;
-    color: gray;
+.hr-inLabel {
+	width: 100%;
+	margin-left: 20px;
+}
+
+.details_image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex: 20%;
+}
+
+.book_image {
+	width: 200px;
+	height: 250px;
+	border-radius: 5px;
+}
+
+.book_details {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: initial;
+	flex: 70%;
+	padding-top: 22px;
+}
+
+.rows {
+	padding-left: 15px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-right: 15px;
+	display: flex;
+	transition: 0.3s;
+}
+
+.label {
+	padding: 10px;
+	background-color: #333;
+	color: white;
+	font-weight: 500;
+	margin-left: 20px;
+	width: 120px;
+	border-radius: 5px;
+}
+
+.book_name {
+	margin-left: 20px;
+	font-weight: 30;
+	font-size: 25px;
+}
+
+.googleResult {
+	font-size: 15px;
+	padding: 5px;
+	color: black;
+}
+
+.eachgoogleDetails {
+	font-weight: 400;
+	font-size: 20px;
+	width: 100%;
+	padding: 10px;
+	color: purple;
+>>>>>>> upstream/master
+}
+
+.source {
+	font-size: 10px;
+	padding: 10px 10px 0px 10px;
+	color: gray;
 }
 
 @media (max-width: 576px) {
 
+<<<<<<< HEAD
   
     .flex-container {
       flex-direction: column;
@@ -163,3 +260,79 @@
         color: black;
     }
   }
+=======
+@media (max-width: 800px) {
+	.flex-container {
+		flex-direction: column;
+		padding-left: 0px;
+		padding-top: 0px;
+	}
+
+	.cardDetails {
+		width: 300px;
+		height: auto;
+		border-radius: 5px;
+		border: 1px solid #eee;
+		padding: 20px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+			0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		transition: 0.2s;
+		display: flex;
+		margin: auto;
+		flex-direction: column;
+	}
+
+	.book_image {
+		width: 260px;
+		height: auto;
+	}
+
+	.back_btn {
+		width: 130px;
+		height: 45px;
+		padding: 10px;
+		font-size: 18px;
+		margin-left: 20px;
+		margin-top: 60px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+			0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
+
+	.hr {
+		width: 88%;
+		align-self: flex-start;
+		display: inline-flex;
+		margin-left: 20px;
+	}
+
+	.hr-inLabel {
+		width: 100%;
+		margin-left: 20px;
+	}
+
+	.rows {
+		padding-left: 0px;
+	}
+
+	.label {
+		padding: 5px !important;
+		background-color: #333;
+		color: white;
+		font-weight: 500;
+		margin-left: 20px;
+		width: 120px;
+	}
+
+	.book_name {
+		margin-left: 20px;
+		font-weight: 30;
+		font-size: 18px;
+	}
+
+	.eachgoogleDetails {
+		font-weight: 400;
+		font-size: 20px;
+		width: 100%;
+	}
+}
+>>>>>>> upstream/master
