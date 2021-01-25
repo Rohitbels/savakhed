@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
 	"homepage": "https://kundankabra.github.io/savakhed",
-=======
-	"homepage": "https://atharva007-cmd.github.io/savakhed",
->>>>>>> upstream/master
 	"name": "savakhed",
 	"version": "0.1.0",
 	"private": true,
