@@ -1,48 +1,57 @@
 .card{
-    width: 680px;
+    width: 480px;
     height: auto;
     border-radius: 5px;
-    border: 1px solid #eee;
-    padding: 30px;
-    margin: 20px auto;
+    border: 0.5px solid #e0e0e0;
+    padding: 30px 30px 10px 30px;
+    margin: 20px 0px;
+    display: block;
+    
+}
+
+.cardGoogle{
+    width: 480px;
+    height: auto;
+    border-radius: 5px;
+    border: 0.5px solid #e0e0e0;
+    padding: 30px 30px 10px 30px;
+    margin: 20px 0px 20px 120px;
     display: block;
 }
 
 .card:hover{
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0 0 0 / 1%);
-    transition: box-shadow 0.3s ease-in-out;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 20px 0 rgba(0 0 0 / 1%);
+    transition: box-shadow 0.1s ease-in-out;
+}
+.cardGoogle:hover{
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 20px 0 rgba(0 0 0 / 1%);
+    transition: box-shadow 0.1s ease-in-out;
 }
 
 .heading{
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 400;
     color: purple;
-
+    display: flex;
+    justify-content: flex-start;
+    text-transform: capitalize;
 }
 
-.description{
-
-}
 
 
-
-@media (max-width: 800px) {
+@media (max-width: 576px) {
     .card{
-        width: 280px;
+        width: 300px;
         height: auto;
         border-radius: 5px;
         border: 1px solid #eee;
-        padding: 30px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        transition: 0.2s;
-        margin: 20px auto;
+        padding: 10px 10px 10px 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
+        margin: 20px 0px;
     }
     
     .heading{
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
-    }
-    .description{
-    
     }
 }

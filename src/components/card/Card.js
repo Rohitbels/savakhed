@@ -2,9 +2,9 @@ import React from 'react';
 import './Card.css'
 
 function Card(props) {
-    console.log(props)
+    //console.log(props)
     return (
-        <div className="card">
+        <div className={props.whichCard === "google" ? "cardGoogle" : "card"}>
             <div className="heading">
                 {props.bookName}
             </div>
