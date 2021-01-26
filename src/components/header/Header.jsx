@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./header.css";
 // import { ReactComponent as Arrow } from "./caret.svg";
 
@@ -49,7 +49,7 @@ function Header() {
 			document.getElementById(setLabel()).classList.add("active");
 		}
 		hashChange();
-	}, []);
+	});
 
 	return (
 		<nav className="nav-bar">

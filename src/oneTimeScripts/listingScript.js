@@ -35,87 +35,63 @@ const chinha = [
 	"ृ",
 ];
 
-let dbEntries = new Map();
-
 const logger = (type, message) => {
 	console.log(new Date().toLocaleString() + " |  " + type + ": " + message);
 };
 
-setDetails = (id, pustakName, lekhakName, dakhalId) => {
-	let arrayP = [];
-	pustakName.forEach((word) => {
+const getMulakshare = (array) => {
+	let mulaksharaArray = [];
+
+	array.forEach((word) => {
 		chinha.forEach((chinh) => {
 			word = word.replace(new RegExp(chinh, "g"), "");
 		});
-		arrayP.push(word);
+		mulaksharaArray.push(word);
 	});
 
-	let arrayL = [];
-	lekhakName.forEach((word) => {
-		chinha.forEach((chinh) => {
-			word = word.split(chinh).join("");
-		});
-		arrayL.push(word);
-	});
-
-	dbEntries.set(dakhalId, {
-		docId: id,
-		lekhakMulakshare: arrayL,
-		pustakMulakshare: arrayP,
-		lekhakFullName: lekhakName.join(" "),
-	});
+	return mulaksharaArray;
 };
-
-async function addDetails(
-	lekhakMulakshare,
-	pustakMulakshare,
-	lekhakFullName,
-	id
-) {
-	const cityRef = db.collection("bookList").doc(id);
-	const res = await cityRef
-		.update({
-			lekhakMulakshare: lekhakMulakshare,
-			pustakMulakshare: pustakMulakshare,
-			lekhakFullName: lekhakFullName,
-			lekhakNameMulakshare: lekhakMulakshare.join(" "),
-		})
-		.then(() =>
-			logger(
-				"info",
-				"Entry added for Dakhal-ID: " +
-					doc["id"].dakhalId +
-					",  Document-ID: " +
-					doc["id"]
-			)
-		);
-}
 
 new Promise((resolve, reject) => {
 	logger("info", "Script has started succesfully");
 
-	db.collection("bookList")
+	let query = db.collection("bookList");
+	query = query.where("dakhalId", ">", 100);
+	query = query.where("dakhalId", "<", 200);
+	query = query.orderBy("dakhalId", "asc");
+
+	query
+		.limit(100)
 		.get()
 		.then((snapshot) => {
+			var batch = db.batch();
+
 			snapshot.forEach((doc) => {
 				let book = doc.data();
+
 				if (book["pustakName"] && book["lekhak"]) {
-					setDetails(
-						doc["id"],
-						book["pustakName"],
-						book["lekhak"],
-						book["dakhalId"]
-					);
+					var bookRef = db.collection("bookList").doc(doc["id"]);
+					var l_lekhakMulakshare = getMulakshare(book["lekhak"]);
+					var l_pustakMulakshare = getMulakshare(book["pustakName"]);
+
+					batch.update(bookRef, {
+						lekhakMulakshare: l_lekhakMulakshare,
+						pustakMulakshare: l_pustakMulakshare,
+						lekhakFullName: book["lekhak"].join(" "),
+						pustakFullName: book["pustakName"].join(" "),
+						lekhakNameMulakshare: l_lekhakMulakshare.join(" "),
+						pustakNameMulakshare: l_pustakMulakshare.join(" "),
+					});
 				}
 			});
-
-			dbEntries = new Map([...dbEntries.entries()].sort());
-			console.log(dbEntries.entries());
-
-			resolve();
-			reject();
+			logger("info", "Successfully created batch 0-100");
+			batch.commit();
+			logger("info", "Successfully commited batch 0-100");
 		})
-		.catch((error) => console.error(error));
-}).then(() => {
-	// addDetails(LekhakMulakshara[0], PustakMulakshara[0], IDs[0]);
-});
+		.catch((error) => logger("error", error.message));
+
+	resolve();
+	reject();
+})
+	.then(() => logger("info", "Script ended successfully"))
+	.catch((error) => logger("error", error.message));
