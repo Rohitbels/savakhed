@@ -2,11 +2,9 @@
   display: flex;
   background-color: white;
   width: 100vw;
-  /* position: fixed; */
   font-size: 1.25rem;
   height: 2.2rem;
   padding: 0rem 0rem;
-  /* padding-top: 0.1125rem; */
 
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
@@ -36,7 +34,6 @@
   margin: 0px;
   text-decoration: none;
   color: black;
-  /* padding-top: 0.3125rem; */
 }
 
 .back-button {
@@ -44,8 +41,6 @@
   height: 99%;
   width: 40.2px;
   background: #337ab7;
-  /* padding-top: 0.1125rem; */
-  /* padding-top: 8px; */
 }
 
 #Layer_1 {
@@ -61,11 +56,15 @@
 
 @media screen and (max-width: 550px) {
   .title {
-    /* padding-top: 5.5px; */
-    padding: auto 0;
     text-align: center;
     text-transform: capitalize;
     display: block;
+  }
+
+  #title-id {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .tabs {

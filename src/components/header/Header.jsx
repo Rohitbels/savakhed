@@ -13,9 +13,8 @@ function Header() {
 	};
 
 	const removeActive = () => {
-		const nav = document.getElementsByClassName("nav-bar")[0];
+		const nav = document.getElementsByClassName("tabs")[0];
 		const children = nav.children;
-
 		if (children) {
 			[...children].forEach((element) => {
 				element
@@ -91,8 +90,8 @@ function Header() {
 						About Us
 					</div>
 				</a>
-				<a href="/#/search" onClick={() => {onClickHandler("about-us")}} >
-					<div className="title" id="title">
+				<a href="/#/search" onClick={() => {onClickHandler("about-us")}} id="title-id">
+					<div className="title">
 						{setLabel().replace('-', ' ')}
 					</div>
 				</a>
