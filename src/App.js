@@ -35,6 +35,8 @@ class App extends Component {
 				this.setState({ show: "details" });
 			} else if (currURL[1].includes("lekhakList")) {
 				this.setState({ show: "lekhakList" });
+			} else if (currURL[1].includes("aboutUs")) {
+				this.setState({ show: "aboutUs" });
 			} else {
 				this.setState({ show: "listing" });
 			}
@@ -45,14 +47,14 @@ class App extends Component {
 
 		// return (
 		// 	<div className="App">
-		// 		<Header/>
-		// 		<AboutUs/>
+		// 		<LekhakList/>
 		// 	</div>
 		// )
 		
 		return (
 			<div className="App">
 				<Header />
+				{/* {this.state.show} */}
 				{this.state.show === "details" && (
 					<Details bookDetail={this.state.currentDetails} />
 				)}
@@ -66,6 +68,7 @@ class App extends Component {
 						}
 					/>
 				)}
+				{this.state.show === "aboutUs" && <AboutUs/>}
 			</div>
 		);
 	}
