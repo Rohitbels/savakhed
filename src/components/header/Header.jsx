@@ -90,7 +90,7 @@ function Header() {
 					About Us
 				</div>
 			</a>
-			<a href="/#/search" onClick={() => {onClickHandler("about-us")}}>
+			<a href="/#/search" onClick={() => {onClickHandler("about-us")}} >
 				<div className="title" id="title">
 					{setLabel().replace('-', ' ')}
 				</div>
