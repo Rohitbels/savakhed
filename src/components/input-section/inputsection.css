@@ -1,32 +1,50 @@
 .form {
-	padding: 1rem;
-	display: grid;
+	display: flex;
+	width: 50vw;
+	min-width: 320px;
+	flex-direction: column;
+	margin-bottom: 4rem;
 }
 
-.form section {
+.search-filter-section {
+	margin: 3rem 0 0.5rem 0;
+}
+
+.search-filter-section label {
+	margin: 0.25rem 0.5rem;
+}
+
+.search-filter-section label input {
+	margin-right: 0.5rem;
+}
+
+.input-section {
 	width: 100%;
-	display: grid;
-	grid-template-columns: 1fr minmax(100px, 20%);
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .search-bar {
+	flex: 80%;
+	margin: 0.2rem;
 	height: 30px;
 	padding: 0.5rem 1rem;
-	border-radius: 4px;
 	font-size: 1rem;
 	outline: none;
 	border: 1px solid #cccccc;
-	margin: 0.25rem;
+	border-radius: 4px;
 }
 
 .search-button {
 	height: 46px;
+	flex: 20%;
 	background: #337ab7;
 	outline: none;
 	color: #ffffff;
 	border-radius: 4px;
+	margin: 0.2rem;
 	padding: 0 1rem;
-	margin: 0.25rem;
 	font-size: 1rem;
 	box-shadow: none;
 	border: none;

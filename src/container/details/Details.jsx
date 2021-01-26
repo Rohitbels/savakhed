@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import './details.css'
-import Card from '../../components/card/Card'
-import { db } from '../../firebase'
+import React, { Component } from "react";
+import "./details.css";
+import Card from "../../components/card/Card";
+import { db } from "../../firebase";
 
 
 class Details extends Component {
@@ -75,8 +75,6 @@ class Details extends Component {
         this.setState({
             bookDetail : firebaseBookDetail
         });
-        // console.log("Firebase Book Details");
-        // console.log(firebaseBookDetail);
     }
 
 
@@ -90,8 +88,6 @@ class Details extends Component {
         return strName;
     }
 
-
-  
 
     render() {
         const { bookDetail: stateBookDetails } = this.state;

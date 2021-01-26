@@ -6,19 +6,19 @@
 }
 
 
-.back_btn{
-    width: 130px;
-    height: 45px;
-    padding: 10px;
-    font-size: 20px;
-    font-family: sans-serif;
-    font-weight: 300;
-    background-color: #007b5e;
-    color: white;
-    text-decoration: none;
-    margin-left: 80px;
-    margin-top: 30px;
-    margin-bottom: 20px;
+.back_btn {
+	width: 130px;
+	height: 45px;
+	padding: 10px;
+	font-size: 20px;
+	font-family: sans-serif;
+	font-weight: 300;
+	background-color: #007b5e;
+	color: white;
+	text-decoration: none;
+	margin-left: 80px;
+	margin-top: 30px;
+	margin-bottom: 20px;
 }
 
 .cardDetails{
@@ -28,10 +28,9 @@
     margin: auto;
 }
 
-
-.eachgoogleDetails{
-    font-weight: 400;
-    font-size: 25px;
+.eachgoogleDetails {
+	font-weight: 400;
+	font-size: 25px;
 }
 
 
@@ -91,10 +90,10 @@
     color: purple;
 }
 
-.source{
-    font-size: 10px;
-    padding: 10px 10px 0px 10px;
-    color: gray;
+.source {
+	font-size: 10px;
+	padding: 10px 10px 0px 10px;
+	color: gray;
 }
 
 @media (max-width: 576px) {
