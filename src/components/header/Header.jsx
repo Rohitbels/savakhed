@@ -9,6 +9,7 @@ function Header() {
 		if (href.includes("aboutUs")) return "about-us";
 		if (href.includes("details")) return "details";
 		if (href.includes("search")) return "search";
+		if (href.includes("recommendation")) return "recommendation";
 		return "search";
 	};
 
@@ -88,6 +89,16 @@ function Header() {
 			>
 				<div className="link-placeholders" id="about-us">
 					About Us
+				</div>
+			</a>
+			<a
+				href="/savakhed/#/recommendation"
+				onClick={() => {
+					onClickHandler("recommendation");
+				}}
+			>
+				<div className="link-placeholders" id="recommendation">
+					Recommendation
 				</div>
 			</a>
 			<a
