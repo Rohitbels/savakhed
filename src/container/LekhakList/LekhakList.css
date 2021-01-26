@@ -104,7 +104,7 @@
 
 @media (max-width: 800px) {
     .toggleBtn{
-        padding: 20px 0px 0px 0px;
+        padding: 42px 0px 0px 0px;
     }
 
     .lekhakList{
@@ -121,10 +121,10 @@
     
     .ButtonContainer button {
         margin-left: 2px;
-        width: 54px;
+        width: 52px;
         margin-right: 2px;
         margin-top: 6px;
-        padding: 7px;
+        padding: 6px;
         border-radius: 10px;
     }
     
