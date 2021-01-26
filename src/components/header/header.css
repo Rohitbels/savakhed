@@ -5,20 +5,22 @@
   /* position: fixed; */
   font-size: 1.25rem;
   height: 2.2rem;
-  padding: 0rem 1rem;
+  padding: 0rem 0rem;
+  /* padding-top: 0.1125rem; */
+
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .link-placeholders {
-  padding-left: 5px;
-  padding-right: 5px;
-  padding: auto auto;
+  padding: 0 1.25rem;
+  padding-top: 0.2125rem;
   text-align: center;
-  height: 100%;
+  height: 90%;
 }
 
 .active {
-  border-bottom: 2px solid black;
+  color: #337ab7;
+  border-bottom: 3px solid #337ab7;
 }
 
 .nav-bar a:hover {
@@ -31,35 +33,48 @@
   text-decoration: none;
   color: black;
 
-  padding-top: 0.3125rem;
+  /* padding-top: 0.3125rem; */
 }
 
-.nav-bar button {
-  height: 25px;
-  width: 25px;
-  background: #007b5e;
-  outline: none;
-  color: #ffffff;
-  border-radius: 4px;
-  margin-right: 5px;
-  padding: 0;
-  font-size: 1.5rem;
-  box-shadow: none;
-  border: none;
-  cursor: pointer;
+.back-button {
+  display: flex;
+  height: 99%;
+  width: 40.2px;
+  background: #337ab7;
+  /* padding-top: 0.1125rem; */
+  /* padding-top: 8px; */
 }
 
-.nav-bar button {
-  height: 25px;
-  width: 25px;
-  background: #007b5e;
-  outline: none;
-  color: #ffffff;
-  border-radius: 4px;
-  margin: 0.2rem;
-  padding: ;
-  font-size: 1.5rem;
-  box-shadow: none;
-  border: none;
-  cursor: pointer;
+#Layer_1 {
+  align-self: center;
+  fill: white;
+  height: 20px;
+  width: 38.2px;
+}
+
+.title {
+  display: none;
+}
+
+@media screen and (max-width: 550px) {
+  .title {
+    padding-top: 5.5px;
+    text-align: center;
+    text-transform: capitalize;
+    display: block;
+  }
+
+  .nav-bar {
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  .link-placeholders {
+    display: none;
+  }
+
+  .nav-bar a:hover {
+    background-color: white;
+  }
 }
