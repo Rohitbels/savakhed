@@ -5,8 +5,8 @@ import { ReactComponent as Arrow } from "./left-arrow.svg";
 function Header() {
 	const setLabel = () => {
 		const href = window.location.href;
-		if (href.includes("lekhakList")) return "lekhak-list";
-		if (href.includes("aboutUs")) return "about-us";
+		if (href.includes("lekhaklist")) return "lekhak-list";
+		if (href.includes("aboutus")) return "about-us";
 		if (href.includes("details")) return "details";
 		if (href.includes("search")) return "search";
 		if (href.includes("recommendation")) return "recommendation";
@@ -29,7 +29,7 @@ function Header() {
 		window.addEventListener(
 			"hashchange",
 			function () {
-				console.log("The hash has changed!");
+				// console.log("The hash has changed!");
 				if (document.getElementById(setLabel()) != null) {
 					removeActive();
 					document.getElementById(setLabel()).classList.add("active");
@@ -72,7 +72,7 @@ function Header() {
 					</div>
 				</a>
 				<a
-					href="/savakhed/#/lekhakList"
+					href="/savakhed/#/lekhaklist"
 					onClick={() => {
 						onClickHandler("lekhak-list");
 					}}
@@ -82,7 +82,17 @@ function Header() {
 					</div>
 				</a>
 				<a
-					href="/savakhed/#/aboutUs"
+					href="/savakhed/#/recommendation"
+					onClick={() => {
+						onClickHandler("recommendation");
+					}}
+				>
+					<div className="link-placeholders" id="recommendation">
+						Recommendations
+					</div>
+				</a>
+				<a
+					href="/savakhed/#/aboutus"
 					onClick={() => {
 						onClickHandler("about-us");
 					}}
