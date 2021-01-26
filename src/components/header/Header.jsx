@@ -9,6 +9,7 @@ function Header() {
 		if (href.includes("aboutUs")) return "about-us";
 		if (href.includes("details")) return "details";
 		if (href.includes("search")) return "search";
+		if (href.includes("recommendation")) return "recommendation";
 		return "search";
 	};
 

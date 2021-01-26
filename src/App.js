@@ -6,6 +6,7 @@ import MobileNav from "./components/navbar/mobileNav";
 
 import Header from "./components/header/Header";
 import AboutUs from "./components/about-us/AboutUs";
+import Recommendation from "./components/recommendation/Recommendation";
 
 const detailsURLPattern = /\/?details\/[a-z0-9A-Z]{20}/;
 class App extends Component {
@@ -42,6 +43,8 @@ class App extends Component {
 				this.setState({ show: "lekhaklist" });
 			} else if (currURL[1].includes("aboutUs")) {
 				this.setState({ show: "aboutUs" });
+			} else if (currURL[1].includes("recommendation")) {
+				this.setState({ show: "recommendation" });
 			} else {
 				this.setState({ show: "listing" });
 			}
@@ -71,6 +74,7 @@ class App extends Component {
 					/>
 				)}
 				{this.state.show === "aboutUs" && <AboutUs />}
+				{this.state.show === "recommendation" && <Recommendation />}
 				<MobileNav />
 			</div>
 		);
