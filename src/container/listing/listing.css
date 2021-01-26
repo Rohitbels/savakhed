@@ -1,6 +1,14 @@
 .container {
 	width: 100vw;
-	height: 80vh;
+	min-height: 80vh;
 	display: grid;
 	place-items: center;
+}
+
+.logo {
+	text-align: center;
+	font-size: 3em;
+	user-select: none;
+	font-weight: 600;
+	margin: 1rem 0rem;
 }

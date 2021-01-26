@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import Listing from "./container/listing/Listing";
 import Details from "./container/details/Details";
-import LekhakList from "./components/LekhakList/LekhakList";
+import LekhakList from "./container/LekhakList/LekhakList";
+import MobileNav from "./components/navbar/mobileNav";
+
 import Header from "./components/header/Header";
 import AboutUs from "./components/about-us/AboutUs";
 
+const detailsURLPattern = /\/?details\/[a-z0-9A-Z]{20}/;
 class App extends Component {
 	constructor() {
 		super();
@@ -20,7 +23,7 @@ class App extends Component {
 		window.addEventListener(
 			"hashchange",
 			function () {
-				console.log("The hash has changed!");
+				//console.log("The hash has changed!");
 				self.setPath();
 			},
 			false
@@ -31,10 +34,12 @@ class App extends Component {
 	setPath = () => {
 		const currURL = window.location.href.split("#");
 		if (currURL.length > 1) {
-			if (currURL[1].includes("details")) {
-				this.setState({ show: "details" });
-			} else if (currURL[1].includes("lekhakList")) {
-				this.setState({ show: "lekhakList" });
+			let endPart = currURL[1].toLowerCase();
+			if (endPart.includes("details")) {
+				var patt = detailsURLPattern;
+				if (patt.test(endPart)) this.setState({ show: "details" });
+			} else if (endPart.includes("lekhaklist")) {
+				this.setState({ show: "lekhaklist" });
 			} else if (currURL[1].includes("aboutUs")) {
 				this.setState({ show: "aboutUs" });
 			} else {
@@ -44,23 +49,20 @@ class App extends Component {
 	};
 
 	render() {
-
-		// return (
-		// 	<div className="App">
-		// 		<LekhakList/>
-		// 	</div>
-		// )
-		
 		return (
 			<div className="App">
-				<Header />
-				{/* {this.state.show} */}
+				<Header url={this.state.show} />
 				{this.state.show === "details" && (
 					<Details bookDetail={this.state.currentDetails} />
 				)}
-				{
-					this.state.show === "lekhakList" && <LekhakList /> //Change this route----------------------------------------
-				}
+				{this.state.show === "lekhaklist" && (
+					<LekhakList
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+					/>
+				)}
+
 				{this.state.show === "listing" && (
 					<Listing
 						setCurrentDetails={(book) =>
@@ -68,7 +70,8 @@ class App extends Component {
 						}
 					/>
 				)}
-				{this.state.show === "aboutUs" && <AboutUs/>}
+				{this.state.show === "aboutUs" && <AboutUs />}
+				<MobileNav />
 			</div>
 		);
 	}

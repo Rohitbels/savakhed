@@ -4,8 +4,6 @@ import InputSection from "../../components/input-section/InputSection";
 import ListSection from "../../components/list-section/ListSection";
 import { db } from "../../firebase";
 
-import levenshteinDistance from "./levenshtein";
-
 const chinha = [
 	"्",
 	"ा",
@@ -24,8 +22,6 @@ const chinha = [
 	"ृ",
 ];
 
-let mainString = "";
-
 class Listing extends Component {
 	constructor(props) {
 		super(props);
@@ -33,7 +29,7 @@ class Listing extends Component {
 		this.state = {
 			searched: false,
 			input: "",
-			searchAgainst: "lekhak",
+			searchAgainst: "pustakName",
 			tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
 			results: [],
 		};
@@ -48,24 +44,31 @@ class Listing extends Component {
 			.where(label, "array-contains-any", inputArray)
 			.get()
 			.then((snapshot) => {
+				let primary = [],
+					secondary = [];
+
 				snapshot.forEach((doc) => {
 					let book = doc.data();
 
-					this.getMulakshara(book[this.state.searchAgainst]);
+					// let inputMulaksharaString = this.getMulakshara(
+					// 	book[this.state.searchAgainst]
+					// );
 
-					const distance = levenshteinDistance(
-						mainString,
-						book[this.state.searchAgainst]
-					);
-
-					this.setState({
-						results: this.state.results.concat([
-							{ ...book, id: doc.id, distance },
-						]),
-					});
+					if (
+						this.getMulakshara(book[this.state.searchAgainst]) ===
+						this.getMulakshara(inputArray)
+					) {
+						primary.push({ ...book, id: doc.id });
+					} else {
+						secondary.push({ ...book, id: doc.id });
+					}
 				});
 
 				this.setState({
+					results: this.state.results.concat([
+						...primary,
+						...secondary,
+					]),
 					loading: false,
 				});
 			})
@@ -82,8 +85,7 @@ class Listing extends Component {
 			superArray.push(word);
 		});
 
-		mainString = superArray.join(" ");
-		// console.log(superArray);
+		return superArray.join(" ");
 	};
 
 	fetchResults = (event) => {
@@ -107,35 +109,29 @@ class Listing extends Component {
 	render() {
 		return (
 			<div className="container">
-				<div>
-					{console.log(
-						this.state.results.sort((first, second) => {
-							if (first.distance < second.distance) return -1;
-							if (first.distance > second.distance) return 1;
-							return 0;
-						})
-					)}
-					<InputSection
-						onInput={(event) =>
-							this.setState({
-								input: event.target.value.toLowerCase().trim(),
-							})
-						}
-						searchAgainst={this.state.searchAgainst}
-						onChange={(event) =>
-							this.setState({
-								searchAgainst: event.target.value,
-							})
-						}
-						onSearch={(event) => this.fetchResults(event)}
-					/>
-					<ListSection
-						setCurrentDetails={this.props.setCurrentDetails}
-						tableHeaders={this.state.tableHeaders}
-						tableElements={this.state.results}
-						searched={this.state.searched}
-					/>
+				<div className="logo">
+					सार्वजनिक वाचनालय <br /> राजगुरूनगर
 				</div>
+				<InputSection
+					onInput={(event) =>
+						this.setState({
+							input: event.target.value.toLowerCase().trim(),
+						})
+					}
+					searchAgainst={this.state.searchAgainst}
+					onChange={(event) =>
+						this.setState({
+							searchAgainst: event.target.value,
+						})
+					}
+					onSearch={(event) => this.fetchResults(event)}
+				/>
+				<ListSection
+					setCurrentDetails={this.props.setCurrentDetails}
+					tableHeaders={this.state.tableHeaders}
+					tableElements={this.state.results}
+					searched={this.state.searched}
+				/>
 			</div>
 		);
 	}

@@ -1,8 +1,21 @@
-const packageDetails = require("../../package.json");
-
 const firebase = require("firebase/app");
 require("firebase/auth");
 require("firebase/firestore");
+
+const config = {
+	apiKey: "AIzaSyCzHYtN3HUc7uNhG15YD3hrnyiX_poQUrM",
+	authDomain: "devsavakhed.firebaseapp.com",
+	projectId: "devsavakhed",
+	storageBucket: "devsavakhed.appspot.com",
+	messagingSenderId: "774083254382",
+	appId: "1:774083254382:web:b184cb1b0851be9474ae7f",
+	measurementId: "G-RCY6EWCX6V",
+};
+
+firebase.initializeApp(config);
+firebase.auth();
+
+const db = firebase.firestore();
 
 const chinha = [
 	"्",
@@ -22,72 +35,63 @@ const chinha = [
 	"ृ",
 ];
 
-const config = {
-	apiKey: "AIzaSyCzHYtN3HUc7uNhG15YD3hrnyiX_poQUrM",
-	authDomain: "devsavakhed.firebaseapp.com",
-	projectId: "devsavakhed",
-	storageBucket: "devsavakhed.appspot.com",
-	messagingSenderId: "774083254382",
-	appId: "1:774083254382:web:b184cb1b0851be9474ae7f",
-	measurementId: "G-RCY6EWCX6V",
+const logger = (type, message) => {
+	console.log(new Date().toLocaleString() + " |  " + type + ": " + message);
 };
 
-firebase.initializeApp(config);
+const getMulakshare = (array) => {
+	let mulaksharaArray = [];
 
-firebase.auth();
-const db = firebase.firestore();
-
-const IDs = [];
-const LekhakMulakshara = [];
-const PustakMulakshara = [];
-
-setDetails = (id, pustakName, lekhakName) => {
-	IDs.push(id);
-
-	let arrayP = [];
-	pustakName.forEach((word) => {
+	array.forEach((word) => {
 		chinha.forEach((chinh) => {
 			word = word.replace(new RegExp(chinh, "g"), "");
 		});
-		arrayP.push(word);
+		mulaksharaArray.push(word);
 	});
 
-	let arrayL = [];
-	lekhakName.forEach((word) => {
-		chinha.forEach((chinh) => {
-			word = word.split(chinh).join("");
-		});
-		arrayL.push(word);
-	});
-	console.log(arrayP);
-	LekhakMulakshara.push(arrayL);
-	PustakMulakshara.push(arrayP);
+	return mulaksharaArray;
 };
 
-async function addDetails(arrayL, arrayP, id) {
-	const cityRef = db.collection("bookList").doc(id);
-	const res = await cityRef.update({
-		lekhakMulakshare: arrayL,
-		pustakMulakshare: arrayP,
-		lekhakNameMulakshare: arrayL.join(" "),
-	});
-}
-
 new Promise((resolve, reject) => {
-	db.collection("bookList")
+	logger("info", "Script has started succesfully");
+
+	let query = db.collection("bookList");
+	query = query.where("dakhalId", ">", 100);
+	query = query.where("dakhalId", "<", 200);
+	query = query.orderBy("dakhalId", "asc");
+
+	query
+		.limit(100)
 		.get()
 		.then((snapshot) => {
+			var batch = db.batch();
+
 			snapshot.forEach((doc) => {
 				let book = doc.data();
-				setDetails(doc["id"], book["pustakName"], book["lekhak"]);
+
+				if (book["pustakName"] && book["lekhak"]) {
+					var bookRef = db.collection("bookList").doc(doc["id"]);
+					var l_lekhakMulakshare = getMulakshare(book["lekhak"]);
+					var l_pustakMulakshare = getMulakshare(book["pustakName"]);
+
+					batch.update(bookRef, {
+						lekhakMulakshare: l_lekhakMulakshare,
+						pustakMulakshare: l_pustakMulakshare,
+						lekhakFullName: book["lekhak"].join(" "),
+						pustakFullName: book["pustakName"].join(" "),
+						lekhakNameMulakshare: l_lekhakMulakshare.join(" "),
+						pustakNameMulakshare: l_pustakMulakshare.join(" "),
+					});
+				}
 			});
-
-			console.log("details are set");
-
-			resolve();
-			reject();
+			logger("info", "Successfully created batch 0-100");
+			batch.commit();
+			logger("info", "Successfully commited batch 0-100");
 		})
-		.catch((error) => console.error(error));
-}).then(() => {
-	// addDetails(LekhakMulakshara[0], PustakMulakshara[0], IDs[0]);
-});
+		.catch((error) => logger("error", error.message));
+
+	resolve();
+	reject();
+})
+	.then(() => logger("info", "Script ended successfully"))
+	.catch((error) => logger("error", error.message));
