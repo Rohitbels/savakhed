@@ -40,39 +40,71 @@ class Listing extends Component {
 			loading: true,
 		});
 
+		let secondaryLabel =
+			label === "pustakName" ? "pustakFullName" : "lekhakFullName";
+
 		db.collection("bookList")
-			.where(label, "array-contains-any", inputArray)
+			.where(secondaryLabel, "==", inputArray.join(" "))
 			.get()
 			.then((snapshot) => {
-				let primary = [],
-					secondary = [];
+				let array = [];
 
 				snapshot.forEach((doc) => {
 					let book = doc.data();
-
-					// let inputMulaksharaString = this.getMulakshara(
-					// 	book[this.state.searchAgainst]
-					// );
-
-					if (
-						this.getMulakshara(book[this.state.searchAgainst]) ===
-						this.getMulakshara(inputArray)
-					) {
-						primary.push({ ...book, id: doc.id });
-					} else {
-						secondary.push({ ...book, id: doc.id });
-					}
+					array.push({ ...book, id: doc.id });
 				});
 
 				this.setState({
-					results: this.state.results.concat([
-						...primary,
-						...secondary,
-					]),
+					results: array,
 					loading: false,
 				});
 			})
 			.catch((error) => console.error(error));
+
+		if (this.state.results.length == 0) {
+			secondaryLabel =
+				label === "pustakName"
+					? "pustakNameMulakshare"
+					: "lekhakNameMulakshare";
+
+			db.collection("bookList")
+				.where(secondaryLabel, "==", this.getMulakshara(inputArray))
+				.get()
+				.then((snapshot) => {
+					let array = [];
+
+					snapshot.forEach((doc) => {
+						let book = doc.data();
+						array.push({ ...book, id: doc.id });
+					});
+
+					this.setState({
+						results: array,
+						loading: false,
+					});
+				})
+				.catch((error) => console.error(error));
+		}
+
+		if (this.state.results.length == 0) {
+			db.collection("bookList")
+				.where(label, "array-contains-any", inputArray)
+				.get()
+				.then((snapshot) => {
+					let array = [];
+
+					snapshot.forEach((doc) => {
+						let book = doc.data();
+						array.push(book);
+					});
+
+					this.setState({
+						results: array,
+						loading: false,
+					});
+				})
+				.catch((error) => console.error(error));
+		}
 	};
 
 	getMulakshara = (inputArray) => {
