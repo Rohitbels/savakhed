@@ -58,53 +58,61 @@ class Listing extends Component {
 					results: array,
 					loading: false,
 				});
+
+				if (this.state.results.length == 0) {
+					console.log("second called");
+					db.collection("bookList")
+						.where(label, "array-contains-any", inputArray)
+						.get()
+						.then((snapshot) => {
+							let array = [];
+
+							snapshot.forEach((doc) => {
+								let book = doc.data();
+								array.push(book);
+							});
+
+							this.setState({
+								results: array,
+								loading: false,
+							});
+
+							if (this.state.results.length == 0) {
+								console.log("third called");
+								secondaryLabel =
+									label === "pustakName"
+										? "pustakMulakshare"
+										: "lekhakMulakshare";
+
+								db.collection("bookList")
+									.where(
+										secondaryLabel,
+										"array-contains-any",
+										this.getMulakshara(inputArray).split(
+											" "
+										)
+									)
+									.get()
+									.then((snapshot) => {
+										let array = [];
+
+										snapshot.forEach((doc) => {
+											let book = doc.data();
+											array.push({ ...book, id: doc.id });
+										});
+
+										this.setState({
+											results: array,
+											loading: false,
+										});
+									})
+									.catch((error) => console.error(error));
+							}
+						})
+						.catch((error) => console.error(error));
+				}
 			})
 			.catch((error) => console.error(error));
-
-		if (this.state.results.length == 0) {
-			secondaryLabel =
-				label === "pustakName"
-					? "pustakNameMulakshare"
-					: "lekhakNameMulakshare";
-
-			db.collection("bookList")
-				.where(secondaryLabel, "==", this.getMulakshara(inputArray))
-				.get()
-				.then((snapshot) => {
-					let array = [];
-
-					snapshot.forEach((doc) => {
-						let book = doc.data();
-						array.push({ ...book, id: doc.id });
-					});
-
-					this.setState({
-						results: array,
-						loading: false,
-					});
-				})
-				.catch((error) => console.error(error));
-		}
-
-		if (this.state.results.length == 0) {
-			db.collection("bookList")
-				.where(label, "array-contains-any", inputArray)
-				.get()
-				.then((snapshot) => {
-					let array = [];
-
-					snapshot.forEach((doc) => {
-						let book = doc.data();
-						array.push(book);
-					});
-
-					this.setState({
-						results: array,
-						loading: false,
-					});
-				})
-				.catch((error) => console.error(error));
-		}
 	};
 
 	getMulakshara = (inputArray) => {
