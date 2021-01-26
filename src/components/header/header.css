@@ -11,6 +11,11 @@
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
+.tabs {
+  display: flex;
+  align-content: center;
+}
+
 .link-placeholders {
   padding: 0 1.25rem;
   padding-top: 0.2125rem;
@@ -65,6 +70,10 @@
     display: block;
   }
 
+  .tabs {
+    padding: auto auto;
+  }
+
   .noSelect {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
@@ -87,5 +96,12 @@
 
   .nav-bar a:hover {
     background-color: white;
+  }
+
+  .back-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4.85vh;
   }
 }

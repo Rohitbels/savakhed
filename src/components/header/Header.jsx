@@ -54,48 +54,49 @@ function Header() {
 	return (
 		<nav className="nav-bar">
 			{window.location.href.includes("details") ? (
-				<a onClick={() => window.history.go(-1)}>
+				<a onClick={() => window.history.go(-1)} className="back-link">
 					<div className="back-button">
 						<Arrow/>
 					</div>
 				</a>
 			) : null}
-			<a
-				href="/savakhed/#/search"
-				onClick={() => {
-					onClickHandler("search");
-				}}
-			>
-				<div className="link-placeholders" id="search">
-					Search
-				</div>
-			</a>
-			<a
-				href="/savakhed/#/lekhakList"
-				onClick={() => {
-					onClickHandler("lekhak-list");
-				}}
-			>
-				<div className="link-placeholders" id="lekhak-list">
-					Lekhak List
-				</div>
-			</a>
-			<a
-				href="/savakhed/#/aboutUs"
-				onClick={() => {
-					onClickHandler("about-us");
-				}}
-			>
-				<div className="link-placeholders" id="about-us">
-					About Us
-				</div>
-			</a>
-			<a href="/#/search" onClick={() => {onClickHandler("about-us")}} >
-				<div className="title" id="title">
-					{setLabel().replace('-', ' ')}
-				</div>
-			</a>
-			
+			<div className="tabs">
+				<a
+					href="/savakhed/#/search"
+					onClick={() => {
+						onClickHandler("search");
+					}}
+				>
+					<div className="link-placeholders" id="search">
+						Search
+					</div>
+				</a>
+				<a
+					href="/savakhed/#/lekhakList"
+					onClick={() => {
+						onClickHandler("lekhak-list");
+					}}
+				>
+					<div className="link-placeholders" id="lekhak-list">
+						Lekhak List
+					</div>
+				</a>
+				<a
+					href="/savakhed/#/aboutUs"
+					onClick={() => {
+						onClickHandler("about-us");
+					}}
+				>
+					<div className="link-placeholders" id="about-us">
+						About Us
+					</div>
+				</a>
+				<a href="/#/search" onClick={() => {onClickHandler("about-us")}} >
+					<div className="title" id="title">
+						{setLabel().replace('-', ' ')}
+					</div>
+				</a>
+			</div>
 		</nav>
 	);
 }
