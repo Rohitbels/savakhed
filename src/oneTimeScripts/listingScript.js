@@ -56,8 +56,8 @@ new Promise((resolve, reject) => {
 	logger("info", "Script has started succesfully");
 
 	let query = db.collection("bookList");
-	query = query.where("dakhalId", ">", 100);
-	query = query.where("dakhalId", "<", 200);
+	query = query.where("dakhalId", ">", 499);
+	query = query.where("dakhalId", "<", 600);
 	query = query.orderBy("dakhalId", "asc");
 
 	query
@@ -84,9 +84,9 @@ new Promise((resolve, reject) => {
 					});
 				}
 			});
-			logger("info", "Successfully created batch 0-100");
+			logger("info", "Successfully created batch 500-600");
 			batch.commit();
-			logger("info", "Successfully commited batch 0-100");
+			logger("info", "Successfully commited batch 500-600");
 		})
 		.catch((error) => logger("error", error.message));
 

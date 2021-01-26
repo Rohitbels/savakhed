@@ -56,7 +56,7 @@ function Header() {
 			{window.location.href.includes("details") ? (
 				<a onClick={() => window.history.go(-1)} className="back-link">
 					<div className="back-button">
-						<Arrow/>
+						<Arrow />
 					</div>
 				</a>
 			) : null}
