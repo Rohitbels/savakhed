@@ -33,7 +33,8 @@ class LekhakList extends Component {
         let val = value;
         //console.log(val);
         const doc = await db.collection("newMappingTrial").doc(value).get();
-        const lekhakNamesDict = doc.data().names;
+        let lekhakNamesDict = doc.data().names;
+        lekhakNamesDict = this.sortKeys(lekhakNamesDict);
         this.setState(
             { lekhakDict: lekhakNamesDict }
         );
@@ -92,6 +93,27 @@ class LekhakList extends Component {
                 <button value={letter.key} className={this.state.isBtnClicked === letter.key? "alphabetsClicked" : "alphabetsUnclicked"} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
             ))
         )
+    }
+
+    sortKeys(obj_1) { 
+        var key = Object.keys(obj_1) 
+            .sort(function order(key1, key2) { 
+                if (key1 < key2) return -1; 
+                else if (key1 > key2) return +1; 
+                else return 0; 
+            });  
+          
+        var temp = {};   
+        for (var i = 0; i < key.length; i++) { 
+            temp[key[i]] = obj_1[key[i]]; 
+            delete obj_1[key[i]]; 
+        }
+
+        for (var i = 0; i < key.length; i++) { 
+            obj_1[key[i]] = temp[key[i]]; 
+        }
+          
+        return obj_1; 
     }
 
     render() {
