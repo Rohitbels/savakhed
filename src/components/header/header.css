@@ -11,7 +11,7 @@
 
 .link-placeholders {
 	padding: 0 1.25rem;
-	text-align: center;
+	text-align: center;@media (max-width: 800px)
 	height: 100%;
 }
 
@@ -47,4 +47,10 @@
 	box-shadow: none;
 	border: none;
 	cursor: pointer;
+}
+
+@media (max-width: 800px){
+	.nav-bar{
+		position: fixed;
+	}
 }
