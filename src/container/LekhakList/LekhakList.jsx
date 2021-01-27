@@ -29,6 +29,9 @@ class LekhakList extends Component {
 
 
     getLekhakNames = value => async () => {
+        this.setState({
+            searched: false
+        });
         this.setState({isBtnClicked : value})
         let val = value;
         //console.log(val);
@@ -71,6 +74,10 @@ class LekhakList extends Component {
     }
 
     toggle(tab) {
+        this.setState({
+            searched: false,
+            lekhakDict: {}
+        });
         if (this.state.activeTab !== tab) {
             this.setState({ activeTab: tab });
         }
