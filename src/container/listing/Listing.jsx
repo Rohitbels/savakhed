@@ -54,6 +54,8 @@ class Listing extends Component {
 					array.push({ ...book, id: doc.id });
 				});
 
+				console.log("first called");
+
 				this.setState({
 					results: array,
 					loading: false,
@@ -61,28 +63,40 @@ class Listing extends Component {
 
 				if (this.state.results.length == 0) {
 					console.log("second called");
+
 					db.collection("bookList")
 						.where(label, "array-contains-any", inputArray)
 						.get()
 						.then((snapshot) => {
-							let array = [];
+							let primary = [];
+							let secondary = [];
 
 							snapshot.forEach((doc) => {
 								let book = doc.data();
-								array.push(book);
+
+								if (
+									this.getMulakshara(inputArray) ===
+									this.getMulakshara(book[label])
+								) {
+									primary.push({ ...book, id: doc.id });
+								} else {
+									secondary.push({ ...book, id: doc.id });
+								}
 							});
 
 							this.setState({
-								results: array,
+								results: [...primary, ...secondary],
 								loading: false,
 							});
 
 							if (this.state.results.length == 0) {
 								console.log("third called");
-								secondaryLabel =
-									label === "pustakName"
-										? "pustakMulakshare"
-										: "lekhakMulakshare";
+
+								if (label === "pustakName") {
+									secondaryLabel = "pustakMulakshare";
+								} else {
+									secondaryLabel = "lekhakMulakshare";
+								}
 
 								db.collection("bookList")
 									.where(
@@ -94,15 +108,32 @@ class Listing extends Component {
 									)
 									.get()
 									.then((snapshot) => {
-										let array = [];
+										let primary = [];
+										let secondary = [];
 
 										snapshot.forEach((doc) => {
 											let book = doc.data();
-											array.push({ ...book, id: doc.id });
+
+											if (
+												this.getMulakshara(
+													inputArray
+												) ===
+												this.getMulakshara(book[label])
+											) {
+												primary.push({
+													...book,
+													id: doc.id,
+												});
+											} else {
+												secondary.push({
+													...book,
+													id: doc.id,
+												});
+											}
 										});
 
 										this.setState({
-											results: array,
+											results: [...primary, ...secondary],
 											loading: false,
 										});
 									})
