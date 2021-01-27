@@ -40,37 +40,108 @@ class Listing extends Component {
 			loading: true,
 		});
 
+		let secondaryLabel =
+			label === "pustakName" ? "pustakFullName" : "lekhakFullName";
+
 		db.collection("bookList")
-			.where(label, "array-contains-any", inputArray)
+			.where(secondaryLabel, "==", inputArray.join(" "))
 			.get()
 			.then((snapshot) => {
-				let primary = [],
-					secondary = [];
+				let array = [];
 
 				snapshot.forEach((doc) => {
 					let book = doc.data();
-
-					// let inputMulaksharaString = this.getMulakshara(
-					// 	book[this.state.searchAgainst]
-					// );
-
-					if (
-						this.getMulakshara(book[this.state.searchAgainst]) ===
-						this.getMulakshara(inputArray)
-					) {
-						primary.push({ ...book, id: doc.id });
-					} else {
-						secondary.push({ ...book, id: doc.id });
-					}
+					array.push({ ...book, id: doc.id });
 				});
+
+				console.log("first called");
 
 				this.setState({
-					results: this.state.results.concat([
-						...primary,
-						...secondary,
-					]),
+					results: array,
 					loading: false,
 				});
+
+				if (this.state.results.length == 0) {
+					console.log("second called");
+
+					db.collection("bookList")
+						.where(label, "array-contains-any", inputArray)
+						.get()
+						.then((snapshot) => {
+							let primary = [];
+							let secondary = [];
+
+							snapshot.forEach((doc) => {
+								let book = doc.data();
+
+								if (
+									this.getMulakshara(inputArray) ===
+									this.getMulakshara(book[label])
+								) {
+									primary.push({ ...book, id: doc.id });
+								} else {
+									secondary.push({ ...book, id: doc.id });
+								}
+							});
+
+							this.setState({
+								results: [...primary, ...secondary],
+								loading: false,
+							});
+
+							if (this.state.results.length == 0) {
+								console.log("third called");
+
+								if (label === "pustakName") {
+									secondaryLabel = "pustakMulakshare";
+								} else {
+									secondaryLabel = "lekhakMulakshare";
+								}
+
+								db.collection("bookList")
+									.where(
+										secondaryLabel,
+										"array-contains-any",
+										this.getMulakshara(inputArray).split(
+											" "
+										)
+									)
+									.get()
+									.then((snapshot) => {
+										let primary = [];
+										let secondary = [];
+
+										snapshot.forEach((doc) => {
+											let book = doc.data();
+
+											if (
+												this.getMulakshara(
+													inputArray
+												) ===
+												this.getMulakshara(book[label])
+											) {
+												primary.push({
+													...book,
+													id: doc.id,
+												});
+											} else {
+												secondary.push({
+													...book,
+													id: doc.id,
+												});
+											}
+										});
+
+										this.setState({
+											results: [...primary, ...secondary],
+											loading: false,
+										});
+									})
+									.catch((error) => console.error(error));
+							}
+						})
+						.catch((error) => console.error(error));
+				}
 			})
 			.catch((error) => console.error(error));
 	};

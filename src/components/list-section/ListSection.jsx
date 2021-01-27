@@ -32,7 +32,10 @@ const ListSection = ({
 										{book["pustakName"].join(" ")}
 									</a>
 								</td>
-								<td>{book["lekhak"].join(" ")}</td>
+								<td>
+									{book["lekhak"].join(" ")}
+									{/* {book["lekhakNameMulakshare"]} */}
+								</td>
 							</tr>
 						))}
 					</tbody>
