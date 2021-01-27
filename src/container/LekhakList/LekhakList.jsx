@@ -37,7 +37,7 @@ class LekhakList extends Component {
         this.setState(
             { lekhakDict: lekhakNamesDict }
         );
-        console.log(lekhakNamesDict);
+        //console.log(lekhakNamesDict);
     }
 
     getLekhakBooks = value => async () => {
@@ -51,7 +51,7 @@ class LekhakList extends Component {
             currentLekhak: lekhakName
         });
         await db.collection("bookList")
-            .where("lekhakNameJoint", "==", lekhakName)
+            .where("lekhakFullName", "==", 'जॉन ग्रिशम')
             .get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
@@ -59,7 +59,7 @@ class LekhakList extends Component {
                     this.setState({
                         results : this.state.results.concat([{...currentBook, id: doc.id }])
                     });
-                    //console.log(currentBook.lekhak, currentBook.pustakName);
+                    console.log(currentBook.lekhak, currentBook.pustakName);
                 });
             });
         this.setState({
@@ -79,9 +79,11 @@ class LekhakList extends Component {
         return (
             Object.keys(this.state.lekhakDict).map((key, index) => (
                 <div className="renderAuthors">
-                    <div className="authorName">{key}</div>
-                    <div className="bookNames"><p onClick={this.getLekhakBooks(key)}>View <span>{this.state.lekhakDict[key]}</span> Books</p></div>
-                </div>)));
+                    <div className="authorName">{key} - <span>{this.state.lekhakDict[key]} Books</span></div>
+                    <div className="bookNames"><p onClick={this.getLekhakBooks(key)}>View Books</p></div>
+                </div>
+            ))
+        );
     }
 
     renderAlphabets = (alpha) => {
@@ -96,43 +98,45 @@ class LekhakList extends Component {
         const { character } = this.state;
         return (
             <div className="lekhakList">
-                {!this.state.searched &&
+                
+                <div>
                     <div>
+                        <div className="toggleBtn">
+                            <button 
+                            className={this.state.activeTab === "1" ? "clickedBtn" : "unclickedBtn"} 
+                            onClick={() => { this.toggle('1'); }}
+                            >
+                                Marathi
+                            </button>
+                            <button 
+                            className={this.state.activeTab === "2" ? "clickedBtn" : "unclickedBtn"} 
+                            onClick={() => { this.toggle('2'); }}
+                            >
+                                English
+                            </button>
+                        </div>
                         <div>
-                            <div className="toggleBtn">
-                                <button 
-                                className={this.state.activeTab === "1" ? "clickedBtn" : "unclickedBtn"} 
-                                onClick={() => { this.toggle('1'); }}
-                                >
-                                    Marathi
-                                </button>
-                                <button 
-                                className={this.state.activeTab === "2" ? "clickedBtn" : "unclickedBtn"} 
-                                onClick={() => { this.toggle('2'); }}
-                                >
-                                    English
-                                </button>
+                            <div>
+                                {this.state.activeTab == 1 ?
+                                    <div className="ButtonContainer">
+                                        {this.renderAlphabets(Akshar)}
+                                    </div>
+                                    : null}
                             </div>
                             <div>
-                                <div>
-                                    {this.state.activeTab == 1 ?
-                                        <div className="ButtonContainer">
-                                            {this.renderAlphabets(Akshar)}
-                                        </div>
-                                        : null}
-                                </div>
-                                <div>
-                                    {this.state.activeTab == 2 ?
-                                        <div className="ButtonContainer">
-                                            {this.renderAlphabets(Alphabets)}
-                                        </div>
-                                        : null}
-                                </div>
+                                {this.state.activeTab == 2 ?
+                                    <div className="ButtonContainer">
+                                        {this.renderAlphabets(Alphabets)}
+                                    </div>
+                                    : null}
                             </div>
                         </div>
-                        <div className="authorsList">
+                    </div>    
+                </div>
+                
+                {!this.state.searched && 
+                    <div className="authorsList">
                             {this.renderAuthors()}
-                        </div>
                     </div>
                 }
                 {this.state.searched && 
@@ -147,7 +151,6 @@ class LekhakList extends Component {
                     </div>
                 }
             </div>
-
         )
     }
 
