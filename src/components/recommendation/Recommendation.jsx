@@ -23,7 +23,6 @@ function Recommendation() {
 					results.push({ ...book, id: snapshot.docs[i].id });
 				}
 
-				console.log(results);
 				setSearched(true);
 			});
 	};

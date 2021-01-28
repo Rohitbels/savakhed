@@ -53,16 +53,12 @@ class Listing extends Component {
 					array.push({ ...book, id: doc.id });
 				});
 
-				console.log("first called");
-
 				this.setState({
 					results: array,
 					loading: false,
 				});
 
 				if (this.state.results.length === 0) {
-					console.log("second called");
-
 					db.collection("bookList")
 						.where(label, "array-contains-any", inputArray)
 						.get()
@@ -89,8 +85,6 @@ class Listing extends Component {
 							});
 
 							if (this.state.results.length === 0) {
-								console.log("third called");
-
 								if (label === "pustakName") {
 									secondaryLabel = "pustakMulakshare";
 								} else {
