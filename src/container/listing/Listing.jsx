@@ -30,7 +30,6 @@ class Listing extends Component {
 			searched: false,
 			input: "",
 			searchAgainst: "pustakName",
-			tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
 			results: [],
 		};
 	}
@@ -61,7 +60,7 @@ class Listing extends Component {
 					loading: false,
 				});
 
-				if (this.state.results.length == 0) {
+				if (this.state.results.length === 0) {
 					console.log("second called");
 
 					db.collection("bookList")
@@ -89,7 +88,7 @@ class Listing extends Component {
 								loading: false,
 							});
 
-							if (this.state.results.length == 0) {
+							if (this.state.results.length === 0) {
 								console.log("third called");
 
 								if (label === "pustakName") {
@@ -199,7 +198,6 @@ class Listing extends Component {
 				/>
 				<ListSection
 					setCurrentDetails={this.props.setCurrentDetails}
-					tableHeaders={this.state.tableHeaders}
 					tableElements={this.state.results}
 					searched={this.state.searched}
 				/>
