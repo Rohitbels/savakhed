@@ -11,11 +11,8 @@ class LekhakList extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            authorList: [],
-            matching_authors: [],
+        this.state = {  
             activeTab: '1',
-            lekhakArray: [],
             lekhakDict: {},
             searched: false,
 			tableHeaders: [],
@@ -125,6 +122,11 @@ class LekhakList extends Component {
 
     render() {
         const { character } = this.state;
+        var online = navigator.onLine;
+        console.log("Online? : ", online);
+        if(!online) {
+            return("You are offline. Please check your connection.");
+        }
         return (
             <div className="lekhakList">
                 
