@@ -30,7 +30,7 @@ class LekhakList extends Component {
             searched: false
         });
         this.setState({isBtnClicked : value})
-        let val = value;
+        //let val = value;
         //console.log(val);
         const doc = await db.collection("newMappingTrial").doc(value).get();
         let lekhakNamesDict = doc.data().names;
@@ -113,7 +113,7 @@ class LekhakList extends Component {
             delete obj_1[key[i]]; 
         }
 
-        for (var i = 0; i < key.length; i++) { 
+        for (i = 0; i < key.length; i++) { 
             obj_1[key[i]] = temp[key[i]]; 
         }
           
@@ -121,7 +121,7 @@ class LekhakList extends Component {
     }
 
     render() {
-        const { character } = this.state;
+        //const { character } = this.state;
         var online = navigator.onLine;
         console.log("Online? : ", online);
         if(!online) {
@@ -148,14 +148,14 @@ class LekhakList extends Component {
                         </div>
                         <div>
                             <div>
-                                {this.state.activeTab == 1 ?
+                                {this.state.activeTab === '1' ?
                                     <div className="ButtonContainer">
                                         {this.renderAlphabets(Akshar)}
                                     </div>
                                     : null}
                             </div>
                             <div>
-                                {this.state.activeTab == 2 ?
+                                {this.state.activeTab === '2' ?
                                     <div className="ButtonContainer">
                                         {this.renderAlphabets(Alphabets)}
                                     </div>
