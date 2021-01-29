@@ -60,7 +60,7 @@ class Listing extends Component {
 					results: array,
 					loading: false,
 				});
-
+				this.props.setParentState({ results: array });
 				if (this.state.results.length === 0) {
 					db.collection("bookList")
 						.where(label, "array-contains-any", inputArray)
@@ -81,13 +81,13 @@ class Listing extends Component {
 									secondary.push({ ...book, id: doc.id });
 								}
 							});
-
+							const _tempResult = [...primary, ...secondary];
 							this.setState({
-								results: [...primary, ...secondary],
 								loading: false,
 							});
+							this.props.setParentState({ results: _tempResult });
 
-							if (this.state.results.length === 0) {
+							if (_tempResult.length === 0) {
 								if (label === "pustakName") {
 									secondaryLabel = "pustakMulakshare";
 								} else {
@@ -128,10 +128,12 @@ class Listing extends Component {
 											}
 										});
 
+										const _tempResult = [...primary, ...secondary];
 										this.setState({
-											results: [...primary, ...secondary],
 											loading: false,
 										});
+										this.props.setParentState({ results: _tempResult });
+
 									})
 									.catch((error) => console.error(error));
 							}
@@ -157,10 +159,11 @@ class Listing extends Component {
 
 	fetchResults = (event) => {
 		event.preventDefault();
-
-		if (this.state.input.length) {
-			this.setState({ results: [], searched: true });
-			let inputArray = this.state.input.split(" ");
+		const { input } = this.props;
+		if (input.length) {
+			this.setState({ searched: true });
+			this.props.setParentState({ results: [], searched: true });
+			let inputArray = input.split(" ");
 
 			// reducing the array to max length 10
 			if (inputArray.length > 10) {
@@ -169,7 +172,8 @@ class Listing extends Component {
 
 			this.search(this.state.searchAgainst, inputArray);
 		} else {
-			this.setState({ results: [], searched: false });
+			this.setState({ searched: false });
+			this.props.setParentState({ results: [], searched: false });
 		}
 	};
 
@@ -181,10 +185,11 @@ class Listing extends Component {
 				</div>
 				<InputSection
 					onInput={(event) =>
-						this.setState({
-							input: event.target.value.toLowerCase().trim(),
+						this.props.setParentState({
+							input: event.target.value.toLowerCase(),
 						})
 					}
+					inputValue={this.props.input}
 					searchAgainst={this.state.searchAgainst}
 					onChange={(event) =>
 						this.setState({
@@ -196,8 +201,8 @@ class Listing extends Component {
 				{this.state.loading ? <div className="table-super"><Loading page="listing"/></div>: null}
 				<ListSection
 					setCurrentDetails={this.props.setCurrentDetails}
-					tableElements={this.state.results}
-					searched={this.state.searched}
+					tableElements={this.props.results}
+					searched={this.state.searched || (this.props.input && this.props.results.length)}
 				/>
 			</div>
 		);
