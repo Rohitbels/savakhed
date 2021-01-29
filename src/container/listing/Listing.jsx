@@ -30,7 +30,6 @@ class Listing extends Component {
 			searched: false,
 			input: "",
 			searchAgainst: "pustakName",
-			tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
 			results: [],
 		};
 	}
@@ -54,16 +53,12 @@ class Listing extends Component {
 					array.push({ ...book, id: doc.id });
 				});
 
-				console.log("first called");
-
 				this.setState({
 					results: array,
 					loading: false,
 				});
 
-				if (this.state.results.length == 0) {
-					console.log("second called");
-
+				if (this.state.results.length === 0) {
 					db.collection("bookList")
 						.where(label, "array-contains-any", inputArray)
 						.get()
@@ -89,9 +84,7 @@ class Listing extends Component {
 								loading: false,
 							});
 
-							if (this.state.results.length == 0) {
-								console.log("third called");
-
+							if (this.state.results.length === 0) {
 								if (label === "pustakName") {
 									secondaryLabel = "pustakMulakshare";
 								} else {
@@ -199,7 +192,6 @@ class Listing extends Component {
 				/>
 				<ListSection
 					setCurrentDetails={this.props.setCurrentDetails}
-					tableHeaders={this.state.tableHeaders}
 					tableElements={this.state.results}
 					searched={this.state.searched}
 				/>

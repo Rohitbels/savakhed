@@ -20,23 +20,19 @@ function Recommendation() {
 
 				for (var i = firstSlot; i <= secondSlot; i++) {
 					let book = snapshot.docs[i].data();
-					results.push(book);
+					results.push({ ...book, id: snapshot.docs[i].id });
 				}
 
-				console.log(results);
 				setSearched(true);
 			});
 	};
 
 	useEffect(() => {
 		getResults();
-	}, []);
+	});
 
 	return (
 		<div className="container">
-			{/* <div className="logo">
-				सार्वजनिक वाचनालय <br /> राजगुरूनगर
-			</div> */}
 			<ListSection
 				tableHeaders={tableHeaders}
 				tableElements={results}
