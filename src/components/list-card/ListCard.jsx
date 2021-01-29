@@ -1,6 +1,7 @@
 import React from "react";
 import "./listcard.css";
 import bookimage from "./coming-soon.jpg";
+import  '../loading/shimmer.css'
 // import bookimage from "./book.png";
 // import bookimage from "./book-image-not-available.png";
 

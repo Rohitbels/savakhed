@@ -3,6 +3,8 @@ import "./listing.css";
 import InputSection from "../../components/input-section/InputSection";
 import ListSection from "../../components/list-section/ListSection";
 import { db } from "../../firebase";
+import Loading from "../../components/loading/Loading"
+import "../../components/list-section/listsection.css"
 
 const chinha = [
 	"्",
@@ -27,6 +29,7 @@ class Listing extends Component {
 		super(props);
 
 		this.state = {
+			loading: false,
 			searched: false,
 			input: "",
 			searchAgainst: "pustakName",
@@ -190,6 +193,7 @@ class Listing extends Component {
 					}
 					onSearch={(event) => this.fetchResults(event)}
 				/>
+				{this.state.loading ? <div className="table-super"><Loading page="listing"/></div>: null}
 				<ListSection
 					setCurrentDetails={this.props.setCurrentDetails}
 					tableElements={this.state.results}

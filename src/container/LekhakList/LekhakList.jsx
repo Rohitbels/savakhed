@@ -134,7 +134,7 @@ class LekhakList extends Component {
                         </div>
                         <div className="authorsList">
                             {/* Object.keys(this.state.lekhakDict).length == 0 && this.state.isBtnClicked */}
-                            {this.state.loading ? <Loading/> : null} 
+                            {this.state.loading ? <Loading page="lekhakList"/> : null} 
                             {this.renderAuthors()}
                         </div>
                     </div>
