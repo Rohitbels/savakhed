@@ -4,6 +4,7 @@ import ListSection from "../../components/list-section/ListSection";
 import Alphabets from './Alphabets';
 import Akshar from './Akshar';
 import { db } from '../../firebase'
+import Loading from '../../components/loading/Loading';
 
 
 
@@ -12,6 +13,7 @@ class LekhakList extends Component {
         super(props);
 
         this.state = {  
+            loading: false,
             activeTab: '1',
             lekhakDict: {},
             searched: false,
@@ -27,18 +29,21 @@ class LekhakList extends Component {
 
     getLekhakNames = value => async () => {
         this.setState({
-            searched: false
-        });
-        this.setState({isBtnClicked : value})
+            loading: true,
+            searched: false,
+            isBtnClicked : value,
+            lekhakDict: {}
+        })
         //let val = value;
         //console.log(val);
         const doc = await db.collection("newMappingTrial").doc(value).get();
         let lekhakNamesDict = doc.data().names;
         lekhakNamesDict = this.sortKeys(lekhakNamesDict);
         this.setState(
-            { lekhakDict: lekhakNamesDict }
+            { lekhakDict: lekhakNamesDict, loading: false }
         );
         //console.log(lekhakNamesDict);
+        //console.log(this.state.loading);
     }
 
     getLekhakBooks = value => async () => {
@@ -167,7 +172,8 @@ class LekhakList extends Component {
                 
                 {!this.state.searched && 
                     <div className="authorsList">
-                            {this.renderAuthors()}
+                        {this.state.loading ? <Loading page="lekhakList"/> : null} 
+                        {this.renderAuthors()}
                     </div>
                 }
                 {this.state.searched && 

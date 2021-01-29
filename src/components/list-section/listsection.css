@@ -25,7 +25,9 @@ table {
 
 .table-super {
 	min-width: 320px;
+	width: 50%;
+	margin-bottom: 100px;
 	place-items: center;
-	margin-bottom: 25px;
 	overflow: auto;
+	text-align: center;
 }
