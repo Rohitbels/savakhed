@@ -4,7 +4,7 @@
 	padding: 0.5rem 1rem;
 	border-radius: 5px;
 	background: #fefefe;
-	margin: 1.5rem 0;
+	margin: 1.5rem 0.25rem;
 	display: grid;
 	text-align: left;
 	grid-template-columns: 100px 2fr;
