@@ -3,6 +3,8 @@ import "./listing.css";
 import InputSection from "../../components/input-section/InputSection";
 import ListSection from "../../components/list-section/ListSection";
 import { db } from "../../firebase";
+import Loading from "../../components/loading/Loading"
+import "../../components/list-section/listsection.css"
 
 const chinha = [
 	"्",
@@ -27,10 +29,10 @@ class Listing extends Component {
 		super(props);
 
 		this.state = {
+			loading: false,
 			searched: false,
 			input: "",
 			searchAgainst: "pustakName",
-			tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
 			results: [],
 		};
 	}
@@ -40,37 +42,102 @@ class Listing extends Component {
 			loading: true,
 		});
 
+		let secondaryLabel =
+			label === "pustakName" ? "pustakFullName" : "lekhakFullName";
+
 		db.collection("bookList")
-			.where(label, "array-contains-any", inputArray)
+			.where(secondaryLabel, "==", inputArray.join(" "))
 			.get()
 			.then((snapshot) => {
-				let primary = [],
-					secondary = [];
+				let array = [];
 
 				snapshot.forEach((doc) => {
 					let book = doc.data();
-
-					// let inputMulaksharaString = this.getMulakshara(
-					// 	book[this.state.searchAgainst]
-					// );
-
-					if (
-						this.getMulakshara(book[this.state.searchAgainst]) ===
-						this.getMulakshara(inputArray)
-					) {
-						primary.push({ ...book, id: doc.id });
-					} else {
-						secondary.push({ ...book, id: doc.id });
-					}
+					array.push({ ...book, id: doc.id });
 				});
 
 				this.setState({
-					results: this.state.results.concat([
-						...primary,
-						...secondary,
-					]),
+					results: array,
 					loading: false,
 				});
+
+				if (this.state.results.length === 0) {
+					db.collection("bookList")
+						.where(label, "array-contains-any", inputArray)
+						.get()
+						.then((snapshot) => {
+							let primary = [];
+							let secondary = [];
+
+							snapshot.forEach((doc) => {
+								let book = doc.data();
+
+								if (
+									this.getMulakshara(inputArray) ===
+									this.getMulakshara(book[label])
+								) {
+									primary.push({ ...book, id: doc.id });
+								} else {
+									secondary.push({ ...book, id: doc.id });
+								}
+							});
+
+							this.setState({
+								results: [...primary, ...secondary],
+								loading: false,
+							});
+
+							if (this.state.results.length === 0) {
+								if (label === "pustakName") {
+									secondaryLabel = "pustakMulakshare";
+								} else {
+									secondaryLabel = "lekhakMulakshare";
+								}
+
+								db.collection("bookList")
+									.where(
+										secondaryLabel,
+										"array-contains-any",
+										this.getMulakshara(inputArray).split(
+											" "
+										)
+									)
+									.get()
+									.then((snapshot) => {
+										let primary = [];
+										let secondary = [];
+
+										snapshot.forEach((doc) => {
+											let book = doc.data();
+
+											if (
+												this.getMulakshara(
+													inputArray
+												) ===
+												this.getMulakshara(book[label])
+											) {
+												primary.push({
+													...book,
+													id: doc.id,
+												});
+											} else {
+												secondary.push({
+													...book,
+													id: doc.id,
+												});
+											}
+										});
+
+										this.setState({
+											results: [...primary, ...secondary],
+											loading: false,
+										});
+									})
+									.catch((error) => console.error(error));
+							}
+						})
+						.catch((error) => console.error(error));
+				}
 			})
 			.catch((error) => console.error(error));
 	};
@@ -126,9 +193,9 @@ class Listing extends Component {
 					}
 					onSearch={(event) => this.fetchResults(event)}
 				/>
+				{this.state.loading ? <div className="table-super"><Loading page="listing"/></div>: null}
 				<ListSection
 					setCurrentDetails={this.props.setCurrentDetails}
-					tableHeaders={this.state.tableHeaders}
 					tableElements={this.state.results}
 					searched={this.state.searched}
 				/>
