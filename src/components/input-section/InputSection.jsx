@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Switch from "./../switch/Switch";
 import "./inputsection.css";
 
-const InputSection = ({ onInput, onSearch, searchAgainst, onChange, inputValue }) => {
+const InputSection = ({ onInput, onSearch, inputValue }) => {
 	const [toggle, setToggle] = useState(false);
 	const [label, setLabel] = useState("एकटा जीव सदाशिव");
 
@@ -17,35 +17,11 @@ const InputSection = ({ onInput, onSearch, searchAgainst, onChange, inputValue }
 
 	return (
 		<form className="form">
-			<section className="search-filter-section">
-				<label>
-					<input
-						type="radio"
-						name="pustakName"
-						value="pustakName"
-						checked={searchAgainst === "pustakName"}
-						onChange={onChange}
-					/>
-					पुस्तक
-				</label>
-				<label>
-					<input
-						type="radio"
-						name="lekhak"
-						value="lekhak"
-						checked={searchAgainst === "lekhak"}
-						onChange={onChange}
-					/>
-					लेखक
-				</label>
-			</section>
 			<section className="input-section">
 				<input
 					className="search-bar"
 					type="text"
-					placeholder={`Search by ${
-						searchAgainst === "lekhak" ? "Author" : "Book"
-					} name`}
+					placeholder="Search by Book name / Author name"
 					value={inputValue}
 					onInput={onInput}
 				/>

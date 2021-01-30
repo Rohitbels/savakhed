@@ -1,14 +1,16 @@
 .container {
 	width: 100vw;
-	min-height: 80vh;
-	display: grid;
-	place-items: center;
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
 
 .logo {
 	text-align: center;
-	font-size: 3em;
+	font-size: 1.75em;
 	user-select: none;
 	font-weight: 600;
-	margin: 1rem 0rem;
+	margin: 2rem;
+	margin-bottom: 4rem;
 }

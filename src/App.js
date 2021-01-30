@@ -17,7 +17,7 @@ class App extends Component {
 			show: "listing",
 			currentDetails: {},
 			results: [],
-			input: ""
+			input: "",
 		};
 	}
 
@@ -56,6 +56,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
+				{/* {console.log(this.state.results)} */}
 				<Header url={this.state.show} />
 				{this.state.show === "details" && (
 					<Details bookDetail={this.state.currentDetails} />
