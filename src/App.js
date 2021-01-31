@@ -16,6 +16,8 @@ class App extends Component {
 		this.state = {
 			show: "listing",
 			currentDetails: {},
+			results: [],
+			input: ""
 		};
 	}
 
@@ -68,9 +70,11 @@ class App extends Component {
 
 				{this.state.show === "listing" && (
 					<Listing
-						setCurrentDetails={(book) =>
-							this.setState({ currentDetails: book })
+						setCurrentDetails={(currentDetails) =>
+							this.setState({ currentDetails })
 						}
+						setParentState={this.setState.bind(this)}
+						{...this.state}
 					/>
 				)}
 				{this.state.show === "aboutus" && <AboutUs />}
