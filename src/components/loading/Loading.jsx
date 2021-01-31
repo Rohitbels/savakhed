@@ -3,25 +3,26 @@ import '../../container/LekhakList/LekhakList.css'
 import './shimmer.css'
 
 function Loading({page}) {
+
+	//40px x 11 = 440px
+	const ratio = 440/722
+	const elementsNumber = Math.round(ratio*window.innerHeight/40)
+	let elements = []
+	const listingFragment = (
+		<div className="renderAuthorsShimmer">
+			<div className="authorName shine"></div>
+			<div className="bookNames shine"></div>
+		</div>
+	)
+	for (let i = 0; i < elementsNumber; i++) {
+		elements.push(listingFragment) 
+	}
+	console.log(elements.length);
+
 	if (page === 'lekhakList') {
 		return (
 			<>
-				<div className="renderAuthorsShimmer">
-					<div className="authorName shine"></div>
-					<div className="bookNames shine"></div>
-				</div>
-				<div className="renderAuthorsShimmer">
-					<div className="authorName shine"></div>
-					<div className="bookNames shine"></div>
-				</div>
-				<div className="renderAuthorsShimmer">
-					<div className="authorName shine"></div>
-					<div className="bookNames shine"></div>
-				</div>
-				<div className="renderAuthorsShimmer">
-					<div className="authorName shine"></div>
-					<div className="bookNames shine"></div>
-				</div>
+				{elements}
 			</>
 		)
 	}

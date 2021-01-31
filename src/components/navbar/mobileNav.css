@@ -1,36 +1,36 @@
-.mobileNav{
-    display: none;
+.mobileNav {
+	display: none;
 }
 
 @media (max-width: 576px) {
-    .mobileNav{
-        width: 100vw;
-        bottom: 0;
-        position: fixed !important;
-        display: flex;
-        padding: 5px 0px 5px 0px;
-        background-color: white;
-        justify-content: space-around;
-        border-top: 1px solid lightgray;
-        align-items: center;
-        z-index: 40;
-        overflow: hidden;
-    }
-    .mobileNav_clicked{
-        background-color: lightgrey;
-        padding: 5px 8px;
-        border-radius: 5px;
-    }
-    .mobileNav_unclicked{
-        padding: 5px 8px;
-        border-radius: 5px;
-    }
-    .searchSvg{
-        width: 1.5rem;
-        height: auto;
-    }
-    .lekhakSvg{
-        width: 2rem;
-        height: auto;
-    }
+	.mobileNav {
+		width: 100vw;
+		bottom: 0;
+		position: fixed !important;
+		display: flex;
+		padding: 5px 0px 5px 0px;
+		background-color: white;
+		justify-content: space-around;
+		border-top: 1px solid lightgray;
+		align-items: center;
+		z-index: 40;
+		overflow: hidden;
+	}
+	.mobileNav_clicked {
+		background-color: lightgrey;
+		padding: 5px 8px;
+		border-radius: 5px;
+	}
+	.mobileNav_unclicked {
+		padding: 5px 8px;
+		border-radius: 5px;
+	}
+	.searchSvg {
+		width: 1.5rem;
+		height: auto;
+	}
+	.lekhakSvg {
+		width: 2rem;
+		height: auto;
+	}
 }
