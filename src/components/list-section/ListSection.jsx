@@ -1,56 +1,55 @@
 import React from "react";
 import ListCard from "../list-card/ListCard";
 import "./listsection.css";
+import exploreBooks from "./explore";
+import GenreCard from "./genre-card";
 
-const ListSection = ({ tableElements, searched, setCurrentDetails }) => {
+const ListSection = ({
+	tableElements,
+	searched,
+	setCurrentDetails,
+	bookType,
+}) => {
 	return (
-		<div className="table-super">
+		<>
 			{tableElements.length && searched ? (
-				<>
-					{tableElements.map((book, index) => (
+				<div className="table-super">
+					{tableElements.map((book, key) => (
 						<ListCard
 							setCurrentDetails={setCurrentDetails}
-							key={index}
+							key={key}
 							book={book}
 						></ListCard>
 					))}
-				</>
+				</div>
 			) : searched ? (
 				<div>No results found</div>
-			) : null}
-		</div>
+			) : (
+				<>
+					<h2>Explore by genre</h2>
+					<div
+						className="genre-container"
+						style={{
+							width: "100vw",
+							display: "flex",
+							flexWrap: "wrap",
+							justifyContent: "center",
+							marginBottom: "100px",
+						}}
+					>
+						{exploreBooks.map(({ prakar, img, key }) => (
+							<GenreCard
+								key={key}
+								img={img}
+								prakar={prakar}
+								bookType={bookType}
+							/>
+						))}
+					</div>
+				</>
+			)}
+		</>
 	);
 };
 
 export default ListSection;
-
-// <table>
-// 	<thead>
-// 		<tr>
-// 			{tableHeaders.map((header, index) => (
-// 				<th key={index}>{header}</th>
-// 			))}
-// 		</tr>
-// 	</thead>
-
-// 	<tbody>
-// 		{tableElements.map((book, index) => (
-// 			<tr
-// 				onClick={() => setCurrentDetails(book)}
-// 				key={index}
-// 			>
-// 				<td>{book["dakhalId"]}</td>
-// 				<td>{book["vibhagId"]}</td>
-// 				<td>
-// 					<a href={`#/details/${book["id"]}`}>
-// 						{book["pustakName"].join(" ")}
-// 					</a>
-// 				</td>
-// 				<td>
-// 					{book["lekhak"].join(" ")}
-// 					{/* {book["lekhakNameMulakshare"]} */}
-// 				</td>
-// 			</tr>
-// 		))}
-// 	</tbody>
-// </table>

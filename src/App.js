@@ -16,6 +16,8 @@ class App extends Component {
 		this.state = {
 			show: "listing",
 			currentDetails: {},
+			results: [],
+			input: "",
 		};
 	}
 
@@ -54,6 +56,7 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
+				{/* {console.log(this.state.results)} */}
 				<Header url={this.state.show} />
 				{this.state.show === "details" && (
 					<Details bookDetail={this.state.currentDetails} />
@@ -68,9 +71,11 @@ class App extends Component {
 
 				{this.state.show === "listing" && (
 					<Listing
-						setCurrentDetails={(book) =>
-							this.setState({ currentDetails: book })
+						setCurrentDetails={(currentDetails) =>
+							this.setState({ currentDetails })
 						}
+						setParentState={this.setState.bind(this)}
+						{...this.state}
 					/>
 				)}
 				{this.state.show === "aboutus" && <AboutUs />}

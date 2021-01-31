@@ -3,8 +3,8 @@ import "./listing.css";
 import InputSection from "../../components/input-section/InputSection";
 import ListSection from "../../components/list-section/ListSection";
 import { db } from "../../firebase";
-import Loading from "../../components/loading/Loading"
-import "../../components/list-section/listsection.css"
+import Loading from "../../components/loading/Loading";
+import "../../components/list-section/listsection.css";
 
 const chinha = [
 	"्",
@@ -34,6 +34,7 @@ class Listing extends Component {
 			input: "",
 			searchAgainst: "pustakName",
 			results: [],
+			prakar: "",
 		};
 	}
 
@@ -42,6 +43,35 @@ class Listing extends Component {
 			loading: true,
 		});
 
+		if (label === "pustakPrakar") {
+			this.setState({
+				searched: true,
+				input: inputArray.join(" "),
+			});
+
+			db.collection("bookList")
+				.where(label, "==", inputArray.join(" "))
+				.get()
+				.then((snapshot) => {
+					let array = [];
+
+					snapshot.forEach((doc) => {
+						let book = doc.data();
+						array.push({ ...book, id: doc.id });
+					});
+
+					this.setState({
+						results: array,
+						loading: false,
+					});
+				});
+
+			return;
+		}
+
+		let inputArrayMulakshare = this.getMulakshara(inputArray);
+		let bookParameterMulakshare = "";
+
 		let secondaryLabel =
 			label === "pustakName" ? "pustakFullName" : "lekhakFullName";
 
@@ -49,32 +79,43 @@ class Listing extends Component {
 			.where(secondaryLabel, "==", inputArray.join(" "))
 			.get()
 			.then((snapshot) => {
-				let array = [];
+				let firstArray = [];
 
 				snapshot.forEach((doc) => {
 					let book = doc.data();
-					array.push({ ...book, id: doc.id });
+					this.setState({
+						results: this.state.results.concat({
+							book,
+							id: doc.id,
+						}),
+					});
+					firstArray.push({ ...book, id: doc.id });
 				});
 
 				this.setState({
-					results: array,
+					results: firstArray,
 					loading: false,
 				});
+				this.props.setParentState({ results: firstArray });
 
-				if (this.state.results.length === 0) {
+				if (firstArray.length === 0) {
 					db.collection("bookList")
 						.where(label, "array-contains-any", inputArray)
 						.get()
 						.then((snapshot) => {
+							let secondArray = [];
 							let primary = [];
 							let secondary = [];
 
 							snapshot.forEach((doc) => {
 								let book = doc.data();
+								bookParameterMulakshare = this.getMulakshara(
+									book[label]
+								);
 
 								if (
-									this.getMulakshara(inputArray) ===
-									this.getMulakshara(book[label])
+									inputArrayMulakshare ===
+									bookParameterMulakshare
 								) {
 									primary.push({ ...book, id: doc.id });
 								} else {
@@ -82,39 +123,40 @@ class Listing extends Component {
 								}
 							});
 
+							secondArray = [...primary, ...secondary];
 							this.setState({
-								results: [...primary, ...secondary],
+								results: secondArray,
 								loading: false,
 							});
+							this.props.setParentState({ results: secondArray });
 
-							if (this.state.results.length === 0) {
-								if (label === "pustakName") {
-									secondaryLabel = "pustakMulakshare";
-								} else {
-									secondaryLabel = "lekhakMulakshare";
-								}
+							if (secondArray.length === 0) {
+								secondaryLabel =
+									label === "pustakName"
+										? "pustakMulakshare"
+										: "lekhakMulakshare";
+
+								let thirdArray = [];
+								let primary = [];
+								let secondary = [];
 
 								db.collection("bookList")
 									.where(
 										secondaryLabel,
 										"array-contains-any",
-										this.getMulakshara(inputArray).split(
-											" "
-										)
+										inputArrayMulakshare.split(" ")
 									)
 									.get()
 									.then((snapshot) => {
-										let primary = [];
-										let secondary = [];
-
 										snapshot.forEach((doc) => {
 											let book = doc.data();
+											bookParameterMulakshare = this.getMulakshara(
+												book[label]
+											);
 
 											if (
-												this.getMulakshara(
-													inputArray
-												) ===
-												this.getMulakshara(book[label])
+												inputArrayMulakshare ===
+												bookParameterMulakshare
 											) {
 												primary.push({
 													...book,
@@ -127,10 +169,14 @@ class Listing extends Component {
 												});
 											}
 										});
+										thirdArray = [...primary, ...secondary];
 
 										this.setState({
-											results: [...primary, ...secondary],
+											results: thirdArray,
 											loading: false,
+										});
+										this.props.setParentState({
+											results: thirdArray,
 										});
 									})
 									.catch((error) => console.error(error));
@@ -157,47 +203,58 @@ class Listing extends Component {
 
 	fetchResults = (event) => {
 		event.preventDefault();
-
-		if (this.state.input.length) {
-			this.setState({ results: [], searched: true });
-			let inputArray = this.state.input.split(" ");
+		const { input } = this.props;
+		if (input.length) {
+			this.setState({ searched: true });
+			this.props.setParentState({ results: [], searched: true });
+			let inputArray = input.split(" ");
 
 			// reducing the array to max length 10
 			if (inputArray.length > 10) {
 				inputArray.splice(9, inputArray.length - 10);
 			}
 
-			this.search(this.state.searchAgainst, inputArray);
+			this.search("pustakName", inputArray);
+			setTimeout(() => {
+				if (this.state.results.length === 0) {
+					this.search("lekhak", inputArray);
+				}
+			}, 1000);
 		} else {
-			this.setState({ results: [], searched: false });
+			this.setState({ searched: false });
+			this.props.setParentState({ results: [], searched: false });
 		}
 	};
 
 	render() {
 		return (
 			<div className="container">
-				<div className="logo">
-					सार्वजनिक वाचनालय <br /> राजगुरूनगर
-				</div>
+				<div className="logo">सार्वजनिक वाचनालय राजगुरूनगर</div>
 				<InputSection
 					onInput={(event) =>
-						this.setState({
-							input: event.target.value.toLowerCase().trim(),
+						this.props.setParentState({
+							input: event.target.value.toLowerCase(),
 						})
 					}
-					searchAgainst={this.state.searchAgainst}
-					onChange={(event) =>
-						this.setState({
-							searchAgainst: event.target.value,
-						})
-					}
+					inputValue={this.props.input}
 					onSearch={(event) => this.fetchResults(event)}
 				/>
-				{this.state.loading ? <div className="table-super"><Loading page="listing"/></div>: null}
+				{this.state.loading ? (
+					<div className="table-super">
+						<Loading page="listing" />
+					</div>
+				) : null}
+				<h1>{this.state.prakar}</h1>
+				{console.log(this.state.loading)}
+				{console.log("results: ", this.state.results)}
 				<ListSection
 					setCurrentDetails={this.props.setCurrentDetails}
-					tableElements={this.state.results}
-					searched={this.state.searched}
+					tableElements={this.props.results}
+					searched={
+						this.state.searched ||
+						(this.props.input && this.state.results.length)
+					}
+					bookType={this.search}
 				/>
 			</div>
 		);
