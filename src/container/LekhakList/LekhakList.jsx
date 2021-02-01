@@ -14,10 +14,10 @@ class LekhakList extends Component {
 
         this.state = {  
             loading: false,
-            activeTab: '1',
+            activeTab: 1,
             lekhakDict: {},
             searched: false,
-			tableHeaders: [],
+			//tableHeaders: [],
             results: [],
             currentLekhak :"",
             isBtnClicked : null
@@ -47,17 +47,16 @@ class LekhakList extends Component {
     }
 
     getLekhakBooks = value => async () => {
-        
         let lekhakName = value;
         this.setState({
             lekhakDict: {},
             searched: false,
-			tableHeaders: [],
+			//tableHeaders: [],
             results: [],
             currentLekhak: lekhakName
         });
         await db.collection("bookList")
-            .where("lekhakFullName", "==", 'जॉन ग्रिशम')
+            .where("lekhakFullName", "==", 'जॉन ग्रिशम')       /************************* Change this to compare "lekhakName" variable ***********************/
             .get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
@@ -69,7 +68,7 @@ class LekhakList extends Component {
                 });
             });
         this.setState({
-            tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
+            //tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
             searched : true
         });
         //const bookNamesArray = doc.data().lekhakNameJoint;
@@ -139,28 +138,28 @@ class LekhakList extends Component {
                     <div>
                         <div className="toggleBtn">
                             <button 
-                            className={this.state.activeTab === "1" ? "clickedBtn" : "unclickedBtn"} 
-                            onClick={() => { this.toggle('1'); }}
+                            className={this.state.activeTab === 1 ? "clickedBtn" : "unclickedBtn"} 
+                            onClick={() => { this.toggle(1); }}
                             >
                                 Marathi
                             </button>
                             <button 
-                            className={this.state.activeTab === "2" ? "clickedBtn" : "unclickedBtn"} 
-                            onClick={() => { this.toggle('2'); }}
+                            className={this.state.activeTab === 2 ? "clickedBtn" : "unclickedBtn"} 
+                            onClick={() => { this.toggle(2); }}
                             >
                                 English
                             </button>
                         </div>
                         <div>
                             <div>
-                                {this.state.activeTab === '1' ?
+                                {this.state.activeTab === 1 ?
                                     <div className="ButtonContainer">
                                         {this.renderAlphabets(Akshar)}
                                     </div>
                                     : null}
                             </div>
                             <div>
-                                {this.state.activeTab === '2' ?
+                                {this.state.activeTab === 2 ?
                                     <div className="ButtonContainer">
                                         {this.renderAlphabets(Alphabets)}
                                     </div>
@@ -181,7 +180,7 @@ class LekhakList extends Component {
                         <h1>लेखक : { this.state.currentLekhak }</h1>
                         <ListSection
                             setCurrentDetails={this.props.setCurrentDetails}
-                            tableHeaders={this.state.tableHeaders}
+                            //tableHeaders={this.state.tableHeaders}
                             tableElements={this.state.results}
                             searched={this.state.searched}
                         />
