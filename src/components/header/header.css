@@ -1,103 +1,105 @@
 .nav-bar {
-  display: flex;
-  background-color: white;
-  width: 100vw;
-  font-size: 1.1rem;
-  height: 2.2rem;
-  padding: 0rem 0rem;
+	display: flex;
+	background-color: white;
+	width: 100vw;
+	font-size: 1.1rem;
+	height: 2.2rem;
+	padding: 0rem 0rem;
 
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
 
 .tabs {
-  display: flex;
-  align-content: center;
+	display: flex;
+	align-content: center;
 }
 
 .link-placeholders {
-  padding: 0 1.25rem;
-  padding-top: 0.2125rem;
-  text-align: center;
-  height: 90%;
+	padding: 0 1.25rem;
+	padding-top: 0.2125rem;
+	text-align: center;
+	height: 90%;
 }
 
 .active {
-  color: #337ab7;
-  border-bottom: 3px solid #337ab7;
+	color: #337ab7;
+	border-bottom: 3px solid #337ab7;
 }
 
 .nav-bar a:hover {
-  background-color: #dcdcdc;
+	background-color: #dcdcdc;
 }
 
 .nav-bar a {
-  margin: 0px;
-  text-decoration: none;
-  color: black;
+	margin: 0px;
+	text-decoration: none;
+	color: black;
 }
 
 .back-button {
-  display: flex;
-  height: 99%;
-  width: 40.2px;
+	display: flex;
+	height: 99%;
+	width: 40.2px;
 }
 
 #Layer_1 {
-  align-self: center;
-  fill: black;
-  height: 20px;
-  width: 38.2px;
+	align-self: center;
+	fill: black;
+	height: 20px;
+	width: 38.2px;
 }
 
 .title {
-  display: none;
+	display: none;
 }
 
 @media screen and (max-width: 550px) {
-  .title {
-    text-align: center;
-    text-transform: capitalize;
-    display: block;
-  }
+	.title {
+		font-size: 1.6rem;
+		font-weight: 400;
+		text-align: center;
+		text-transform: capitalize;
+		display: block;
+	}
 
-  #title-id {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
+	#title-id {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 
-  .tabs {
-    padding: auto auto;
-  }
+	.tabs {
+		padding: auto auto;
+	}
 
-  .noSelect {
-    -webkit-tap-highlight-color: transparent;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
+	.noSelect {
+		-webkit-tap-highlight-color: transparent;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
 
-  .nav-bar {
-    height: 4.7vh;
-    display: flex;
-    justify-content: center;
-  }
+	.nav-bar {
+		height: 5.5vh;
+		display: flex;
+		justify-content: center;
+	}
 
-  .link-placeholders {
-    display: none;
-  }
+	.link-placeholders {
+		display: none;
+	}
 
-  .nav-bar a:hover {
-    background-color: white;
-  }
+	.nav-bar a:hover {
+		background-color: white;
+	}
 
-  .back-link {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4.85vh;
-  }
+	.back-link {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 4.85vh;
+	}
 }
