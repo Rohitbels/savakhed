@@ -60,8 +60,12 @@ class Listing extends Component {
 						array.push({ ...book, id: doc.id });
 					});
 
-					this.setState({
+					this.props.setParentState({
 						results: array,
+					});
+
+					this.setState({
+						// results: array,
 						loading: false,
 					});
 				});

@@ -40,6 +40,7 @@ table {
 	place-items: "center";
 	margin: 2rem 3rem;
 	text-align: center;
+	cursor: pointer;
 }
 
 .genre-image {
