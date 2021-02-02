@@ -1,21 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import "./header.css";
-// import { ReactComponent as Arrow } from "./caret.svg";
+import { ReactComponent as Arrow } from "./left-arrow.svg";
 
 function Header() {
 	const setLabel = () => {
 		const href = window.location.href;
-		if (href.includes("lekhakList")) return "lekhak-list";
-		if (href.includes("aboutUs")) return "about-us";
+		if (href.includes("lekhaklist")) return "lekhak-list";
+		if (href.includes("aboutus")) return "about-us";
 		if (href.includes("details")) return "details";
 		if (href.includes("search")) return "search";
+		if (href.includes("recommendation")) return "recommendation";
 		return "search";
 	};
 
 	const removeActive = () => {
-		const nav = document.getElementsByClassName("nav-bar")[0];
+		const nav = document.getElementsByClassName("tabs")[0];
 		const children = nav.children;
-
 		if (children) {
 			[...children].forEach((element) => {
 				element
@@ -29,7 +29,7 @@ function Header() {
 		window.addEventListener(
 			"hashchange",
 			function () {
-				console.log("The hash has changed!");
+				// console.log("The hash has changed!");
 				if (document.getElementById(setLabel()) != null) {
 					removeActive();
 					document.getElementById(setLabel()).classList.add("active");
@@ -49,49 +49,64 @@ function Header() {
 			document.getElementById(setLabel()).classList.add("active");
 		}
 		hashChange();
-	}, []);
+	});
 
 	return (
 		<nav className="nav-bar">
 			{window.location.href.includes("details") ? (
-				<button
+				<a onClick={() => window.history.go(-1)} className="back-link">
+					<div className="back-button">
+						<Arrow />
+					</div>
+				</a>
+			) : null}
+			<div className="tabs">
+				<a
+					href="/savakhed/#/search"
 					onClick={() => {
-						window.history.go(-1);
+						onClickHandler("search");
 					}}
 				>
-					&lt;
-				</button>
-			) : null}
-			<a
-				href="/savakhed/#/search"
-				onClick={() => {
-					onClickHandler("search");
-				}}
-			>
-				<div className="link-placeholders" id="search">
-					Search
-				</div>
-			</a>
-			<a
-				href="/savakhed/#/lekhakList"
-				onClick={() => {
-					onClickHandler("lekhak-list");
-				}}
-			>
-				<div className="link-placeholders" id="lekhak-list">
-					Lekhak List
-				</div>
-			</a>
-			<a
-				href="/savakhed/#/aboutUs"
-				onClick={() => {
-					onClickHandler("about-us");
-				}}
-			>
-				<div className="link-placeholders" id="about-us">
-					About Us
-				</div>
-			</a>
+					<div className="link-placeholders" id="search">
+						Search
+					</div>
+				</a>
+				<a
+					href="/savakhed/#/lekhaklist"
+					onClick={() => {
+						onClickHandler("lekhak-list");
+					}}
+				>
+					<div className="link-placeholders" id="lekhak-list">
+						Lekhak List
+					</div>
+				</a>
+				<a
+					href="/savakhed/#/recommendation"
+					onClick={() => {
+						onClickHandler("recommendation");
+					}}
+				>
+					<div className="link-placeholders" id="recommendation">
+						Recommendations
+					</div>
+				</a>
+				<a
+					href="/savakhed/#/aboutus"
+					onClick={() => {
+						onClickHandler("about-us");
+					}}
+				>
+					<div className="link-placeholders" id="about-us">
+						About Us
+					</div>
+				</a>
+				<a href="/#/search" onClick={() => {onClickHandler("about-us")}} id="title-id">
+					<div className="title">
+						{setLabel().replace('-', ' ')}
+					</div>
+				</a>
+			</div>
 		</nav>
 	);
 }

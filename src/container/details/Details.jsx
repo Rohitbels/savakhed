@@ -50,7 +50,7 @@ class Details extends Component {
 
             // destructuring
             const { itemListElement = [] } = JSON.parse(xhr.responseText);
-            const { result = {}, resultScore = {} } = itemListElement.length && itemListElement[0] || {};
+            const { result = {}, resultScore = {} } = (itemListElement.length && itemListElement[0]) || {};
             const { detailedDescription = '', name = '', description = '' } = result;
             const { articleBody = '' } = detailedDescription;
             this.setState({
@@ -147,10 +147,10 @@ class Details extends Component {
                     <Card bookName={this.state.Gname} whichCard="google">
                         <div className="googleDetails">
                             <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
-                            {this.state.GarticleBody != "" &&
+                            {this.state.GarticleBody !== "" &&
                             <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.GarticleBody}</div></div>
                             } 
-                            {this.state.Gdescription != "" &&
+                            {this.state.Gdescription !== "" &&
                             <div className="eachgoogleDetails">Description : <div className="googleResult">{this.state.Gdescription}</div></div>
                             }    
 

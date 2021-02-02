@@ -86,6 +86,20 @@ async function createAllCharDocuments(collectionName) {
 }
 
 
+//Remove lekhaks below threshold
+function removeUnpopular(dict, threshold) {
+    for (const [key, value] of Object.entries(dict)) {
+        for (const [inKey, inValue] of Object.entries(value)) {
+            if(inValue < 5) {
+                delete dict[key][inKey];
+            }
+            //console.log(inKey, inValue);
+        }
+    }
+    return dict;
+}
+
+
 //Writing to Firebase
 async function writeToFirebase(dict, collectionName) {
     //console.log("Writing to Firebase.");
@@ -103,11 +117,11 @@ async function writeToFirebase(dict, collectionName) {
 //Trial with recd data.
 async function passDictToFun(dict){
     for (const [key, value] of Object.entries(dict)) {
-        if(key === 'त') {
+        if(key === 'ज') {
             const writeRes = await db.collection('newMappingTrial').doc(key).update({
                 names: value
             }).then(function() {
-                console.log("Written to new collection in Firebase.");
+                console.log("Written to new collection in Firebase from trial function.");
             });
             for (const [inKey, inValue] of Object.entries(value)) {
                 console.log(inKey, inValue);
@@ -125,9 +139,7 @@ async function main() {
     //Reading Input from the CSV using csv-reader package
     const Fs = require('fs');
     const { format } = require('path');
-    const dict = {
-        
-    };
+    let dict = { };
     const CsvReadableStream = require('csv-reader');
     let count = 0;
     let inputStream = Fs.createReadStream('src/oneTimeScripts/Recheck - संकीर्ण.csv', 'utf8');
@@ -157,13 +169,17 @@ async function main() {
         })
         .on('end', async function(data) {
             console.log("Entered on end section.");
+
+            //Remove Lekhaks below Threshold
+            dict = removeUnpopular(dict, 5);
+
             //Uncomment to write to Firebase
             writeToFirebase(dict, 'newMappingTrial');
 
             //Uncomment to write to CSV
             //writeToCSV(dict);
 
-            //Function for Trials
+            //Function for Trials, writing to firebase for single char.
             //passDictToFun(dict);
             
         })

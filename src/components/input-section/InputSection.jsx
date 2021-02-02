@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Switch from "./../switch/Switch";
 import "./inputsection.css";
 
-const InputSection = ({ onInput, onSearch, searchAgainst, onChange }) => {
+const InputSection = ({ onInput, onSearch, searchAgainst, onChange, inputValue }) => {
 	const [toggle, setToggle] = useState(false);
 	const [label, setLabel] = useState("एकटा जीव सदाशिव");
 
@@ -46,6 +46,7 @@ const InputSection = ({ onInput, onSearch, searchAgainst, onChange }) => {
 					placeholder={`Search by ${
 						searchAgainst === "lekhak" ? "Author" : "Book"
 					} name`}
+					value={inputValue}
 					onInput={onInput}
 				/>
 				<button
