@@ -8,10 +8,13 @@ const ListSection = ({
 	tableElements,
 	searched,
 	setCurrentDetails,
+	setBookType,
 	bookType,
 }) => {
 	return (
 		<>
+			{console.log("listsection results: ", tableElements)}
+			{console.log("listsection type: ", bookType)}
 			{tableElements.length && searched ? (
 				<div className="table-super">
 					{tableElements.map((book, key) => (
@@ -23,7 +26,7 @@ const ListSection = ({
 					))}
 				</div>
 			) : searched ? (
-				<div>No results found</div>
+				<div>No such book found in {bookType} category</div>
 			) : (
 				<>
 					<h2>Explore by genre</h2>
@@ -42,7 +45,7 @@ const ListSection = ({
 								key={key}
 								img={img}
 								prakar={prakar}
-								bookType={bookType}
+								setBookType={setBookType}
 							/>
 						))}
 					</div>
