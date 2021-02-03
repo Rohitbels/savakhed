@@ -17,13 +17,14 @@
 .link-placeholders {
   padding: 0 1.25rem;
   padding-top: 0.2125rem;
-  text-align: center;
+  text-align: center;@media (max-width: 800px)
   height: 90%;
 }
 
 .active {
   color: #337ab7;
   border-bottom: 3px solid #337ab7;
+  padding-bottom: 9px;
 }
 
 .nav-bar a:hover {
@@ -100,4 +101,10 @@
     left: 0;
     height: 4.85vh;
   }
+}
+
+@media (max-width: 800px){
+	.nav-bar{
+		position: fixed;
+	}
 }
