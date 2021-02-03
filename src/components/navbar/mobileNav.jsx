@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import './mobileNav.css';
 import searchSvg from "../../svg/search.svg"
-import authorSvg from "../../svg/author.svg"
-import authorSvg2 from "../../svg/author2.svg"
+import authorSvg2 from "../../svg/lekhak.svg"
 import aboutSvg from "../../svg/about.svg"
 export default class mobileNav extends Component {
     constructor(props){
