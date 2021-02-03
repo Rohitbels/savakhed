@@ -8,7 +8,7 @@ function Card(props) {
             <div className="heading">
                 {props.bookName}
             </div>
-            <hr/>
+            {props.bookName != "" && <hr/>}
             <div className="description">
                 {props.children}
             </div>
