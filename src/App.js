@@ -80,7 +80,7 @@ class App extends Component {
 				)}
 				{this.state.show === "aboutus" && <AboutUs />}
 				{this.state.show === "recommendation" && <Recommendation />}
-				<MobileNav />
+				<MobileNav  url={this.state.show}/>
 			</div>
 		);
 	}

@@ -27,6 +27,7 @@ table {
 	min-width: 320px;
 	width: 50%;
 	margin-bottom: 100px;
+	margin-top: 50px;
 	place-items: center;
 	overflow: auto;
 	text-align: center;

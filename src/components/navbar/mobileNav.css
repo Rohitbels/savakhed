@@ -17,13 +17,16 @@
 		overflow: hidden;
 	}
 	.mobileNav_clicked {
-		background-color: lightgrey;
 		padding: 5px 8px;
 		border-radius: 5px;
+		filter: invert(0%) sepia(95%) saturate(0%) hue-rotate(168deg)
+			brightness(102%) contrast(105%);
 	}
 	.mobileNav_unclicked {
 		padding: 5px 8px;
 		border-radius: 5px;
+		filter: invert(97%) sepia(6%) saturate(2%) hue-rotate(51deg)
+			brightness(85%) contrast(97%);
 	}
 	.searchSvg {
 		width: 1.5rem;
