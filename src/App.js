@@ -17,7 +17,14 @@ class App extends Component {
 			show: "listing",
 			currentDetails: {},
 			results: [],
-			input: ""
+			input: "",
+			lekhakLoading: false,
+			activeTab: 1,
+			lekhakDict: { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 },
+			searched: false,
+			lekhakResults: [],
+			currentLekhak :"",
+			isBtnClicked : 'क'
 		};
 	}
 
@@ -40,7 +47,8 @@ class App extends Component {
 			let endPart = currURL[1].toLowerCase();
 			if (endPart.includes("details")) {
 				var patt = detailsURLPattern;
-				if (patt.test(endPart)) this.setState({ show: "details" });
+				if (patt.test(endPart))
+					this.setState({ show: "details" });
 			} else if (endPart.includes("lekhaklist")) {
 				this.setState({ show: "lekhaklist" });
 			} else if (currURL[1].includes("aboutus")) {
@@ -65,6 +73,8 @@ class App extends Component {
 						setCurrentDetails={(book) =>
 							this.setState({ currentDetails: book })
 						}
+						setParentState={this.setState.bind(this)}
+						{...this.state}
 					/>
 				)}
 
