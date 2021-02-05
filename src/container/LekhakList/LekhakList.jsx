@@ -18,7 +18,7 @@ class LekhakList extends Component {
             lekhakDict: { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 },
             searched: false,
 			//tableHeaders: [],
-            results: [],
+            lekhakResults: [],
             currentLekhak :"",
             isBtnClicked : 'क'
         };
@@ -51,7 +51,7 @@ class LekhakList extends Component {
             lekhakDict: {},
             searched: false,
 			//tableHeaders: [],
-            results: [],
+            lekhakResults: [],
             currentLekhak: lekhakName
         });
         await db.collection("bookList")
@@ -61,7 +61,7 @@ class LekhakList extends Component {
                 snapshot.forEach((doc) => {
                     let currentBook = doc.data();
                     this.setState({
-                        results : this.state.results.concat([{...currentBook, id: doc.id }])
+                        lekhakResults : this.state.lekhakResults.concat([{...currentBook, id: doc.id }])
                     });
                     console.log(currentBook.lekhak, currentBook.pustakName);
                 });
@@ -123,6 +123,10 @@ class LekhakList extends Component {
         return obj_1; 
     }
 
+    componentDidMount() {
+        this.setState({ searched:false });
+    }
+
     render() {
         //const { character } = this.state;
         var online = navigator.onLine;
@@ -180,7 +184,7 @@ class LekhakList extends Component {
                         <ListSection
                             setCurrentDetails={this.props.setCurrentDetails}
                             //tableHeaders={this.state.tableHeaders}
-                            tableElements={this.state.results}
+                            tableElements={this.state.lekhakResults}
                             searched={this.state.searched}
                         />
                     </div>
