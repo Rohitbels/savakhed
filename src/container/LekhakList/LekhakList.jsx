@@ -74,16 +74,22 @@ class LekhakList extends Component {
     }
 
     toggle(tab) {
+        if (this.state.activeTab === tab)
+            return;
+        this.setState({ activeTab: tab });
         this.setState({
             searched: false,
-            lekhakDict: {}
+            lekhakDict: tab === 1 ? { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 } :{},
+            isBtnClicked: tab === 1 ? 'क' : 'a'
         });
-        if (this.state.activeTab !== tab) {
-            this.setState({ activeTab: tab });
-        }
+        
     }
 
     renderAuthors = () => {
+        if(Object.keys(this.state.lekhakDict).length === 0 && !this.state.loading) {
+            return(<div><p>No mentionable lekhaks found.</p></div>);
+        }
+        //else
         return (
             Object.keys(this.state.lekhakDict).map((key, index) => (
                 <div className="renderAuthors">

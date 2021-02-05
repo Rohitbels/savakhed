@@ -71,7 +71,7 @@
   height: 40px;
 }
 
-.renderAuthors:nth-child(even) {
+.renderAuthors:nth-child(odd) {
   background-color: #f5efda;
 }
 
