@@ -20,11 +20,13 @@
         padding: 5px 8px;
         border-radius: 5px;
         filter: invert(0%) sepia(95%) saturate(0%) hue-rotate(168deg) brightness(102%) contrast(105%);
+        fill: black;
     }
     .mobileNav_unclicked{
         padding: 5px 8px;
         border-radius: 5px;
-        filter: invert(97%) sepia(6%) saturate(2%) hue-rotate(51deg) brightness(85%) contrast(97%);
+        filter: invert(100%) sepia(0%) saturate(7354%) hue-rotate(287deg) brightness(117%) contrast(99%) drop-shadow(0px 0px 1.5px black); 
+        
     }
     .searchSvg{
         width: 1.5rem;
