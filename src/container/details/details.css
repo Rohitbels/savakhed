@@ -2,7 +2,7 @@
 .flex-container{
     padding-top: 30px;
     display: flex;
-    padding-left: 140px;
+    padding-left: 180px;
 }
 
 
@@ -22,6 +22,7 @@
 }
 
 .cardDetails{
+    width: 420px;
     height: auto;
     transition: 0.2s;   
     display: flex;
