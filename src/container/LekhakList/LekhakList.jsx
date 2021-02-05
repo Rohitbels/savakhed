@@ -15,12 +15,12 @@ class LekhakList extends Component {
         this.state = {  
             loading: false,
             activeTab: 1,
-            lekhakDict: {},
+            lekhakDict: { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 },
             searched: false,
 			//tableHeaders: [],
             results: [],
             currentLekhak :"",
-            isBtnClicked : null
+            isBtnClicked : 'क'
         };
 
         this.toggle = this.toggle.bind(this);
@@ -34,8 +34,7 @@ class LekhakList extends Component {
             isBtnClicked : value,
             lekhakDict: {}
         })
-        //let val = value;
-        //console.log(val);
+        //console.log(value);
         const doc = await db.collection("newMappingTrial").doc(value).get();
         let lekhakNamesDict = doc.data().names;
         lekhakNamesDict = this.sortKeys(lekhakNamesDict);
