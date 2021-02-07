@@ -63,7 +63,7 @@ class LekhakList extends Component {
                     this.props.setParentState({
                         lekhakResults : this.props.lekhakResults.concat([{...currentBook, id: doc.id }])
                     });
-                    //console.log(currentBook.lekhak, currentBook.pustakName);
+                    console.log(this.props.lekhakResults);
                 });
             });
         this.props.setParentState({
@@ -194,7 +194,7 @@ class LekhakList extends Component {
                         <ListSection
                             setCurrentDetails={this.props.setCurrentDetails}
                             tableElements={this.props.lekhakResults}
-                            lekhakSearched={this.props.lekhakSearched}
+                            searched={this.props.lekhakSearched}
                         />
                     </div>
                 }
