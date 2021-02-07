@@ -191,7 +191,7 @@ class LekhakList extends Component {
                 {this.props.lekhakSearched && 
                     <div className="lekhakBooklist">
                         <h1>लेखक : { this.props.currentLekhak }</h1>
-                        <button onClick={this.getLekhakNames(this.props.currentLekhak.charAt(0))} className="clickedBtn">Go Back</button>
+                        <button onClick={this.getLekhakNames(this.props.currentLekhak.charAt(0))} className="clickedBtn" key="keyLekhakGoBackButton">Go Back</button>
                         <ListSection
                             setCurrentDetails={this.props.setCurrentDetails}
                             tableElements={this.props.lekhakResults}
