@@ -6,16 +6,23 @@
 	margin-bottom: 4rem;
 }
 
-.search-filter-section {
-	margin: 3rem 0 0.5rem 0;
+.filter-section {
+	height: 30px;
+	padding: 0 0.5rem;
 }
 
-.search-filter-section label {
-	margin: 0.25rem 0.5rem;
+.none {
+	display: none;
 }
 
-.search-filter-section label input {
-	margin-right: 0.5rem;
+.filter {
+	width: 100%;
+	padding: 0.25rem 1.25rem;
+	border-radius: 999999px;
+	background-color: rgba(51, 122, 183, 0.25);
+	color: #337ab7;
+	font-weight: 600;
+	font-size: 0.85em;
 }
 
 .input-section {

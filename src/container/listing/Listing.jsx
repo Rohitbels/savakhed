@@ -43,43 +43,20 @@ class Listing extends Component {
 			loading: true,
 		});
 
-		if (label === "pustakPrakar") {
-			this.setState({
-				searched: true,
-				input: inputArray.join(" "),
-			});
-
-			db.collection("bookList")
-				.where(label, "==", inputArray.join(" "))
-				.get()
-				.then((snapshot) => {
-					let array = [];
-
-					snapshot.forEach((doc) => {
-						let book = doc.data();
-						array.push({ ...book, id: doc.id });
-					});
-
-					this.props.setParentState({
-						results: array,
-					});
-
-					this.setState({
-						// results: array,
-						loading: false,
-					});
-				});
-
-			return;
-		}
-
 		let inputArrayMulakshare = this.getMulakshara(inputArray);
 		let bookParameterMulakshare = "";
 
 		let secondaryLabel =
 			label === "pustakName" ? "pustakFullName" : "lekhakFullName";
 
-		db.collection("bookList")
+		let query =
+			this.state.prakar === ""
+				? db.collection("bookList")
+				: db
+						.collection("bookList")
+						.where("pustakPrakar", "==", this.state.prakar);
+
+		query
 			.where(secondaryLabel, "==", inputArray.join(" "))
 			.get()
 			.then((snapshot) => {
@@ -104,6 +81,7 @@ class Listing extends Component {
 
 				if (firstArray.length === 0) {
 					db.collection("bookList")
+						.where("pustakPrakar", "==", this.state.prakar)
 						.where(label, "array-contains-any", inputArray)
 						.get()
 						.then((snapshot) => {
@@ -145,6 +123,11 @@ class Listing extends Component {
 								let secondary = [];
 
 								db.collection("bookList")
+									.where(
+										"pustakPrakar",
+										"==",
+										this.state.prakar
+									)
 									.where(
 										secondaryLabel,
 										"array-contains-any",
@@ -233,6 +216,8 @@ class Listing extends Component {
 	render() {
 		return (
 			<div className="container">
+				{console.log("local results: ", this.state.results)}
+				{console.log("local type: ", this.state.prakar)}
 				<div className="logo">सार्वजनिक वाचनालय राजगुरूनगर</div>
 				<InputSection
 					onInput={(event) =>
@@ -242,15 +227,13 @@ class Listing extends Component {
 					}
 					inputValue={this.props.input}
 					onSearch={(event) => this.fetchResults(event)}
+					bookType={this.state.prakar}
 				/>
 				{this.state.loading ? (
 					<div className="table-super">
 						<Loading page="listing" />
 					</div>
 				) : null}
-				<h1>{this.state.prakar}</h1>
-				{console.log(this.state.loading)}
-				{console.log("results: ", this.state.results)}
 				<ListSection
 					setCurrentDetails={this.props.setCurrentDetails}
 					tableElements={this.props.results}
@@ -258,7 +241,8 @@ class Listing extends Component {
 						this.state.searched ||
 						(this.props.input && this.state.results.length)
 					}
-					bookType={this.search}
+					setBookType={(prakar) => this.setState({ prakar: prakar })}
+					bookType={this.state.prakar}
 				/>
 			</div>
 		);

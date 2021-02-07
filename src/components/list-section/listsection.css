@@ -27,6 +27,7 @@ table {
 	min-width: 320px;
 	width: 50%;
 	margin-bottom: 100px;
+	margin-top: 50px;
 	place-items: center;
 	overflow: auto;
 	text-align: center;
@@ -49,7 +50,11 @@ table {
 }
 
 .genre-title {
+	width: 80px;
 	margin: 0;
 	padding: 0;
 	margin-top: 0.35rem;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }

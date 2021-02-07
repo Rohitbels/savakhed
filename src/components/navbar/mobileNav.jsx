@@ -5,16 +5,21 @@ import authorSvg from "../../svg/author.svg"
 import authorSvg2 from "../../svg/author2.svg"
 import aboutSvg from "../../svg/about.svg"
 export default class mobileNav extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
             isClicked : 1
         }
-        this.setButton = this.setButton.bind(this);
     }
 
-    setButton(id){
-
+    componentDidMount(){
+        const href = window.location.href;
+        if(href.includes("lekhakList")){
+            this.setState({isClicked:2})
+        }
+        else if(href.includes("aboutUs")){
+            this.setState({isClicked:3})
+        }
     }
 
     render() {
@@ -34,7 +39,7 @@ export default class mobileNav extends Component {
                 </div>
                 {/* about */}
                 <div className={this.state.isClicked === 3 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
-                    <a href="#" onClick={() => this.setState({ isClicked: 3})}>
+                    <a href="#/aboutUs" onClick={() => this.setState({ isClicked: 3})}>
                         <img src={aboutSvg} className="lekhakSvg" alt="About US" />
                     </a>
                 </div>
