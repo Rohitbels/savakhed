@@ -21,7 +21,7 @@ class App extends Component {
 			lekhakLoading: false,
 			activeTab: 1,
 			lekhakDict: { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 },
-			searched: false,
+			lekhakSearched: false,
 			lekhakResults: [],
 			currentLekhak :"",
 			isBtnClicked : 'क'

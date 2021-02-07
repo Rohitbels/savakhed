@@ -16,7 +16,7 @@ class LekhakList extends Component {
             lekhakLoading: this.props.lekhakLoading,
             activeTab: this.props.activeTab,
             lekhakDict: this.props.lekhakDict,
-            searched: this.props.searched,
+            lekhakSearched: this.props.lekhakSearched,
             lekhakResults: this.props.lekhakResults,
             currentLekhak: this.props.currentLekhak,
             isBtnClicked: this.props.isBtnClicked
@@ -29,7 +29,7 @@ class LekhakList extends Component {
     getLekhakNames = value => async () => {
         this.props.setParentState({
             lekhakLoading: true,
-            searched: false,
+            lekhakSearched: false,
             isBtnClicked : value,
             lekhakDict: {}
         })
@@ -49,10 +49,10 @@ class LekhakList extends Component {
         let lekhakName = value;
         this.props.setParentState({
             lekhakDict: {},
-            searched: false,
+            lekhakSearched: false,
             lekhakResults: [],
             currentLekhak: lekhakName,
-            //searched: true
+            //lekhakSearched: true
         });
         await db.collection("bookList")
             .where("lekhakFullName", "==", 'जॉन ग्रिशम')       /************************* Change this to compare "lekhakName" variable ***********************/
@@ -67,7 +67,7 @@ class LekhakList extends Component {
                 });
             });
         this.props.setParentState({
-            searched : true
+            lekhakSearched : true
         });
         //const bookNamesArray = doc.data().lekhakNameJoint;
     }
@@ -77,7 +77,7 @@ class LekhakList extends Component {
             return;
         this.props.setParentState({
             activeTab: tab,
-            searched: false,
+            lekhakSearched: false,
             lekhakDict: tab === 1 ? { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 } :{},
             isBtnClicked: tab === 1 ? 'क' : 'a'
         });
@@ -129,11 +129,11 @@ class LekhakList extends Component {
     }
 
     goBack() {
-        this.props.setParentState({ searched: false });
+        this.props.setParentState({ lekhakSearched: false });
     }
 
     componentDidMount() {
-        //this.props.setParentState({ searched: this.props.lekhakState.searched });
+        this.props.setParentState({ lekhakSearched: this.props.lekhakSearched });
         console.log(this.props);
     }
 
@@ -182,19 +182,19 @@ class LekhakList extends Component {
                     </div>    
                 </div>
                 
-                {!this.props.searched && 
+                {!this.props.lekhakSearched && 
                     <div className="authorsList">
                         {this.props.lekhakLoading ? <Loading page="lekhakList"/> : null} 
                         {this.renderAuthors()}
                     </div>
                 }
-                {this.props.searched && 
+                {this.props.lekhakSearched && 
                     <div className="lekhakBooklist">
                         <h1>लेखक : { this.props.currentLekhak }</h1>
                         <ListSection
                             setCurrentDetails={this.props.setCurrentDetails}
                             tableElements={this.props.lekhakResults}
-                            searched={this.props.searched}
+                            lekhakSearched={this.props.lekhakSearched}
                         />
                     </div>
                 }
