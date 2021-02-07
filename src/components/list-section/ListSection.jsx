@@ -13,8 +13,6 @@ const ListSection = ({
 }) => {
 	return (
 		<>
-			{console.log("listsection results: ", tableElements)}
-			{console.log("listsection type: ", bookType)}
 			{tableElements.length && searched ? (
 				<div className="table-super">
 					{tableElements.map((book, key) => (
@@ -26,10 +24,12 @@ const ListSection = ({
 					))}
 				</div>
 			) : searched ? (
-				<div>No such book found in {bookType} category</div>
+				<div>{`No such book found ${
+					bookType ? `in ${bookType} category` : ""
+				}`}</div>
 			) : (
 				<>
-					<h2>Explore by genre</h2>
+					<span className="explore">~ Explore by genre ~</span>
 					<div
 						className="genre-container"
 						style={{
