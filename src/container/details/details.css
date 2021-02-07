@@ -104,9 +104,10 @@
       flex-direction: column;
       padding-left: 0px;
       align-items: center;  
-      padding-top: 0px;
+      padding-top: 40px;
       margin-bottom: 44px;
       padding-left: 0px;
+
 
     }
 
@@ -114,6 +115,7 @@
         display: flex;
         margin: 0 !important;
         flex-direction: column;
+        width: 300px;
     }
 
     .back_btn{
