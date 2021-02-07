@@ -45,7 +45,7 @@ class LekhakList extends Component {
     }
 
     getLekhakBooks = value => async () => {
-        console.log("getLekhakBooks called");
+        //console.log("getLekhakBooks called");
         let lekhakName = value;
         this.props.setParentState({
             lekhakDict: {},
@@ -63,7 +63,7 @@ class LekhakList extends Component {
                     this.props.setParentState({
                         lekhakResults : this.props.lekhakResults.concat([{...currentBook, id: doc.id }])
                     });
-                    console.log(this.props.lekhakResults);
+                    //console.log(this.props.lekhakResults);
                 });
             });
         this.props.setParentState({
@@ -134,7 +134,7 @@ class LekhakList extends Component {
 
     componentDidMount() {
         this.props.setParentState({ lekhakSearched: this.props.lekhakSearched });
-        console.log(this.props);
+        //console.log(this.props);
     }
 
     render() {
@@ -191,6 +191,7 @@ class LekhakList extends Component {
                 {this.props.lekhakSearched && 
                     <div className="lekhakBooklist">
                         <h1>लेखक : { this.props.currentLekhak }</h1>
+                        <button onClick={this.getLekhakNames(this.props.currentLekhak.charAt(0))} className="clickedBtn">Go Back</button>
                         <ListSection
                             setCurrentDetails={this.props.setCurrentDetails}
                             tableElements={this.props.lekhakResults}
