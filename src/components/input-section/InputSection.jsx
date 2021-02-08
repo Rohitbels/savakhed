@@ -8,6 +8,7 @@ const InputSection = ({
 	inputValue,
 	bookType,
 	setBookType,
+	search,
 }) => {
 	const [toggle, setToggle] = useState(false);
 	const [label, setLabel] = useState("एकटा जीव सदाशिव");
@@ -25,8 +26,9 @@ const InputSection = ({
 		<form className="form">
 			<div className={`filter-section ${bookType === "" ? "none" : ""}`}>
 				<span className="filter">
-					{bookType}{" "}
+					{bookType}
 					<button
+						type="button"
 						onClick={(event) => {
 							event.preventDefault();
 							setBookType("");
@@ -48,6 +50,7 @@ const InputSection = ({
 				/>
 				<button
 					className="search-button"
+					tabIndex={1}
 					type="submit"
 					onClick={(event) => {
 						event.preventDefault();

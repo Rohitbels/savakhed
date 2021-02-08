@@ -8,8 +8,16 @@
 
 .logo {
 	text-align: center;
-	font-size: 1.75em;
 	user-select: none;
+	margin: 2rem 0rem;
+}
+
+.logo #name {
+	font-size: 1.75em;
 	font-weight: 600;
-	margin: 3rem 0rem 4rem 0rem;
+}
+
+.logo #place {
+	font-size: 1.25em;
+	font-weight: 600;
 }

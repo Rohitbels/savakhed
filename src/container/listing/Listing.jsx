@@ -30,13 +30,27 @@ class Listing extends Component {
 
 		this.state = {
 			loading: false,
-			searched: false,
 			input: "",
 			searchAgainst: "pustakName",
 			results: [],
-			prakar: "",
 			query: null,
 			lastDoc: null,
+		};
+
+		const oldScrollTop = 0;
+	}
+
+	componentDidMount() {
+		window.onscroll = async () => {
+			if (window.scrollY > this.oldScrollTop) {
+				let windowHeight = window.innerHeight + window.scrollY;
+				let documentOffset = (document.body.offsetHeight * 9) / 10;
+
+				if (windowHeight > documentOffset) {
+					this.fetchMoreResults();
+				}
+			}
+			this.oldScrollTop = window.scrollY;
 		};
 	}
 
@@ -45,28 +59,64 @@ class Listing extends Component {
 			loading: true,
 		});
 
+		let query = null;
+		let array = [];
+
+		if (label === "pustakPrakar") {
+			this.props.setParentState({
+				searched: true,
+			});
+
+			query = db
+				.collection("bookList")
+				.where(label, "==", inputArray.join(" "));
+
+			let filteredResults = await query.limit(2).get();
+
+			this.setState({
+				input: inputArray.join(" "),
+				query: query,
+				lastDoc: filteredResults.docs[filteredResults.docs.length - 1],
+			});
+
+			filteredResults.forEach((doc) => {
+				let book = doc.data();
+				array.push({ ...book, id: doc.id });
+			});
+
+			this.props.setParentState({
+				results: array,
+			});
+
+			this.setState({
+				loading: false,
+			});
+
+			return;
+		}
+
 		let inputArrayMulakshare = this.getMulakshara(inputArray);
 		let bookParameterMulakshare = "";
 
 		let secondaryLabel =
 			label === "pustakName" ? "pustakFullName" : "lekhakFullName";
 
-		let query =
-			this.state.prakar === ""
+		query =
+			this.props.prakar === ""
 				? db
 						.collection("bookList")
 						.where(secondaryLabel, "==", inputArray.join(" "))
 				: db
 						.collection("bookList")
-						.where("pustakPrakar", "==", this.state.prakar)
+						.where("pustakPrakar", "==", this.props.prakar)
 						.where(secondaryLabel, "==", inputArray.join(" "));
+
+		const first = await query.limit(2).get();
 
 		this.setState({
 			query: query,
+			lastDoc: first.docs[first.docs.length - 1],
 		});
-
-		const first = await query.get();
-		let array = [];
 
 		first.forEach((doc) => {
 			let book = doc.data();
@@ -75,23 +125,24 @@ class Listing extends Component {
 
 		if (array.length === 0) {
 			query =
-				this.state.prakar === ""
+				this.props.prakar === ""
 					? db
 							.collection("bookList")
 							.where(label, "array-contains-any", inputArray)
 					: db
 							.collection("bookList")
-							.where("pustakPrakar", "==", this.state.prakar)
+							.where("pustakPrakar", "==", this.props.prakar)
 							.where(label, "array-contains-any", inputArray);
 
-			this.setState({
-				query: query,
-			});
-
-			const second = await query.get();
+			const second = await query.limit(2).get();
 
 			let primary = [];
 			let secondary = [];
+
+			this.setState({
+				query: query,
+				lastDoc: second.docs[second.docs.length - 1],
+			});
 
 			second.forEach((doc) => {
 				let book = doc.data();
@@ -114,7 +165,7 @@ class Listing extends Component {
 					: "lekhakMulakshare";
 
 			query =
-				this.state.prakar === ""
+				this.props.prakar === ""
 					? db
 							.collection("bookList")
 							.where(
@@ -124,21 +175,22 @@ class Listing extends Component {
 							)
 					: db
 							.collection("bookList")
-							.where("pustakPrakar", "==", this.state.prakar)
+							.where("pustakPrakar", "==", this.props.prakar)
 							.where(
 								secondaryLabel,
 								"array-contains-any",
 								inputArrayMulakshare.split(" ")
 							);
 
-			this.setState({
-				query: query,
-			});
-
-			const third = await query.get();
+			const third = await query.limit(2).get();
 
 			let primary = [];
 			let secondary = [];
+
+			this.setState({
+				query: query,
+				lastDoc: third.docs[third.docs.length - 1],
+			});
 
 			third.forEach((doc) => {
 				let book = doc.data();
@@ -171,26 +223,47 @@ class Listing extends Component {
 		return array.length;
 	};
 
-	getMulakshara = (inputArray) => {
-		let superArray = [];
+	fetchMoreResults = async () => {
+		if (this.state.query && this.state.lastDoc) {
+			let myQuery = this.state.query;
+			let myLastDoc = this.state.lastDoc;
 
-		inputArray.forEach((word) => {
-			chinha.forEach((chinh) => {
-				word = word.replace(new RegExp(chinh, "g"), "");
+			let moreResults = await myQuery
+				.startAfter(myLastDoc)
+				.limit(2)
+				.get();
+
+			let array = [];
+
+			moreResults.docs.forEach((doc) => {
+				if (
+					moreResults.docs[moreResults.docs.length - 1]["id"] !==
+					this.state.lastDoc["id"]
+				) {
+					let book = doc.data();
+					array.push({
+						...book,
+						id: doc.id,
+					});
+				}
 			});
-			superArray.push(word);
-		});
 
-		return superArray.join(" ");
+			if (array.length) {
+				this.props.setParentState({
+					results: [...this.props.results, ...array],
+				});
+
+				this.setState({
+					lastDoc: moreResults.docs[moreResults.docs.length - 1],
+				});
+			}
+		}
 	};
-
-	fetchMoreResults = () => {};
 
 	fetchResults = async (event) => {
 		event.preventDefault();
 		const { input } = this.props;
 		if (input.length) {
-			this.setState({ searched: true });
 			this.props.setParentState({ results: [], searched: true });
 			let inputArray = input.split(" ");
 
@@ -204,15 +277,31 @@ class Listing extends Component {
 				searchSuccess = await this.search("lekhak", inputArray);
 			}
 		} else {
-			this.setState({ searched: false });
 			this.props.setParentState({ results: [], searched: false });
 		}
+	};
+
+	getMulakshara = (inputArray) => {
+		let superArray = [];
+
+		inputArray.forEach((word) => {
+			chinha.forEach((chinh) => {
+				word = word.replace(new RegExp(chinh, "g"), "");
+			});
+			superArray.push(word);
+		});
+
+		return superArray.join(" ");
 	};
 
 	render() {
 		return (
 			<div className="container">
-				<div className="logo">सार्वजनिक वाचनालय राजगुरूनगर</div>
+				<div className="logo">
+					<span id="name">सार्वजनिक वाचनालय</span>
+					<br />
+					<span id="place">राजगुरूनगर</span>
+				</div>
 				<InputSection
 					onInput={(event) =>
 						this.props.setParentState({
@@ -221,8 +310,13 @@ class Listing extends Component {
 					}
 					inputValue={this.props.input}
 					onSearch={(event) => this.fetchResults(event)}
-					bookType={this.state.prakar}
-					setBookType={(prakar) => this.setState({ prakar: prakar })}
+					bookType={this.props.prakar}
+					setBookType={(prakar) => {
+						this.props.setParentState({
+							prakar: prakar,
+							searched: false,
+						});
+					}}
 				/>
 				{this.state.loading ? (
 					<div className="table-super">
@@ -233,11 +327,14 @@ class Listing extends Component {
 					setCurrentDetails={this.props.setCurrentDetails}
 					tableElements={this.props.results}
 					searched={
-						this.state.searched ||
+						this.props.searched ||
 						(this.props.input && this.state.results.length)
 					}
-					setBookType={(prakar) => this.setState({ prakar: prakar })}
-					bookType={this.state.prakar}
+					setBookType={(prakar) =>
+						this.props.setParentState({ prakar: prakar })
+					}
+					bookType={this.props.prakar}
+					searchFilter={this.search}
 				/>
 			</div>
 		);

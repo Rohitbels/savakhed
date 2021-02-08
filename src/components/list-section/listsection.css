@@ -36,9 +36,16 @@ table {
 	flex-direction: column;
 }
 
+.genre-container {
+	width: 100vw;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin-bottom: 100px;
+}
+
 .explore {
 	font-size: 1.5rem;
-	font-style: italic;
 }
 
 .genre-card {

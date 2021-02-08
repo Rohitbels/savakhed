@@ -10,6 +10,7 @@ const ListSection = ({
 	setCurrentDetails,
 	setBookType,
 	bookType,
+	searchFilter,
 }) => {
 	return (
 		<>
@@ -30,22 +31,14 @@ const ListSection = ({
 			) : (
 				<>
 					<span className="explore">~ Explore by genre ~</span>
-					<div
-						className="genre-container"
-						style={{
-							width: "100vw",
-							display: "flex",
-							flexWrap: "wrap",
-							justifyContent: "center",
-							marginBottom: "100px",
-						}}
-					>
+					<div className="genre-container">
 						{exploreBooks.map(({ prakar, img, key }) => (
 							<GenreCard
 								key={key}
 								img={img}
 								prakar={prakar}
 								setBookType={setBookType}
+								searchFilter={searchFilter}
 							/>
 						))}
 					</div>
