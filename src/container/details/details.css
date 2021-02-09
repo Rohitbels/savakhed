@@ -1,10 +1,8 @@
-
-.flex-container{
-    padding-top: 30px;
-    display: flex;
-    padding-left: 140px;
+.flex-container {
+	padding-top: 30px;
+	display: flex;
+	padding-left: 140px;
 }
-
 
 .back_btn {
 	width: 130px;
@@ -21,11 +19,11 @@
 	margin-bottom: 20px;
 }
 
-.cardDetails{
-    height: auto;
-    transition: 0.2s;   
-    display: flex;
-    margin: auto;
+.cardDetails {
+	height: auto;
+	transition: 0.2s;
+	display: flex;
+	margin: auto;
 }
 
 .eachgoogleDetails {
@@ -33,61 +31,59 @@
 	font-size: 25px;
 }
 
-
-.book_details{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: initial;
-    flex: 70%   ;
-    padding-top: 22px;
+.book_details {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: initial;
+	flex: 70%;
+	padding-top: 22px;
 }
 
-.rows{
-    /* padding-left: 15px; */
-    padding-top: 5px;
-    padding-bottom: 20px;
-    /* padding-right: 15px; */
-    display: flex;
+.rows {
+	/* padding-left: 15px; */
+	padding-top: 5px;
+	padding-bottom: 20px;
+	/* padding-right: 15px; */
+	display: flex;
 }
 
-.col1{
-    width: 50%;
+.col1 {
+	width: 50%;
 }
 
-.col2{
-    width: 50%;
-    padding-left: 25%;
+.col2 {
+	width: 50%;
+	padding-left: 25%;
 }
 
-.label{
-    padding: 5px;
-    color: lightslategray;
-    font-weight: 350;
+.label {
+	padding: 5px;
+	color: lightslategray;
+	font-weight: 350;
 }
 
-.book_name{
-    padding: 5px;
-    font-weight: 350;
-    font-size: 1.2em;
-    text-transform: capitalize !important;
-    
+.book_name {
+	padding: 5px;
+	font-weight: 350;
+	font-size: 1.2em;
+	text-transform: capitalize !important;
 }
 
-    .googleResult{
-        font-size: 0.8em;
-        padding: 5px;
-        color: black;
-        font-weight: 300;
-        line-height: 20px;
-    }
+.googleResult {
+	font-size: 0.8em;
+	padding: 5px;
+	color: black;
+	font-weight: 300;
+	line-height: 20px;
+}
 
-.eachgoogleDetails{
-    font-weight: 400;
-    font-size: 20px;
-    width: 100%;
-    padding: 10px;
-    color: purple;
+.eachgoogleDetails {
+	font-weight: 400;
+	font-size: 20px;
+	width: 100%;
+	padding: 10px;
+	color: purple;
 }
 
 .source {
@@ -97,68 +93,65 @@
 }
 
 @media (max-width: 576px) {
+	.flex-container {
+		flex-direction: column;
+		padding-left: 0px;
+		align-items: center;
+		padding-top: 0px;
+		margin-bottom: 44px;
+		padding-left: 0px;
+	}
 
-  
-    .flex-container {
-      flex-direction: column;
-      padding-left: 0px;
-      align-items: center;  
-      padding-top: 0px;
-      margin-bottom: 44px;
-      padding-left: 0px;
+	.cardDetails {
+		display: flex;
+		margin: 0 !important;
+		flex-direction: column;
+	}
 
-    }
+	.back_btn {
+		width: 130px;
+		height: 45px;
+		padding: 10px;
+		font-size: 18px;
+		margin-left: 20px;
+		margin-top: 60px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+			0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	}
 
-    .cardDetails{
-        display: flex;
-        margin: 0 !important;
-        flex-direction: column;
-    }
+	.rows {
+		padding-left: 0px;
+	}
 
-    .back_btn{
-        width: 130px;
-        height: 45px;
-        padding: 10px;
-        font-size: 18px;
-        margin-left: 20px;
-        margin-top: 60px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
+	.col1 {
+		width: 50%;
+	}
 
-    
-    .rows{
-        padding-left: 0px;
-    }
+	.col2 {
+		width: 50%;
+		padding-left: 2%;
+	}
 
-    .col1{
-        width: 50%;
-    }
-    
-    .col2{
-        width: 50%;
-        padding-left: 2%;
-    }
+	.label {
+		padding: 5px !important;
+		font-size: 12px;
+	}
 
-    .label{
-        padding: 5px !important;
-        font-size: 12px;
-    }
+	.book_name {
+		font-weight: 30;
+		font-size: 15px;
+	}
 
-    .book_name{
-        font-weight: 30;
-        font-size: 15px;
-    }
-    
-    .eachgoogleDetails{
-        font-weight: 300;
-        font-size: 15px;
-        width: 100%;
-    }
-    
-    .googleResult{
-        font-size: 12px;
-        padding: 5px;
-        line-height: 16px;
-        color: black;
-    }
-  }
+	.eachgoogleDetails {
+		font-weight: 300;
+		font-size: 15px;
+		width: 100%;
+	}
+
+	.googleResult {
+		font-size: 12px;
+		padding: 5px;
+		line-height: 16px;
+		color: black;
+	}
+}

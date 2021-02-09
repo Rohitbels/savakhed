@@ -18,11 +18,30 @@
 .filter {
 	width: 100%;
 	padding: 0.25rem 1.25rem;
+	padding-right: 0;
+	cursor: pointer;
 	border-radius: 999999px;
 	background-color: rgba(51, 122, 183, 0.25);
 	color: #337ab7;
 	font-weight: 600;
 	font-size: 0.85em;
+}
+
+.filter button {
+	background: none;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	margin: 0 0.5rem;
+	margin-right: 0.5rem;
+	color: inherit;
+	font-weight: 600;
+	font-size: 0.85em;
+}
+
+.filter:hover {
+	background-color: rgba(178, 34, 34, 0.25);
+	color: #b22222;
 }
 
 .input-section {

@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import Switch from "./../switch/Switch";
 import "./inputsection.css";
 
-const InputSection = ({ onInput, onSearch, inputValue, bookType }) => {
+const InputSection = ({
+	onInput,
+	onSearch,
+	inputValue,
+	bookType,
+	setBookType,
+	search,
+}) => {
 	const [toggle, setToggle] = useState(false);
 	const [label, setLabel] = useState("एकटा जीव सदाशिव");
 
@@ -16,22 +23,39 @@ const InputSection = ({ onInput, onSearch, inputValue, bookType }) => {
 	};
 
 	return (
-		<form className={`form ${bookType === "" ? "none" : ""}`}>
+		<form className="form">
 			<div className={`filter-section ${bookType === "" ? "none" : ""}`}>
-				<span className="filter">{bookType}</span>
+				<span className="filter">
+					{bookType}
+					<button
+						type="button"
+						onClick={(event) => {
+							event.preventDefault();
+							setBookType("");
+						}}
+					>
+						X
+					</button>
+				</span>
 			</div>
 			<section className="input-section">
 				<input
 					className="search-bar"
 					type="text"
-					placeholder={`Search by Book name / Author name across ${bookType}`}
+					placeholder={`Search by Book name / Author name ${
+						bookType === "" ? "" : `across ${bookType}`
+					}`}
 					value={inputValue}
 					onInput={onInput}
 				/>
 				<button
 					className="search-button"
+					tabIndex={1}
 					type="submit"
-					onClick={onSearch}
+					onClick={(event) => {
+						event.preventDefault();
+						onSearch(event);
+					}}
 				>
 					Search
 				</button>

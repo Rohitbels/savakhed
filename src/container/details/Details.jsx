@@ -98,14 +98,6 @@ class Details extends Component {
 			: stateBookDetails;
 		return (
 			<div className="fullDetails">
-				{/* <div className="details_back">
-                    <a href="#/search">
-                        <button className="back_btn">
-                            Go Back
-                        </button>
-                    </a>
-                </div> */}
-
 				{/* conditional rendering, if details are found */}
 				<div className="flex-container">
 					{currentBook.pustakName && (

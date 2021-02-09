@@ -17,7 +17,9 @@ class App extends Component {
 			show: "listing",
 			currentDetails: {},
 			results: [],
+			searched: false,
 			input: "",
+			prakar: "",
 		};
 	}
 
@@ -80,7 +82,7 @@ class App extends Component {
 				)}
 				{this.state.show === "aboutus" && <AboutUs />}
 				{this.state.show === "recommendation" && <Recommendation />}
-				<MobileNav  url={this.state.show}/>
+				<MobileNav url={this.state.show} />
 			</div>
 		);
 	}

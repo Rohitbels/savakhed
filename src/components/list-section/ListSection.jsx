@@ -10,11 +10,10 @@ const ListSection = ({
 	setCurrentDetails,
 	setBookType,
 	bookType,
+	searchFilter,
 }) => {
 	return (
 		<>
-			{console.log("listsection results: ", tableElements)}
-			{console.log("listsection type: ", bookType)}
 			{tableElements.length && searched ? (
 				<div className="table-super">
 					{tableElements.map((book, key) => (
@@ -26,26 +25,20 @@ const ListSection = ({
 					))}
 				</div>
 			) : searched ? (
-				<div>No such book found in {bookType} category</div>
+				<div>{`No such book found ${
+					bookType ? `in ${bookType} category` : ""
+				}`}</div>
 			) : (
 				<>
-					<h2>Explore by genre</h2>
-					<div
-						className="genre-container"
-						style={{
-							width: "100vw",
-							display: "flex",
-							flexWrap: "wrap",
-							justifyContent: "center",
-							marginBottom: "100px",
-						}}
-					>
+					<span className="explore">~ Explore by genre ~</span>
+					<div className="genre-container">
 						{exploreBooks.map(({ prakar, img, key }) => (
 							<GenreCard
 								key={key}
 								img={img}
 								prakar={prakar}
 								setBookType={setBookType}
+								searchFilter={searchFilter}
 							/>
 						))}
 					</div>

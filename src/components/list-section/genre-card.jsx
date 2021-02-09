@@ -1,11 +1,14 @@
 import React from "react";
 import "./listsection.css";
-const GenreCard = ({ key, img, prakar, setBookType }) => {
+const GenreCard = ({ key, img, prakar, setBookType, searchFilter }) => {
 	return (
 		<div
 			className="genre-card"
 			key={key}
-			onClick={() => setBookType([prakar].join(" "))}
+			onClick={() => {
+				setBookType([prakar].join(" "));
+				searchFilter("pustakPrakar", [prakar]);
+			}}
 		>
 			<img
 				src={img}
