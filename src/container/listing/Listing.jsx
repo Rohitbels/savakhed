@@ -303,9 +303,9 @@ class Listing extends Component {
 					<span id="place">राजगुरूनगर</span>
 				</div>
 				<InputSection
-					onInput={(event) =>
+					onInput={(value) =>
 						this.props.setParentState({
-							input: event.target.value.toLowerCase(),
+							input: value,
 						})
 					}
 					inputValue={this.props.input}

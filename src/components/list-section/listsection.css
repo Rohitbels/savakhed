@@ -41,7 +41,7 @@ table {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 100px;
+	margin: 10px 0px;
 }
 
 .explore {
@@ -51,7 +51,7 @@ table {
 .genre-card {
 	display: "grid";
 	place-items: "center";
-	margin: 2rem 3rem;
+	margin: 1rem;
 	text-align: center;
 	cursor: pointer;
 }

@@ -1,17 +1,7 @@
 import Autosuggest from "react-autosuggest";
 import React from "react";
 import ReactDOM from "react-dom";
-// Imagine you have a list of languages that you'd like to autosuggest.
-const languages = [
-	{
-		name: "C",
-		year: 1972,
-	},
-	{
-		name: "Elm",
-		year: 2012,
-	},
-];
+import "./inputbox.css";
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
 
@@ -41,7 +31,6 @@ export default class InputBox extends React.Component {
 	getSuggestions = (value) => {
 		const inputValue = value.toLowerCase();
 
-		const inputLength = inputValue.length;
 		fetch(
 			`https://inputtools.google.com/request?text=${inputValue}&itc=mr-t-i0-und&num=13&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`
 		)
@@ -64,6 +53,8 @@ export default class InputBox extends React.Component {
 		this.setState({
 			value: newValue.trim(),
 		});
+
+		this.props.onInput(newValue.trim().toLowerCase());
 	};
 
 	// Autosuggest will call this function every time you need to update suggestions.
@@ -90,16 +81,20 @@ export default class InputBox extends React.Component {
 
 		// Autosuggest will pass through all these props to the input.
 		const inputProps = {
-			placeholder: "Type a programming language",
+			placeholder: this.props.placeholder,
 			value,
 			onChange: this.onChange,
 		};
 
 		// Finally, render it!
 		return (
-			<div height={this.props.height} onKeyDown={this.props.onKeyDown}>
+			<div
+				className="input-container"
+				height={this.props.height}
+				onKeyDown={this.props.onKeyDown}
+			>
 				<Autosuggest
-					suggestions={suggestions}
+					suggestions={this.props.shouldSuggest && suggestions}
 					onSuggestionsFetchRequested={
 						this.onSuggestionsFetchRequested
 					}
