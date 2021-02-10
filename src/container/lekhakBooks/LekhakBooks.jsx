@@ -16,7 +16,6 @@ class LekhakBooks extends Component {
         };
     }
 
-
     getLekhakBooks = value => async () => {
         console.log("getLekhakBooks called");
         let lekhakName = value;
@@ -44,17 +43,11 @@ class LekhakBooks extends Component {
         //const bookNamesArray = doc.data().lekhakNameJoint;
     }
 
-    // goBack() {
-    //     this.props.setParentState({ lekhakSearched: false });
-    // }
-
     componentDidMount() {
         this.props.setParentState({ lekhakSearched: this.props.lekhakSearched });
-        //console.log(this.props);
     }
 
     render() {
-        //const { character } = this.props;
         var online = navigator.onLine;
         console.log("Online? : ", online);
         if(!online) {
@@ -62,17 +55,15 @@ class LekhakBooks extends Component {
         }
         return (
             <div>
-                {this.props.lekhakSearched && 
-                    <div className="lekhakBooklist">
-                        <h1>लेखक : { this.props.currentLekhak }</h1>
-                        {/* <button onClick={this.getLekhakNames(this.props.currentLekhak.charAt(0))} className="clickedBtn" key="keyLekhakGoBackButton">Go Back</button> */}
-                        <ListSection
-                            setCurrentDetails={this.props.setCurrentDetails}
-                            tableElements={this.props.lekhakResults}
-                            searched={this.props.lekhakSearched}
-                        />
-                    </div>
-                }
+                <div className="lekhakBooklist">
+                    <h1>लेखक : { this.props.currentLekhak }</h1>
+                    {/* <button onClick={this.getLekhakNames(this.props.currentLekhak.charAt(0))} className="clickedBtn" key="keyLekhakGoBackButton">Go Back</button> */}
+                    <ListSection
+                        setCurrentDetails={this.props.setCurrentDetails}
+                        tableElements={this.props.lekhakResults}
+                        searched={true}
+                    />
+                </div>
             </div>
         )
     }

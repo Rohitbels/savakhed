@@ -16,7 +16,7 @@ class LekhakList extends Component {
             lekhakLoading: this.props.lekhakLoading,
             activeTab: this.props.activeTab,
             lekhakDict: this.props.lekhakDict,
-            lekhakSearched: this.props.lekhakSearched,
+            lekhakSearched: this.props.lekhakSearched,                      //Boolean
             lekhakResults: this.props.lekhakResults,
             currentLekhak: this.props.currentLekhak,
             isBtnClicked: this.props.isBtnClicked
@@ -48,11 +48,9 @@ class LekhakList extends Component {
         //console.log("getLekhakBooks called");
         let lekhakName = value;
         this.props.setParentState({
-            lekhakDict: {},
             lekhakSearched: false,
             lekhakResults: [],
             currentLekhak: lekhakName,
-            //lekhakSearched: true
         });
         await db.collection("bookList")
             .where("lekhakFullName", "==", 'जॉन ग्रिशम')       /************************* Change this to compare "lekhakName" variable ***********************/
@@ -66,9 +64,7 @@ class LekhakList extends Component {
                     //console.log(this.props.lekhakResults);
                 });
             });
-        this.props.setParentState({
-            lekhakSearched : true
-        });
+        window.location.href = "#/lekhakbooks/"
         //const bookNamesArray = doc.data().lekhakNameJoint;
     }
 
@@ -134,11 +130,9 @@ class LekhakList extends Component {
 
     componentDidMount() {
         this.props.setParentState({ lekhakSearched: this.props.lekhakSearched });
-        //console.log(this.props);
     }
 
     render() {
-        //const { character } = this.props;
         var online = navigator.onLine;
         console.log("Online? : ", online);
         if(!online) {
@@ -181,22 +175,10 @@ class LekhakList extends Component {
                         </div>
                     </div>    
                 </div>
-                
                 {!this.props.lekhakSearched && 
                     <div className="authorsList">
                         {this.props.lekhakLoading ? <Loading page="lekhakList"/> : null} 
                         {this.renderAuthors()}
-                    </div>
-                }
-                {this.props.lekhakSearched && 
-                    <div className="lekhakBooklist">
-                        <h1>लेखक : { this.props.currentLekhak }</h1>
-                        <button onClick={this.getLekhakNames(this.props.currentLekhak.charAt(0))} className="clickedBtn" key="keyLekhakGoBackButton">Go Back</button>
-                        <ListSection
-                            setCurrentDetails={this.props.setCurrentDetails}
-                            tableElements={this.props.lekhakResults}
-                            searched={this.props.lekhakSearched}
-                        />
                     </div>
                 }
             </div>
