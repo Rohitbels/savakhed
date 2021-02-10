@@ -16,7 +16,7 @@ class LekhakList extends Component {
             lekhakLoading: this.props.lekhakLoading,
             activeTab: this.props.activeTab,
             lekhakDict: this.props.lekhakDict,
-            lekhakSearched: this.props.lekhakSearched,                      //Boolean
+            lekhakSearched: this.props.lekhakSearched,                      //Boolean, False by Default
             lekhakResults: this.props.lekhakResults,
             currentLekhak: this.props.currentLekhak,
             isBtnClicked: this.props.isBtnClicked
@@ -140,7 +140,6 @@ class LekhakList extends Component {
         }
         return (
             <div className="lekhakList">
-                
                 <div>
                     <div>
                         <div className="toggleBtn">
