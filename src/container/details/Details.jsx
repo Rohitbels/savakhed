@@ -98,7 +98,7 @@ class Details extends Component {
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div className="fullDetails">
-                <HelmetMetaData></HelmetMetaData>
+                <HelmetMetaData bookName={currentBook.pustakName}></HelmetMetaData>
                 {/* conditional rendering, if details are found */}
                 <div className="flex-container">
                 {currentBook.pustakName &&    
@@ -138,7 +138,7 @@ class Details extends Component {
 
                 }
                 <div className="whatsappShare">
-                <WhatsappShareButton title="Check this book out" separator="::" url={window.location.href} size={32}   >
+                <WhatsappShareButton title="Check this book out" separator=" " url={window.location.href} size={32}   >
                     <WhatsappIcon size={32} round={true}/>
                 </WhatsappShareButton>
                 </div>

@@ -6,7 +6,7 @@ export default function HelmetMetaData(props) {
     let quote = props.quote !== undefined ? props.quote : "";
     let title = props.title !== undefined ? props.title : "सार्वजनिक वाचनालय राजगुरूनगर";
     // let image = props.image !== undefined ? props.image : "https://storage.googleapis.com/cmperstribe_storage_usha/Banner/IMG_3640.JPG";
-    let description = props.description !== undefined ? props.description  : "Book details";
+    let description = props.description !== undefined ? props.description  : props.bookName;
  return (
   <Helmet>
       <title>{title}</title>
