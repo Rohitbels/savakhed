@@ -3,7 +3,7 @@ import "./details.css";
 import Card from "../../components/card/Card";
 import { db } from "../../firebase";
 import {WhatsappShareButton, WhatsappIcon} from 'react-share';
-
+import HelmetMetaData from './helmet';
 
 class Details extends Component {
     constructor(props) {
@@ -98,6 +98,7 @@ class Details extends Component {
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div className="fullDetails">
+                <HelmetMetaData></HelmetMetaData>
                 {/* conditional rendering, if details are found */}
                 <div className="flex-container">
                 {currentBook.pustakName &&    
