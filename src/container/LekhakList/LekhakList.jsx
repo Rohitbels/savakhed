@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './LekhakList.css'
-import ListSection from "../../components/list-section/ListSection";
 import Alphabets from './Alphabets';
 import Akshar from './Akshar';
 import { db } from '../../firebase'

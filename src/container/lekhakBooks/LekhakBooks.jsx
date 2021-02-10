@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ListSection from "../../components/list-section/ListSection";
 import { db } from '../../firebase'
-import Loading from '../../components/loading/Loading';
 import './LekhakBooks.css'
 
 
