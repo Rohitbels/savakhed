@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './LekhakList.css'
-import ListSection from "../../components/list-section/ListSection";
 import Alphabets from './Alphabets';
 import Akshar from './Akshar';
 import { db } from '../../firebase'
@@ -12,15 +11,14 @@ class LekhakList extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {  
-            loading: false,
-            activeTab: 1,
-            lekhakDict: {},
-            searched: false,
-			//tableHeaders: [],
-            results: [],
-            currentLekhak :"",
-            isBtnClicked : null
+        this.state = {
+            lekhakLoading: this.props.lekhakLoading,
+            activeTab: this.props.activeTab,
+            lekhakDict: this.props.lekhakDict,
+            lekhakSearched: this.props.lekhakSearched,                      //Boolean, False by Default
+            lekhakResults: this.props.lekhakResults,
+            currentLekhak: this.props.currentLekhak,
+            isBtnClicked: this.props.isBtnClicked
         };
 
         this.toggle = this.toggle.bind(this);
@@ -28,32 +26,30 @@ class LekhakList extends Component {
 
 
     getLekhakNames = value => async () => {
-        this.setState({
-            loading: true,
-            searched: false,
+        this.props.setParentState({
+            lekhakLoading: true,
+            lekhakSearched: false,
             isBtnClicked : value,
             lekhakDict: {}
         })
-        //let val = value;
-        //console.log(val);
+        //console.log(value);
         const doc = await db.collection("newMappingTrial").doc(value).get();
         let lekhakNamesDict = doc.data().names;
         lekhakNamesDict = this.sortKeys(lekhakNamesDict);
-        this.setState(
-            { lekhakDict: lekhakNamesDict, loading: false }
+        this.props.setParentState(
+            { lekhakDict: lekhakNamesDict, lekhakLoading: false }
         );
         //console.log(lekhakNamesDict);
-        //console.log(this.state.loading);
+        //console.log(this.props.lekhakLoading);
     }
 
     getLekhakBooks = value => async () => {
+        //console.log("getLekhakBooks called");
         let lekhakName = value;
-        this.setState({
-            lekhakDict: {},
-            searched: false,
-			//tableHeaders: [],
-            results: [],
-            currentLekhak: lekhakName
+        this.props.setParentState({
+            lekhakSearched: false,
+            lekhakResults: [],
+            currentLekhak: lekhakName,
         });
         await db.collection("bookList")
             .where("lekhakFullName", "==", 'जॉन ग्रिशम')       /************************* Change this to compare "lekhakName" variable ***********************/
@@ -61,34 +57,37 @@ class LekhakList extends Component {
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
                     let currentBook = doc.data();
-                    this.setState({
-                        results : this.state.results.concat([{...currentBook, id: doc.id }])
+                    this.props.setParentState({
+                        lekhakResults : this.props.lekhakResults.concat([{...currentBook, id: doc.id }])
                     });
-                    console.log(currentBook.lekhak, currentBook.pustakName);
+                    //console.log(this.props.lekhakResults);
                 });
             });
-        this.setState({
-            //tableHeaders: ["Dakhal-ID", "Vibhag-ID", "Book", "Author"],
-            searched : true
-        });
+        window.location.href = "#/lekhakbooks/"
         //const bookNamesArray = doc.data().lekhakNameJoint;
     }
 
     toggle(tab) {
-        this.setState({
-            searched: false,
-            lekhakDict: {}
+        if (this.props.activeTab === tab)
+            return;
+        this.props.setParentState({
+            activeTab: tab,
+            lekhakSearched: false,
+            lekhakDict: tab === 1 ? { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 } :{},
+            isBtnClicked: tab === 1 ? 'क' : 'a'
         });
-        if (this.state.activeTab !== tab) {
-            this.setState({ activeTab: tab });
-        }
+        
     }
 
     renderAuthors = () => {
+        if(Object.keys(this.props.lekhakDict).length === 0 && !this.props.lekhakLoading) {
+            return(<div><p>No mentionable lekhaks found.</p></div>);
+        }
+        //else
         return (
-            Object.keys(this.state.lekhakDict).map((key, index) => (
+            Object.keys(this.props.lekhakDict).map((key, index) => (
                 <div className="renderAuthors">
-                    <div className="authorName">{key} - <span>{this.state.lekhakDict[key]} Books</span></div>
+                    <div className="authorName">{key} - <span>{this.props.lekhakDict[key]} Books</span></div>
                     <div className="bookNames"><p onClick={this.getLekhakBooks(key)}>View Books</p></div>
                 </div>
             ))
@@ -98,7 +97,7 @@ class LekhakList extends Component {
     renderAlphabets = (alpha) => {
         return (
             alpha.map((letter) => (
-                <button value={letter.key} className={this.state.isBtnClicked === letter.key? "alphabetsClicked" : "alphabetsUnclicked"} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
+                <button value={letter.key} className={this.props.isBtnClicked === letter.key? "alphabetsClicked" : "alphabetsUnclicked"} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
             ))
         )
     }
@@ -124,8 +123,15 @@ class LekhakList extends Component {
         return obj_1; 
     }
 
+    goBack() {
+        this.props.setParentState({ lekhakSearched: false });
+    }
+
+    componentDidMount() {
+        this.props.setParentState({ lekhakSearched: this.props.lekhakSearched });
+    }
+
     render() {
-        //const { character } = this.state;
         var online = navigator.onLine;
         console.log("Online? : ", online);
         if(!online) {
@@ -133,18 +139,17 @@ class LekhakList extends Component {
         }
         return (
             <div className="lekhakList">
-                
                 <div>
                     <div>
                         <div className="toggleBtn">
                             <button 
-                            className={this.state.activeTab === 1 ? "clickedBtn" : "unclickedBtn"} 
+                            className={this.props.activeTab === 1 ? "clickedBtn" : "unclickedBtn"} 
                             onClick={() => { this.toggle(1); }}
                             >
                                 Marathi
                             </button>
                             <button 
-                            className={this.state.activeTab === 2 ? "clickedBtn" : "unclickedBtn"} 
+                            className={this.props.activeTab === 2 ? "clickedBtn" : "unclickedBtn"} 
                             onClick={() => { this.toggle(2); }}
                             >
                                 English
@@ -152,14 +157,14 @@ class LekhakList extends Component {
                         </div>
                         <div>
                             <div>
-                                {this.state.activeTab === 1 ?
+                                {this.props.activeTab === 1 ?
                                     <div className="ButtonContainer">
                                         {this.renderAlphabets(Akshar)}
                                     </div>
                                     : null}
                             </div>
                             <div>
-                                {this.state.activeTab === 2 ?
+                                {this.props.activeTab === 2 ?
                                     <div className="ButtonContainer">
                                         {this.renderAlphabets(Alphabets)}
                                     </div>
@@ -168,22 +173,10 @@ class LekhakList extends Component {
                         </div>
                     </div>    
                 </div>
-                
-                {!this.state.searched && 
+                {!this.props.lekhakSearched && 
                     <div className="authorsList">
-                        {this.state.loading ? <Loading page="lekhakList"/> : null} 
+                        {this.props.lekhakLoading ? <Loading page="lekhakList"/> : null} 
                         {this.renderAuthors()}
-                    </div>
-                }
-                {this.state.searched && 
-                    <div className="lekhakBooklist">
-                        <h1>लेखक : { this.state.currentLekhak }</h1>
-                        <ListSection
-                            setCurrentDetails={this.props.setCurrentDetails}
-                            //tableHeaders={this.state.tableHeaders}
-                            tableElements={this.state.results}
-                            searched={this.state.searched}
-                        />
                     </div>
                 }
             </div>

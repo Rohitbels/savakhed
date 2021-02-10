@@ -6,6 +6,7 @@ function Header() {
 	const setLabel = () => {
 		const href = window.location.href;
 		if (href.includes("lekhaklist")) return "lekhak-list";
+		if (href.includes("lekhakbooks")) return "lekhakbooks";
 		if (href.includes("aboutus")) return "about-us";
 		if (href.includes("details")) return "details";
 		if (href.includes("search")) return "search";
@@ -53,7 +54,7 @@ function Header() {
 
 	return (
 		<nav className="nav-bar">
-			{window.location.href.includes("details") ? (
+			{window.location.href.includes("details") || window.location.href.includes("lekhakbooks") ? (
 				<a onClick={() => window.history.go(-1)} className="back-link">
 					<div className="back-button">
 						<Arrow />

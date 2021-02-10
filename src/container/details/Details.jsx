@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import "./details.css";
 import Card from "../../components/card/Card";
 import { db } from "../../firebase";
-
+import {WhatsappShareButton, WhatsappIcon} from 'react-share';
+import HelmetMetaData from './helmet';
 
 class Details extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             gotGoogleData: false,
             GresultScore: 0,
@@ -72,6 +73,7 @@ class Details extends Component {
             .doc(this.getIdFromUrl()).get()
 
         const firebaseBookDetail = doc.data();
+        console.log(firebaseBookDetail)
         this.setState({
             bookDetail : firebaseBookDetail
         });
@@ -96,14 +98,7 @@ class Details extends Component {
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div className="fullDetails">
-                <div className="details_back">
-                    <a href="#/search">
-                        <button className="back_btn">
-                            Go Back
-                        </button>
-                    </a>
-                </div>
-
+                <HelmetMetaData bookName={currentBook.pustakName}></HelmetMetaData>
                 {/* conditional rendering, if details are found */}
                 <div className="flex-container">
                 {currentBook.pustakName &&    
@@ -136,17 +131,21 @@ class Details extends Component {
                                     <div className="book_name">{currentBook.pustakPrakar}</div>
                                     </div>
                                 </div>
-                                {/* <hr className="hr-inLabel" /> */}
-                                <br />
+                                <div className="source">Book details provided by : {currentBook.usermail} </div>
                             </div>
                         </div>
                         </Card>
 
                 }
+                <div className="whatsappShare">
+                <WhatsappShareButton title="Check this book out" separator="       " url={window.location.href} size={36}   >
+                    <WhatsappIcon size={36} round={true}/>
+                </WhatsappShareButton>
+                </div>
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname} whichCard="google">
                         <div className="googleDetails">
-                            <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
+                            {/* <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div> */}
                             {this.state.GarticleBody !== "" &&
                             <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.GarticleBody}</div></div>
                             } 
@@ -161,7 +160,7 @@ class Details extends Component {
 
                 </div>
                 
-
+                
             </div>
         )
     }
