@@ -145,7 +145,7 @@ class Details extends Component {
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname} whichCard="google">
                         <div className="googleDetails">
-                            <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div>
+                            {/* <div className="eachgoogleDetails">Result Score : <div className="googleResult">{this.state.GresultScore}</div></div> */}
                             {this.state.GarticleBody !== "" &&
                             <div className="eachgoogleDetails">Article Body : <div className="googleResult">{this.state.GarticleBody}</div></div>
                             } 
