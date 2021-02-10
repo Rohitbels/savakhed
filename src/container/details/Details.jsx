@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import "./details.css";
 import Card from "../../components/card/Card";
 import { db } from "../../firebase";
+import {WhatsappShareButton, WhatsappIcon} from 'react-share';
 
 
 class Details extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             gotGoogleData: false,
             GresultScore: 0,
@@ -72,6 +73,7 @@ class Details extends Component {
             .doc(this.getIdFromUrl()).get()
 
         const firebaseBookDetail = doc.data();
+        console.log(firebaseBookDetail)
         this.setState({
             bookDetail : firebaseBookDetail
         });
@@ -135,6 +137,11 @@ class Details extends Component {
                         </Card>
 
                 }
+                <div className="whatsappShare">
+                <WhatsappShareButton title="Check this book out" separator="::" url={window.location.href} size={32}   >
+                    <WhatsappIcon size={32} round={true}/>
+                </WhatsappShareButton>
+                </div>
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname} whichCard="google">
                         <div className="googleDetails">
@@ -153,7 +160,7 @@ class Details extends Component {
 
                 </div>
                 
-
+                
             </div>
         )
     }

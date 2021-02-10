@@ -5,6 +5,10 @@
     padding-left: 180px;
 }
 
+.whatsappShare{
+    display: none;
+}
+
 
 .back_btn {
 	width: 130px;
@@ -111,6 +115,25 @@
 
     }
 
+    .whatsappShare{
+        position: fixed;
+        display: flex;
+        z-index: 999;
+        box-shadow: 0.5px 0.5px 5px black;
+        width: 31px;
+        height: 31px;
+        border-radius: 30px;
+        bottom: 15vh;
+        right: 3vh;
+        outline: none;
+    }
+    
+    .whatsappShare:active ,.whatsappShare:any-link, .whatsappShare:focus, .whatsappShare:focus-visible {
+        outline: none;
+        border:none;
+    }
+    
+
     .cardDetails{
         display: flex;
         margin: 0 !important;
@@ -148,7 +171,7 @@
     }
 
     .book_name{
-        font-weight: 30;
+        font-weight: 365;
         font-size: 15px;
     }
     
