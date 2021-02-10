@@ -130,8 +130,7 @@ class Details extends Component {
                                     <div className="book_name">{currentBook.pustakPrakar}</div>
                                     </div>
                                 </div>
-                                {/* <hr className="hr-inLabel" /> */}
-                                <br />
+                                <div className="source">Book details provided by : {currentBook.usermail} </div>
                             </div>
                         </div>
                         </Card>
