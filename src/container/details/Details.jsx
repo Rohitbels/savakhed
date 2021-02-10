@@ -139,7 +139,7 @@ class Details extends Component {
                 }
                 <div className="whatsappShare">
                 <WhatsappShareButton title="Check this book out" separator=" " url={window.location.href} size={32}   >
-                    <WhatsappIcon size={32} round={true}/>
+                    <WhatsappIcon size={33} round={true}/>
                 </WhatsappShareButton>
                 </div>
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
