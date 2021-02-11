@@ -94,7 +94,7 @@ export default class InputBox extends React.Component {
 				onKeyDown={this.props.onKeyDown}
 			>
 				<Autosuggest
-					suggestions={this.props.shouldSuggest && suggestions}
+					suggestions={this.props.shouldSuggest ? suggestions : []}
 					onSuggestionsFetchRequested={
 						this.onSuggestionsFetchRequested
 					}

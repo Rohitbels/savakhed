@@ -47,15 +47,6 @@ const InputSection = ({
 					onInput={onInput}
 					shouldSuggest={toggle}
 				/>
-				{/* <input
-					className="search-bar"
-					type="text"
-					placeholder={`Search by Book name / Author name ${
-						bookType === "" ? "" : `across ${bookType}`
-					}`}
-					value={inputValue}
-					onInput={onInput}
-				/> */}
 				<button
 					className="search-button"
 					tabIndex={1}

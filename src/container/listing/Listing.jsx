@@ -37,6 +37,7 @@ class Listing extends Component {
 			lastDoc: null,
 		};
 
+		// eslint-disable-next-line
 		const oldScrollTop = 0;
 	}
 

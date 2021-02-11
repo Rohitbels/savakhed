@@ -1,7 +1,7 @@
 ul,
 ol {
 	list-style: none;
-	padding: 0 0.5rem;
+	padding: 0;
 	margin: 0;
 }
 
@@ -57,5 +57,9 @@ ol {
 
 .react-autosuggest__suggestion {
 	cursor: pointer;
-	padding: 0.25rem;
+	padding: 0.5rem 1rem;
+}
+
+.react-autosuggest__suggestion--highlighted {
+	background-color: rgba(51, 122, 183, 0.25);
 }

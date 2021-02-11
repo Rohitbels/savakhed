@@ -4,6 +4,7 @@ import { db } from "../../firebase";
 
 function Recommendation() {
 	const tableHeaders = ["Dakhal-ID", "Vibhag-ID", "Book", "Author"];
+	// eslint-disable-next-line
 	const [results, setResults] = useState([]);
 	const [searched, setSearched] = useState(false);
 
