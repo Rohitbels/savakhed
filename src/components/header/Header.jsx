@@ -79,7 +79,7 @@ function Header() {
 					}}
 				>
 					<div className="link-placeholders" id="lekhak-list">
-						Lekhak List
+						Authors
 					</div>
 				</a>
 				<a
