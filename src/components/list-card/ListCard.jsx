@@ -69,7 +69,7 @@ const ListCard = ({ book, setCurrentDetails }) => {
 
 		const xhr = new XMLHttpRequest();
 		let url = ""
-		console.log(book);
+		// console.log(book);
 		xhr.addEventListener("load", () => {
 			const json = JSON.parse(xhr.responseText)
 			const {items = []} = json
@@ -81,6 +81,8 @@ const ListCard = ({ book, setCurrentDetails }) => {
 				setImg(url)
 
 			} catch (error) {
+				console.log("image set to default");
+				setImg(bookimage);
 				console.log(error);
 			}
 			
@@ -99,7 +101,8 @@ const ListCard = ({ book, setCurrentDetails }) => {
 			setImg(book['imageURL'])
 		} else {
 			console.log("2");
-			getImgURL(book["pustakFullName"] + " " + book["lekhakFullName"])
+			console.log("searching for ", book["pustakNameEnglish"].join(" ") + " " + book["lekhakNameEnglish"].join(" "));
+			getImgURL(book["pustakNameEnglish"].join(" ") + " " + book["lekhakNameEnglish"].join(" "))
 		}
 		return () => {
 			
