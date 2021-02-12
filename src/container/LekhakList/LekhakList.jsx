@@ -81,7 +81,7 @@ class LekhakList extends Component {
 
     renderAuthors = () => {
         if(Object.keys(this.props.lekhakDict).length === 0 && !this.props.lekhakLoading) {
-            return(<div><p>No mentionable lekhaks found.</p></div>);
+            return(<div><p>No mentionable authors found.</p></div>);
         }
         //else
         return (
