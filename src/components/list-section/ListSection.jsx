@@ -25,16 +25,16 @@ const ListSection = ({
 					))}
 				</div>
 			) : searched ? (
-				<div>{`No such book found ${
+				<div className="no-book-error">{`No such book found ${
 					bookType ? `in ${bookType} category` : ""
 				}`}</div>
 			) : (
 				<>
 					<span className="explore">~ Explore by genre ~</span>
 					<div className="genre-container">
-						{exploreBooks.map(({ prakar, img, key }) => (
+						{exploreBooks.map(({ id, prakar, img }) => (
 							<GenreCard
-								key={key}
+								key={id}
 								img={img}
 								prakar={prakar}
 								setBookType={setBookType}

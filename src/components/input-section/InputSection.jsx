@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Switch from "./../switch/Switch";
+import InputBox from "./InputBox";
 import "./inputsection.css";
 
 const InputSection = ({
@@ -8,7 +9,6 @@ const InputSection = ({
 	inputValue,
 	bookType,
 	setBookType,
-	search,
 }) => {
 	const [toggle, setToggle] = useState(false);
 	const [label, setLabel] = useState("एकटा जीव सदाशिव");
@@ -39,14 +39,13 @@ const InputSection = ({
 				</span>
 			</div>
 			<section className="input-section">
-				<input
-					className="search-bar"
-					type="text"
+				<InputBox
 					placeholder={`Search by Book name / Author name ${
 						bookType === "" ? "" : `across ${bookType}`
 					}`}
 					value={inputValue}
 					onInput={onInput}
+					shouldSuggest={toggle}
 				/>
 				<button
 					className="search-button"

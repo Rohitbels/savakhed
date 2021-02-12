@@ -37,6 +37,7 @@ class Listing extends Component {
 			lastDoc: null,
 		};
 
+		// eslint-disable-next-line
 		const oldScrollTop = 0;
 	}
 
@@ -303,9 +304,9 @@ class Listing extends Component {
 					<span id="place">राजगुरूनगर</span>
 				</div>
 				<InputSection
-					onInput={(event) =>
+					onInput={(value) =>
 						this.props.setParentState({
-							input: event.target.value.toLowerCase(),
+							input: value,
 						})
 					}
 					inputValue={this.props.input}

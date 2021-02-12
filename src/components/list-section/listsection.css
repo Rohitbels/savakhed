@@ -25,9 +25,7 @@ table {
 
 .table-super {
 	min-width: 320px;
-	width: 50%;
-	margin-bottom: 100px;
-	margin-top: 50px;
+	margin-top: 25px;
 	place-items: center;
 	overflow: auto;
 	text-align: center;
@@ -36,12 +34,58 @@ table {
 	flex-direction: column;
 }
 
+@media only screen and (min-width: 320px) {
+	.table-super {
+		width: 100%;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.table-super {
+		width: 100%;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.table-super {
+		width: 75%;
+	}
+}
+@media only screen and (min-width: 1900px) {
+	.table-super {
+		width: 60%;
+	}
+}
+
 .genre-container {
 	width: 100vw;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 100px;
+	margin: 10px 0px;
+}
+
+@media only screen and (min-width: 320px) {
+	.table-super {
+		margin-bottom: 100px;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.table-super {
+		margin-bottom: 4rem;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.table-super {
+		margin-bottom: 2rem;
+	}
+}
+@media only screen and (min-width: 1900px) {
+	.table-super {
+		margin-bottom: 2rem;
+	}
+}
+
+.no-book-error {
+	margin: 5rem 0rem;
 }
 
 .explore {
@@ -49,9 +93,7 @@ table {
 }
 
 .genre-card {
-	display: "grid";
-	place-items: "center";
-	margin: 2rem 3rem;
+	margin: 1rem;
 	text-align: center;
 	cursor: pointer;
 }
@@ -63,7 +105,7 @@ table {
 
 .genre-title {
 	width: 80px;
-	margin: 0;
+	margin: 0 auto;
 	padding: 0;
 	margin-top: 0.35rem;
 	white-space: nowrap;
