@@ -104,13 +104,14 @@ class Details extends Component {
                 {currentBook.pustakName &&    
                         <Card bookName="Book Details">
                         <div className="cardDetails">
-                            <div className="book_details">  
-                                <div className="book_img">
+                        <div className="book_img">
                                     {currentBook.imageUrl != "" ?
                                         <img src={currentBook.imageURL} alt="book image" className="book_img_class"/>
                                     :<div></div>
                                     }
                                 </div>
+                            <div className="book_details">  
+                                
                                 <div className="rows">
                                     <div className="col1">
                                     <span className="label">Pustak Name</span>

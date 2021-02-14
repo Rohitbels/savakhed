@@ -65,6 +65,18 @@
     padding-left: 25%;
 }
 
+.book_img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 0.8em;
+}
+
+.book_img_class{
+    width: auto;
+    height: 10em;
+}
+
 .label{
     padding: 5px;
     color: lightslategray;
@@ -118,10 +130,12 @@
     .book_img{
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .book_img_class{
-        width: 40%;
+        width: auto;
+        height: 10em;
     }
 
     .whatsappShare{
