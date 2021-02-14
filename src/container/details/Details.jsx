@@ -98,7 +98,7 @@ class Details extends Component {
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div className="fullDetails">
-                <HelmetMetaData bookName={currentBook.pustakName} image={currentBook.imageURL}></HelmetMetaData>
+                <HelmetMetaData bookName={currentBook.pustakName.join(" ")} description={currentBook.pustakName.join(" ")} image={currentBook.imageURL}></HelmetMetaData>
                 {/* conditional rendering, if details are found */}
                 <div className="flex-container">
                 {currentBook.pustakName &&    

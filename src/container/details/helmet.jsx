@@ -25,6 +25,7 @@ export default function HelmetMetaData(props) {
       <meta property="title" content={title} />
       <meta property="quote" content={quote} />
       <meta name="description" content={description} />
+      <meta rel="icon" href={image}/>
       <meta property="image" content={image} /> 
       <meta property="og:locale" content="en_US" />
       <meta property="og:type" content="website" />
