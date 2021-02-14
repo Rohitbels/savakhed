@@ -10,13 +10,6 @@ const GenreCard = ({ img, prakar, setBookType, searchFilter }) => {
 				searchFilter("pustakPrakar", [prakar]);
 			}}
 		>
-			{/* <img
-				src={img}
-				alt={`Book cover for ${prakar} pustak prakar`}
-				width="126"
-				height="180"
-				className="genre-image"
-			/> */}
 			<Image
 				src={img}
 				alt={`Book cover for ${prakar} pustak prakar`}

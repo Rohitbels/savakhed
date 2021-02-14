@@ -93,7 +93,7 @@ table {
 }
 
 .genre-card {
-	margin: 1rem;
+	margin: 1rem 1.25rem;
 	text-align: center;
 	cursor: pointer;
 }

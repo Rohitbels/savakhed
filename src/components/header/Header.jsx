@@ -29,7 +29,6 @@ function Header() {
 		window.addEventListener(
 			"hashchange",
 			function () {
-				// console.log("The hash has changed!");
 				if (document.getElementById(setLabel()) != null) {
 					removeActive();
 					document.getElementById(setLabel()).classList.add("active");

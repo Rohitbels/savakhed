@@ -31,30 +31,32 @@ export default class InputBox extends React.Component {
 	getSuggestions = (value) => {
 		const inputValue = value.toLowerCase();
 
-		fetch(
-			`https://inputtools.google.com/request?text=${inputValue}&itc=mr-t-i0-und&num=13&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`
-		)
-			//fetch(`https://api.github.com/search/users?q=${query}`)
-			.then((resp) => resp.json())
-			.then((suggestions) => {
-				var res = suggestions[1][0][1];
+		if (this.props.shouldSuggest && inputValue.length) {
+			fetch(
+				`https://inputtools.google.com/request?text=${inputValue}&itc=mr-t-i0-und&num=13&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`
+			)
+				//fetch(`https://api.github.com/search/users?q=${query}`)
+				.then((resp) => resp.json())
+				.then((suggestions) => {
+					var res = suggestions[1][0][1];
 
-				var s = res.map((i) => {
-					return { name: i, year: i };
+					var s = res.map((i) => {
+						return { name: i, year: i };
+					});
+
+					if (inputValue[inputValue.length - 1] === " ")
+						this.setState({ value: s[0]["name"], suggestions: s });
+					else this.setState({ suggestions: s });
 				});
-
-				if (inputValue[inputValue.length - 1] === " ")
-					this.setState({ value: s[0]["name"], suggestions: s });
-				else this.setState({ suggestions: s });
-			});
+		}
 	};
 
 	onChange = (event, { newValue }) => {
 		this.setState({
-			value: newValue.trim(),
+			value: newValue,
 		});
 
-		this.props.onInput(newValue.trim().toLowerCase());
+		this.props.onInput(newValue.toLowerCase());
 	};
 
 	// Autosuggest will call this function every time you need to update suggestions.
@@ -94,7 +96,7 @@ export default class InputBox extends React.Component {
 				onKeyDown={this.props.onKeyDown}
 			>
 				<Autosuggest
-					suggestions={this.props.shouldSuggest ? suggestions : []}
+					suggestions={suggestions}
 					onSuggestionsFetchRequested={
 						this.onSuggestionsFetchRequested
 					}

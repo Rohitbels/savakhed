@@ -1,22 +1,20 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import "./listcard.css";
 import bookimage from "./coming-soon.jpg";
-import  '../loading/shimmer.css'
-import { storage, db } from '../../firebase';
-
-
-// import bookimage from "./book.png";
-// import bookimage from "./book-image-not-available.png";
+import { storage, db, collection } from "../../firebase";
+import "../loading/shimmer.css";
+import Image from "../intersection-image-search/Image";
 
 import mulakshare from "./../../container/listing/mulakshare";
 
 const ListCard = ({ book, setCurrentDetails }) => {
 	var language = "इंग्रजी";
 
-	const [Img, setImg] = useState(bookimage)
+	const [Img, setImg] = useState(bookimage);
 
 	mulakshare.forEach((letter) => {
-		if (book["pustakFullName"].includes(letter)) {
+		// if (book["pustakFullName"].includes(letter)) {
+		if (book["pustakName"].join(" ").includes(letter)) {
 			language = "मराठी";
 			return;
 		}
@@ -25,97 +23,133 @@ const ListCard = ({ book, setCurrentDetails }) => {
 	const storageRef = storage.ref();
 
 	const update = async (url) => {
-		const docRef = (await db.collection('bookList').where('dakhalId', '==', book['dakhalId']).get()).docs[0].id
-		// console.log(docRef);
-		const docUpdate = await db.collection('bookList').doc(docRef).update({imageURL : url})
-	}
+		const docRef = (
+			await db
+				.collection("bookList")
+				.where("dakhalId", "==", book["dakhalId"])
+				.get()
+		).docs[0].id;
+		const docUpdate = await db
+			.collection("bookList")
+			.doc(docRef)
+			.update({ imageURL: url });
+	};
 
 	const upload = (file, filename) => {
 		var metadata = {
-			contentType: 'image/jpg',
+			contentType: "image/jpg",
 		};
-		let uploadTask = storageRef.child(`book-covers/${filename.replaceAll(" ", "_")}`).put(file, metadata);
+		let uploadTask = storageRef
+			.child(`book-covers/${filename.replaceAll(" ", "_")}`)
+			.put(file, metadata);
 
-		uploadTask.on('state_changed', 
+		uploadTask.on(
+			"state_changed",
 			(snapshot) => {
-				var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				// console.log(progress);
-			}, 
+				var progress =
+					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+			},
 			(error) => {
 				console.log(error);
-			}, 
+			},
 			() => {
 				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
 					// update(downloadURL)
-					console.log('File available at', downloadURL);
-					update(downloadURL)
+					console.log("File available at", downloadURL);
+					update(downloadURL);
 				});
 			}
 		);
-	}
+	};
 
 	const downloadFile = (url, filename) => {
 		var xhr = new XMLHttpRequest();
-		xhr.responseType = 'blob';
-		xhr.onload = function() {
+		xhr.responseType = "blob";
+		xhr.onload = function () {
 			console.log(xhr.response);
-			upload(xhr.response, filename)
+			upload(xhr.response, filename);
 		};
-		xhr.open('GET', url);
+		xhr.open("GET", url);
 		xhr.send();
-	}
+	};
 
 	const getImgURL = (q) => {
-
 		const xhr = new XMLHttpRequest();
-		let url = ""
+		let url = "";
 		// console.log(book);
 		xhr.addEventListener("load", () => {
-			const json = JSON.parse(xhr.responseText)
-			const {items = []} = json
+			const json = JSON.parse(xhr.responseText);
+			const { items = [] } = json;
 			try {
-
-				url = items[0].image.thumbnailLink
+				url = items[0].image.thumbnailLink;
 				console.log("URL result : ", url);
-				downloadFile(url, q)
-				setImg(url)
-
+				downloadFile(url, q);
+				setImg(url);
 			} catch (error) {
 				console.log("image set to default");
 				setImg(bookimage);
 				console.log(error);
 			}
-			
 		});
 		xhr.open(
 			"GET",
-			`https://customsearch.googleapis.com/customsearch/v1/siterestrict?searchType=image&cx=b322c10bd42a76344&q=${encodeURI(q)}&key=AIzaSyB1TtjgdaS-JyFVHFmWz_OMXhg8ft5Tbpw`
+			`https://customsearch.googleapis.com/customsearch/v1/siterestrict?searchType=image&cx=b322c10bd42a76344&q=${encodeURI(
+				q
+			)}&key=AIzaSyB1TtjgdaS-JyFVHFmWz_OMXhg8ft5Tbpw`
 		);
 		xhr.send();
 		// return url
-	}
+	};
 
 	useEffect(() => {
-		if (book['imageURL']) {
+		// debugger;
+		if (book["imageURL"]) {
 			console.log("1");
-			setImg(book['imageURL'])
+			setImg(book["imageURL"]);
 		} else {
 			console.log("2");
-			console.log("searching for ", book["pustakNameEnglish"].join(" ") + " " + book["lekhakNameEnglish"].join(" "));
-			getImgURL(book["pustakNameEnglish"].join(" ") + " " + book["lekhakNameEnglish"].join(" "))
+			console.log(
+				"searching for ",
+				book["pustakNameEnglish"].join(" ") +
+					" " +
+					book["lekhakNameEnglish"].join(" ")
+			);
+			getImgURL(
+				book["pustakNameEnglish"].join(" ") +
+					" " +
+					book["lekhakNameEnglish"].join(" ")
+			);
 		}
-		return () => {
-			
-		}
-	}, [])
+		return () => {};
+	}, []);
 
 	return (
 		<div className="card-container" onClick={() => setCurrentDetails(book)}>
-			<img className="book-cover" src={Img} alt="book cover" />
-			<a href={`#/details/${book["id"]}`}>
-				<span className="book-title">{book["pustakFullName"]}</span>
-				<span className="book-author">{book["lekhakFullName"]}</span>
-				<div style={{ display: "flex" }}>
+			<Image className="book-cover" src={Img} alt="book cover" />
+			{console.log(`${book["pustakName"].join(" ")}`, book)}
+			<a
+				href={`#/details/${book["id"]}`}
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "flex-end",
+				}}
+			>
+				<div style={{ marginBottom: "auto" }}>
+					<span className="book-title">
+						{/* {book["pustakFullName"]} */}
+						{book["pustakName"].join(" ")}
+					</span>
+					<span className="book-author">
+						{/* {book["lekhakFullName"]} */}
+						{book["lekhak"].join(" ")}
+					</span>
+				</div>
+				<div
+					style={{
+						display: "flex",
+					}}
+				>
 					<span className="book-category">
 						{book["pustakPrakar"]}
 					</span>
