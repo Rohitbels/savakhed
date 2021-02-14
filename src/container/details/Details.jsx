@@ -98,10 +98,12 @@ class Details extends Component {
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div className="fullDetails">
-                <HelmetMetaData bookName={currentBook.pustakName.join(" ")} description={currentBook.pustakName.join(" ")} image={currentBook.imageURL}></HelmetMetaData>
-                {/* conditional rendering, if details are found */}
+                               {/* conditional rendering, if details are found */}
                 <div className="flex-container">
                 {currentBook.pustakName &&    
+    <div>
+<HelmetMetaData bookName={currentBook.pustakName.join(" ")} description={currentBook.pustakName.join(" ")} image={currentBook.imageURL}></HelmetMetaData>
+
                         <Card bookName="Book Details">
                         <div className="cardDetails">
                         <div className="book_img">
@@ -142,14 +144,16 @@ class Details extends Component {
                             </div>
                         </div>
                         </Card>
+                                    
+                
 
-                }
-            
                 <div className="whatsappShare">
                 <WhatsappShareButton title={"Check this book : "+ currentBook.pustakName.join(" ") +" "}  separator="  " url={window.location.href} size={36}   >
                     <WhatsappIcon size={46} round={true}/>
                 </WhatsappShareButton>
                 </div>
+                </div>
+    }
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
                     <Card bookName={this.state.Gname} whichCard="google">
                         <div className="googleDetails">
