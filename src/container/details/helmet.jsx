@@ -5,8 +5,8 @@ export default function HelmetMetaData(props) {
     console.log(props)
     let currentUrl = window.location.href;
     let quote = props.quote !== undefined ? props.quote : props.bookName;
-    let title = props.title !== undefined ? props.bookName : "सार्वजनिक वाचनालय राजगुरूनगर";
-    let image = props.image !== undefined ? props.image : "https://storage.googleapis.com/cmperstribe_storage_usha/Banner/IMG_3640.JPG";
+    let title = props.bookName;
+    let image = props.image != " " ? props.image : "https://storage.googleapis.com/cmperstribe_storage_usha/Banner/IMG_3640.JPG";
     let description = props.description !== undefined ? props.description  : props.bookName;
  return (
   <Helmet>
@@ -34,7 +34,7 @@ export default function HelmetMetaData(props) {
       <meta property="og:image" content={image} /> 
       <meta content="image/*" property="og:image:type" />
       <meta property="og:url" content={currentUrl} />
-      <meta property="og:site_name" content="CampersTribe" />
+      <meta property="og:site_name" content="Book details" />
       <meta property="og:description" content={description} />    </Helmet>
  );
  }
