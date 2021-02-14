@@ -43,7 +43,7 @@ class Details extends Component {
 
     getGoogleData() {
         var xhr = new XMLHttpRequest()
-        var query = this.props.bookDetail.pustakNameEnglish
+        var query = this.props.bookDetail.pustakNameEnglish; 
 
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
@@ -63,7 +63,7 @@ class Details extends Component {
             });
 
         })
-        xhr.open('GET', 'https://kgsearch.googleapis.com/v1/entities:search?query=' + query + '&key=AIzaSyAY9Boy7kdeOmi7JYAfI2zR8Ij3iF_zgxM&limit=1&indent=True')
+        xhr.open('GET', 'https://kgsearch.googleapis.com/v1/entities:search?query=' + query +'&key=AIzaSyAY9Boy7kdeOmi7JYAfI2zR8Ij3iF_zgxM&limit=1&indent=True')
         xhr.send()
     }
 
@@ -71,12 +71,12 @@ class Details extends Component {
     async getFirebaseData() {
         const doc = await db.collection("bookList")
             .doc(this.getIdFromUrl()).get()
-
         const firebaseBookDetail = doc.data();
         console.log(firebaseBookDetail)
         this.setState({
             bookDetail : firebaseBookDetail
         });
+
     }
 
 
@@ -98,13 +98,19 @@ class Details extends Component {
         const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div className="fullDetails">
-                <HelmetMetaData bookName={currentBook.pustakName}></HelmetMetaData>
+                <HelmetMetaData bookName={currentBook.pustakName} image={currentBook.imageURL}></HelmetMetaData>
                 {/* conditional rendering, if details are found */}
                 <div className="flex-container">
                 {currentBook.pustakName &&    
                         <Card bookName="Book Details">
                         <div className="cardDetails">
-                            <div className="book_details">     
+                            <div className="book_details">  
+                                <div className="book_img">
+                                    {currentBook.imageUrl != "" ?
+                                        <img src={currentBook.imageURL} alt="book image" className="book_img_class"/>
+                                    :<div></div>
+                                    }
+                                </div>
                                 <div className="rows">
                                     <div className="col1">
                                     <span className="label">Pustak Name</span>
@@ -137,9 +143,10 @@ class Details extends Component {
                         </Card>
 
                 }
+            
                 <div className="whatsappShare">
-                <WhatsappShareButton title="Check this book out" separator="       " url={window.location.href} size={36}   >
-                    <WhatsappIcon size={36} round={true}/>
+                <WhatsappShareButton title={"Check this book : "+ currentBook.pustakName +" "}  separator="  " url={window.location.href} size={36}   >
+                    <WhatsappIcon size={46} round={true}/>
                 </WhatsappShareButton>
                 </div>
                 {this.state.GresultScore > 140 && this.state.GarticleBody !== "" &&
