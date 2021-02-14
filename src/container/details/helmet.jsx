@@ -5,7 +5,7 @@ export default function HelmetMetaData(props) {
     console.log(props)
     let currentUrl = window.location.href;
     let quote = props.quote !== undefined ? props.quote : props.bookName;
-    let title = props.title !== undefined ? props.title : "सार्वजनिक वाचनालय राजगुरूनगर";
+    let title = props.title !== undefined ? props.bookName : "सार्वजनिक वाचनालय राजगुरूनगर";
     let image = props.image !== undefined ? props.image : "https://storage.googleapis.com/cmperstribe_storage_usha/Banner/IMG_3640.JPG";
     let description = props.description !== undefined ? props.description  : props.bookName;
  return (
