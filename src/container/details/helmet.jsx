@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 
 export default function HelmetMetaData(props) {
-    console.log(props)
+    //console.log(props)
     let currentUrl = window.location.href;
     let quote = props.quote !== undefined ? props.quote : props.bookName;
     let title = props.bookName;

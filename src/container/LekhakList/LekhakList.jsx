@@ -52,7 +52,7 @@ class LekhakList extends Component {
             currentLekhak: lekhakName,
         });
         await db.collection("bookList")
-            .where("lekhakFullName", "==", 'जॉन ग्रिशम')       /************************* Change this to compare "lekhakName" variable ***********************/
+            .where("lekhakFullName", "==", value)       /************************* Change this to compare "lekhakName" variable ***********************/
             .get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {

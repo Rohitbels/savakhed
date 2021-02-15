@@ -17,7 +17,7 @@ class Details extends Component {
             gotFirebaseData: false,
             jsonData:[],
             bookDetail: {},
-            
+            username: ""
         };
 
     }
@@ -27,6 +27,9 @@ class Details extends Component {
         const { bookDetail = {} } = this.props;
          if(!bookDetail.pustakName) {
              this.getFirebaseData();
+         }
+         else {
+            this.getUsername(this.props.bookDetail.usermail);
          }
          this.getGoogleData();
 
@@ -69,14 +72,39 @@ class Details extends Component {
 
 
     async getFirebaseData() {
+        //console.log("getFirebaseData called");
         const doc = await db.collection("bookList")
             .doc(this.getIdFromUrl()).get()
         const firebaseBookDetail = doc.data();
-        console.log(firebaseBookDetail)
+        //console.log(firebaseBookDetail)
         this.setState({
             bookDetail : firebaseBookDetail
         });
+        //console.log("usermail : " + this.state.bookDetail.usermail);
+        const userDoc = await db.collection("userList")
+        .where("email", "==", this.state.bookDetail.usermail)
+        .get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+                let currentUser = doc.data();
+                this.setState({ username: currentUser.name });
+                //console.log("username : " + this.state.username);
+            });
+        });    
+    }
 
+    async getUsername(usermail) {
+        //console.log("getUsername called");
+        const userDoc = await db.collection("userList")
+        .where("email", "==", usermail)
+        .get()
+        .then((snapshot) => {
+            snapshot.forEach((doc) => {
+                let currentUser = doc.data();
+                this.setState({ username: currentUser.name });
+                //console.log("username : " + this.state.username);
+            });
+        });
     }
 
 
@@ -140,7 +168,7 @@ class Details extends Component {
                                     <div className="book_name">{currentBook.pustakPrakar}</div>
                                     </div>
                                 </div>
-                                <div className="source">Book details provided by : {currentBook.usermail} </div>
+                                <div className="source">Book details provided by : {this.state.username} </div>
                             </div>
                         </div>
                         </Card>
