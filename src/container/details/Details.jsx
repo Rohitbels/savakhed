@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./details.css";
 import Card from "../../components/card/Card";
-import { collection, db } from "../../firebase";
+import { db } from "../../firebase";
 import { WhatsappShareButton, WhatsappIcon } from "react-share";
 import HelmetMetaData from "./helmet";
 
@@ -81,7 +81,7 @@ class Details extends Component {
             bookDetail : firebaseBookDetail
         });
         //console.log("usermail : " + this.state.bookDetail.usermail);
-        const userDoc = await db.collection("userList")
+        await db.collection("userList")
         .where("email", "==", this.state.bookDetail.usermail)
         .get()
         .then((snapshot) => {
@@ -95,7 +95,7 @@ class Details extends Component {
 
     async getUsername(usermail) {
         //console.log("getUsername called");
-        const userDoc = await db.collection("userList")
+        await db.collection("userList")
         .where("email", "==", usermail)
         .get()
         .then((snapshot) => {
@@ -136,7 +136,7 @@ class Details extends Component {
                         <div className="cardDetails">
                         <div className="book_img">
                                     {currentBook.imageUrl != "" ?
-                                        <img src={currentBook.imageURL} alt="book image" className="book_img_class"/>
+                                        <img src={currentBook.imageURL} alt="Book Cover" className="book_img_class"/>
                                     :<div></div>
                                     }
                                 </div>

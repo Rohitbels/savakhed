@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./LekhakList.css";
 import Alphabets from "./Alphabets";
 import Akshar from "./Akshar";
-import { collection, db } from "../../firebase";
+import { db } from "../../firebase";
 import Loading from "../../components/loading/Loading";
 
 class LekhakList extends Component {
