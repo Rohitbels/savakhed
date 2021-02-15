@@ -1,14 +1,12 @@
-
-.flex-container{
-    padding-top: 30px;
-    display: flex;
-    padding-left: 180px;
+.flex-container {
+	padding-top: 30px;
+	display: flex;
+	padding-left: 180px;
 }
 
-.whatsappShare{
-    display: none;
+.whatsappShare {
+	display: none;
 }
-
 
 .back_btn {
 	width: 130px;
@@ -25,12 +23,12 @@
 	margin-bottom: 20px;
 }
 
-.cardDetails{
-    width: 420px;
-    height: auto;
-    transition: 0.2s;   
-    display: flex;
-    margin: auto;
+.cardDetails {
+	width: 420px;
+	height: auto;
+	transition: 0.2s;
+	display: flex;
+	margin: auto;
 }
 
 .eachgoogleDetails {
@@ -38,31 +36,40 @@
 	font-size: 25px;
 }
 
-
-.book_details{
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: initial;
-    flex: 70%   ;
-    padding-top: 22px;
+.book_details {
+	display: flex;
+	flex-direction: column;
+	justify-content: start;
+	align-items: initial;
+	flex: 70%;
+	padding-top: 22px;
 }
 
-.rows{
-    /* padding-left: 15px; */
-    padding-top: 5px;
-    padding-bottom: 35px;
-    /* padding-right: 15px; */
-    display: flex;
+.rows {
+	/* padding-left: 15px; */
+	padding-top: 5px;
+	padding-bottom: 20px;
+	/* padding-right: 15px; */
+	display: flex;
 }
 
-.col1{
-    width: 50%;
+.rows {
+	/* padding-left: 15px; */
+	padding-top: 5px;
+	padding-bottom: 35px;
+	/* padding-right: 15px; */
+	display: flex;
 }
 
-.col2{
-    width: 50%;
-    padding-left: 25%;
+.col2 {
+	width: 50%;
+	padding-left: 25%;
+}
+
+.label {
+	padding: 5px;
+	color: lightslategray;
+	font-weight: 350;
 }
 
 .book_img{
@@ -83,28 +90,20 @@
     font-weight: 350;
 }
 
-.book_name{
-    padding: 5px;
-    font-weight: 350;
-    font-size: 1.2em;
-    text-transform: capitalize !important;
-    
+.googleResult {
+	font-size: 0.8em;
+	padding: 5px;
+	color: black;
+	font-weight: 300;
+	line-height: 20px;
 }
 
-    .googleResult{
-        font-size: 0.8em;
-        padding: 5px;
-        color: black;
-        font-weight: 300;
-        line-height: 20px;
-    }
-
-.eachgoogleDetails{
-    font-weight: 400;
-    font-size: 20px;
-    width: 100%;
-    padding: 10px;
-    color: purple;
+.eachgoogleDetails {
+	font-weight: 400;
+	font-size: 20px;
+	width: 100%;
+	padding: 10px;
+	color: purple;
 }
 
 .source {

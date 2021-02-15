@@ -1,56 +1,51 @@
 import React from "react";
 import ListCard from "../list-card/ListCard";
 import "./listsection.css";
+import exploreBooks from "./explore";
+import GenreCard from "./genre-card";
 
-const ListSection = ({ tableElements, searched, setCurrentDetails }) => {
+const ListSection = ({
+	tableElements,
+	searched,
+	setCurrentDetails,
+	setBookType,
+	bookType,
+	searchFilter,
+}) => {
 	return (
-		<div className="table-super">
+		<>
 			{tableElements.length && searched ? (
-				<>
-					{tableElements.map((book, index) => (
+				<div className="table-super">
+					{tableElements.map((book, key) => (
 						<ListCard
 							setCurrentDetails={setCurrentDetails}
-							key={index}
+							key={key}
 							book={book}
 						></ListCard>
 					))}
-				</>
+				</div>
 			) : searched ? (
-				<div>No results found</div>
-			) : null}
-		</div>
+				<div className="no-book-error">{`No such book found ${
+					bookType ? `in ${bookType} category` : ""
+				}`}</div>
+			) : (
+				<>
+					<span className="explore">~ Explore by genre ~</span>
+					<div className="genre-container">
+						{exploreBooks.map(({ id, prakar, img }) => (
+							<GenreCard
+								key={id}
+								img={img}
+								prakar={prakar}
+								setBookType={setBookType}
+								searchFilter={searchFilter}
+							/>
+						))}
+					</div>
+				</>
+			)}
+		</>
 	);
 };
 
 export default ListSection;
-
-// <table>
-// 	<thead>
-// 		<tr>
-// 			{tableHeaders.map((header, index) => (
-// 				<th key={index}>{header}</th>
-// 			))}
-// 		</tr>
-// 	</thead>
-
-// 	<tbody>
-// 		{tableElements.map((book, index) => (
-// 			<tr
-// 				onClick={() => setCurrentDetails(book)}
-// 				key={index}
-// 			>
-// 				<td>{book["dakhalId"]}</td>
-// 				<td>{book["vibhagId"]}</td>
-// 				<td>
-// 					<a href={`#/details/${book["id"]}`}>
-// 						{book["pustakName"].join(" ")}
-// 					</a>
-// 				</td>
-// 				<td>
-// 					{book["lekhak"].join(" ")}
-// 					{/* {book["lekhakNameMulakshare"]} */}
-// 				</td>
-// 			</tr>
-// 		))}
-// 	</tbody>
-// </table>

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./details.css";
 import Card from "../../components/card/Card";
-import { db } from "../../firebase";
-import {WhatsappShareButton, WhatsappIcon} from 'react-share';
-import HelmetMetaData from './helmet';
+import { collection, db } from "../../firebase";
+import { WhatsappShareButton, WhatsappIcon } from "react-share";
+import HelmetMetaData from "./helmet";
 
 class Details extends Component {
     constructor(props) {

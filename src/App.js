@@ -19,14 +19,17 @@ class App extends Component {
 			show: "listing",
 			currentDetails: {},
 			results: [],
+			searched: false,
+			searchAgainst: "pustakName",
 			input: "",
+			prakar: "",
 			lekhakLoading: false,
 			activeTab: 1,
 			lekhakDict: { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 },
 			lekhakSearched: false,
 			lekhakResults: [],
-			currentLekhak :"",
-			isBtnClicked : 'क'
+			currentLekhak: "",
+			isBtnClicked: "क",
 		};
 	}
 
@@ -49,8 +52,7 @@ class App extends Component {
 			let endPart = currURL[1].toLowerCase();
 			if (endPart.includes("details")) {
 				var patt = detailsURLPattern;
-				if (patt.test(endPart))
-					this.setState({ show: "details" });
+				if (patt.test(endPart)) this.setState({ show: "details" });
 			} else if (endPart.includes("lekhaklist")) {
 				this.setState({ show: "lekhaklist" });
 			} else if (currURL[1].includes("aboutus")) {
@@ -101,7 +103,7 @@ class App extends Component {
 				)}
 				{this.state.show === "aboutus" && <AboutUs />}
 				{this.state.show === "recommendation" && <Recommendation />}
-				<MobileNav  url={this.state.show}/>
+				<MobileNav url={this.state.show} />
 			</div>
 		);
 	}
