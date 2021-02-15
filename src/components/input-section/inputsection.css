@@ -3,11 +3,31 @@
 	width: 50vw;
 	min-width: 320px;
 	flex-direction: column;
-	margin-bottom: 4rem;
+}
+
+@media only screen and (min-width: 320px) {
+	.form {
+		width: 60vw;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.form {
+		width: 55vw;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.form {
+		width: 50vw;
+	}
+}
+@media only screen and (min-width: 1900px) {
+	.form {
+		width: 50vw;
+	}
 }
 
 .search-filter-section {
-	margin: 3rem 0 0.5rem 0;
+	margin: 0.5rem 0;
 }
 
 .search-filter-section label {
@@ -16,6 +36,55 @@
 
 .search-filter-section label input {
 	margin-right: 0.5rem;
+}
+
+.filter-section {
+	height: 30px;
+	padding: 0 0.5rem;
+	margin: 0.5rem 0 0 0;
+}
+
+.none {
+	display: none;
+}
+
+.error-filter {
+	width: 100%;
+	margin-bottom: 1rem;
+	cursor: default;
+	border-radius: 999999px;
+	color: #b22222;
+	font-weight: 600;
+	font-size: 0.85em;
+}
+
+.filter {
+	width: 100%;
+	padding: 0.25rem 1.25rem;
+	padding-right: 0;
+	cursor: pointer;
+	border-radius: 999999px;
+	background-color: rgba(51, 122, 183, 0.25);
+	color: #337ab7;
+	font-weight: 600;
+	font-size: 0.85em;
+}
+
+.filter button {
+	background: none;
+	outline: none;
+	border: none;
+	cursor: pointer;
+	margin: 0 0.5rem;
+	margin-right: 0.5rem;
+	color: inherit;
+	font-weight: 600;
+	font-size: 0.85em;
+}
+
+.filter:hover {
+	background-color: rgba(178, 34, 34, 0.25);
+	color: #b22222;
 }
 
 .input-section {

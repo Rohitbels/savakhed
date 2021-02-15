@@ -1,8 +1,18 @@
 import React, { useState } from "react";
 import Switch from "./../switch/Switch";
+import InputBox from "./InputBox";
 import "./inputsection.css";
 
-const InputSection = ({ onInput, onSearch, searchAgainst, onChange, inputValue }) => {
+const InputSection = ({
+	onInput,
+	onSearch,
+	inputValue,
+	bookType,
+	setBookType,
+	searchAgainst,
+	onChange,
+	setError,
+}) => {
 	const [toggle, setToggle] = useState(false);
 	const [label, setLabel] = useState("एकटा जीव सदाशिव");
 
@@ -15,9 +25,12 @@ const InputSection = ({ onInput, onSearch, searchAgainst, onChange, inputValue }
 		}, 200);
 	};
 
+	var inputBox = document.getElementsByClassName("react-autosuggest__input");
+	inputBox.type = "search";
+
 	return (
 		<form className="form">
-			<section className="search-filter-section">
+			<form className="search-filter-section">
 				<label>
 					<input
 						type="radio"
@@ -38,25 +51,47 @@ const InputSection = ({ onInput, onSearch, searchAgainst, onChange, inputValue }
 					/>
 					लेखक
 				</label>
-			</section>
+			</form>
+			<div className={`filter-section ${bookType === "" ? "none" : ""}`}>
+				<span className="filter">
+					{bookType}
+					<button
+						type="button"
+						onClick={(event) => {
+							event.preventDefault();
+							setBookType("");
+						}}
+					>
+						X
+					</button>
+				</span>
+			</div>
 			<section className="input-section">
-				<input
-					className="search-bar"
-					type="text"
+				<InputBox
 					placeholder={`Search by ${
 						searchAgainst === "lekhak" ? "Author" : "Book"
-					} name`}
+					}'s name ${bookType === "" ? "" : `across ${bookType}`}`}
 					value={inputValue}
 					onInput={onInput}
+					shouldSuggest={toggle}
 				/>
 				<button
 					className="search-button"
-					type="submit"
-					onClick={onSearch}
+					tabIndex={1}
+					type="search"
+					onClick={(event) => {
+						event.preventDefault();
+						onSearch(event);
+					}}
 				>
 					Search
 				</button>
 			</section>
+			{setError ? (
+				<span className="error-filter">
+					*Please search for more than one word/letter
+				</span>
+			) : null}
 			<Switch
 				className="toggle-button"
 				isToggled={toggle}
