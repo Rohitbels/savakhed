@@ -1,15 +1,19 @@
-import React, { createRef, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import useVisibility from "./useVisibility";
 
-function Image({ ...props }) {
+function Image({ alt, ...props }) {
 	const [inView, setInView] = useState(false);
-	const imgRef = createRef();
+	const imgRef = useRef(null);
 
 	useVisibility(imgRef, () => {
 		setInView(true);
 	});
 
-	return <div ref={imgRef}>{inView ? <img {...props} /> : null}</div>;
+	return (
+		<div className="image-div" ref={imgRef}>
+			{inView ? <img alt={alt} {...props} /> : null}
+		</div>
+	);
 }
 
 export default Image;

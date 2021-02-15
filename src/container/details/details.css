@@ -1,7 +1,11 @@
 .flex-container {
 	padding-top: 30px;
 	display: flex;
-	padding-left: 140px;
+	padding-left: 180px;
+}
+
+.whatsappShare {
+	display: none;
 }
 
 .back_btn {
@@ -20,6 +24,7 @@
 }
 
 .cardDetails {
+	width: 420px;
 	height: auto;
 	transition: 0.2s;
 	display: flex;
@@ -48,8 +53,12 @@
 	display: flex;
 }
 
-.col1 {
-	width: 50%;
+.rows {
+	/* padding-left: 15px; */
+	padding-top: 5px;
+	padding-bottom: 35px;
+	/* padding-right: 15px; */
+	display: flex;
 }
 
 .col2 {
@@ -97,15 +106,37 @@
 		flex-direction: column;
 		padding-left: 0px;
 		align-items: center;
-		padding-top: 0px;
+		padding-top: 40px;
 		margin-bottom: 44px;
 		padding-left: 0px;
+	}
+
+	.whatsappShare {
+		position: fixed;
+		display: flex;
+		z-index: 999;
+		box-shadow: 0.5px 0.5px 5px black;
+		width: 31px;
+		height: 31px;
+		border-radius: 30px;
+		bottom: 15vh;
+		right: 3vh;
+		outline: none;
+	}
+
+	.whatsappShare:active,
+	.whatsappShare:any-link,
+	.whatsappShare:focus,
+	.whatsappShare:focus-visible {
+		outline: none;
+		border: none;
 	}
 
 	.cardDetails {
 		display: flex;
 		margin: 0 !important;
 		flex-direction: column;
+		width: 300px;
 	}
 
 	.back_btn {
@@ -121,6 +152,7 @@
 
 	.rows {
 		padding-left: 0px;
+		padding-bottom: 20px;
 	}
 
 	.col1 {
@@ -138,7 +170,7 @@
 	}
 
 	.book_name {
-		font-weight: 30;
+		font-weight: 365;
 		font-size: 15px;
 	}
 

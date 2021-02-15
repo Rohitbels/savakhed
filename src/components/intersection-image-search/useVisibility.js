@@ -7,12 +7,14 @@ const useVisibility = (ref, callback, options = {}) => {
 	useEffect(() => {
 		if (window.IntersectionObserver) {
 			const observer = new IntersectionObserver(
-				([entry]) => {
-					if (entry.intersectionRatio >= 0.1) {
-						callback();
-						observer.unobserve(entry.target);
-						observer.disconnect();
-					}
+				(entries) => {
+					entries.forEach((entry) => {
+						if (entry.intersectionRatio >= 0.1) {
+							callback();
+							observer.unobserve(entry.target);
+							observer.disconnect();
+						}
+					});
 				},
 				{
 					root,

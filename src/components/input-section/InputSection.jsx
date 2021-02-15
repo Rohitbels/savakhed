@@ -9,6 +9,9 @@ const InputSection = ({
 	inputValue,
 	bookType,
 	setBookType,
+	searchAgainst,
+	onChange,
+	setError,
 }) => {
 	const [toggle, setToggle] = useState(false);
 	const [label, setLabel] = useState("एकटा जीव सदाशिव");
@@ -22,8 +25,33 @@ const InputSection = ({
 		}, 200);
 	};
 
+	var inputBox = document.getElementsByClassName("react-autosuggest__input");
+	inputBox.type = "search";
+
 	return (
 		<form className="form">
+			<form className="search-filter-section">
+				<label>
+					<input
+						type="radio"
+						name="pustakName"
+						value="pustakName"
+						checked={searchAgainst === "pustakName"}
+						onChange={onChange}
+					/>
+					पुस्तक
+				</label>
+				<label>
+					<input
+						type="radio"
+						name="lekhak"
+						value="lekhak"
+						checked={searchAgainst === "lekhak"}
+						onChange={onChange}
+					/>
+					लेखक
+				</label>
+			</form>
 			<div className={`filter-section ${bookType === "" ? "none" : ""}`}>
 				<span className="filter">
 					{bookType}
@@ -40,9 +68,9 @@ const InputSection = ({
 			</div>
 			<section className="input-section">
 				<InputBox
-					placeholder={`Search by Book name / Author name ${
-						bookType === "" ? "" : `across ${bookType}`
-					}`}
+					placeholder={`Search by ${
+						searchAgainst === "lekhak" ? "Author" : "Book"
+					}'s name ${bookType === "" ? "" : `across ${bookType}`}`}
 					value={inputValue}
 					onInput={onInput}
 					shouldSuggest={toggle}
@@ -50,7 +78,7 @@ const InputSection = ({
 				<button
 					className="search-button"
 					tabIndex={1}
-					type="submit"
+					type="search"
 					onClick={(event) => {
 						event.preventDefault();
 						onSearch(event);
@@ -59,6 +87,11 @@ const InputSection = ({
 					Search
 				</button>
 			</section>
+			{setError ? (
+				<span className="error-filter">
+					*Please search for more than one word/letter
+				</span>
+			) : null}
 			<Switch
 				className="toggle-button"
 				isToggled={toggle}

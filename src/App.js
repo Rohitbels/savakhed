@@ -1,9 +1,11 @@
 import React, { Component } from "react";
+
 import Listing from "./container/listing/Listing";
 import Details from "./container/details/Details";
 import LekhakList from "./container/LekhakList/LekhakList";
-import MobileNav from "./components/navbar/mobileNav";
+import LekhakBooks from "./container/lekhakBooks/LekhakBooks";
 
+import MobileNav from "./components/navbar/mobileNav";
 import Header from "./components/header/Header";
 import AboutUs from "./components/about-us/AboutUs";
 import Recommendation from "./components/recommendation/Recommendation";
@@ -18,8 +20,16 @@ class App extends Component {
 			currentDetails: {},
 			results: [],
 			searched: false,
+			searchAgainst: "pustakName",
 			input: "",
 			prakar: "",
+			lekhakLoading: false,
+			activeTab: 1,
+			lekhakDict: { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 },
+			lekhakSearched: false,
+			lekhakResults: [],
+			currentLekhak: "",
+			isBtnClicked: "क",
 		};
 	}
 
@@ -49,6 +59,8 @@ class App extends Component {
 				this.setState({ show: "aboutus" });
 			} else if (currURL[1].includes("recommendation")) {
 				this.setState({ show: "recommendation" });
+			} else if (currURL[1].includes("lekhakbooks")) {
+				this.setState({ show: "lekhakbooks" });
 			} else {
 				this.setState({ show: "listing" });
 			}
@@ -58,7 +70,6 @@ class App extends Component {
 	render() {
 		return (
 			<div className="App">
-				{/* {console.log(this.state.results)} */}
 				<Header url={this.state.show} />
 				{this.state.show === "details" && (
 					<Details bookDetail={this.state.currentDetails} />
@@ -68,9 +79,19 @@ class App extends Component {
 						setCurrentDetails={(book) =>
 							this.setState({ currentDetails: book })
 						}
+						setParentState={this.setState.bind(this)}
+						{...this.state}
 					/>
 				)}
-
+				{this.state.show === "lekhakbooks" && (
+					<LekhakBooks
+						setCurrentDetails={(book) =>
+							this.setState({ currentDetails: book })
+						}
+						setParentState={this.setState.bind(this)}
+						{...this.state}
+					/>
+				)}
 				{this.state.show === "listing" && (
 					<Listing
 						setCurrentDetails={(currentDetails) =>

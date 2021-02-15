@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./listing.css";
 import InputSection from "../../components/input-section/InputSection";
 import ListSection from "../../components/list-section/ListSection";
-import { db } from "../../firebase";
+import { collection } from "../../firebase";
 import Loading from "../../components/loading/Loading";
 import "../../components/list-section/listsection.css";
 
@@ -35,6 +35,7 @@ class Listing extends Component {
 			results: [],
 			query: null,
 			lastDoc: null,
+			error: false,
 		};
 
 		// eslint-disable-next-line
@@ -58,6 +59,7 @@ class Listing extends Component {
 	search = async (label, inputArray) => {
 		this.setState({
 			loading: true,
+			error: false,
 		});
 
 		let query = null;
@@ -68,11 +70,9 @@ class Listing extends Component {
 				searched: true,
 			});
 
-			query = db
-				.collection("bookList")
-				.where(label, "==", inputArray.join(" "));
+			query = collection.where(label, "==", inputArray.join(" "));
 
-			let filteredResults = await query.limit(2).get();
+			let filteredResults = await query.limit(10).get();
 
 			this.setState({
 				input: inputArray.join(" "),
@@ -96,6 +96,11 @@ class Listing extends Component {
 			return;
 		}
 
+		if (inputArray.length < 2) {
+			this.setState({ error: true });
+			return;
+		}
+
 		let inputArrayMulakshare = this.getMulakshara(inputArray);
 		let bookParameterMulakshare = "";
 
@@ -104,15 +109,12 @@ class Listing extends Component {
 
 		query =
 			this.props.prakar === ""
-				? db
-						.collection("bookList")
-						.where(secondaryLabel, "==", inputArray.join(" "))
-				: db
-						.collection("bookList")
+				? collection.where(secondaryLabel, "==", inputArray.join(" "))
+				: collection
 						.where("pustakPrakar", "==", this.props.prakar)
 						.where(secondaryLabel, "==", inputArray.join(" "));
 
-		const first = await query.limit(2).get();
+		const first = await query.limit(10).get();
 
 		this.setState({
 			query: query,
@@ -127,15 +129,12 @@ class Listing extends Component {
 		if (array.length === 0) {
 			query =
 				this.props.prakar === ""
-					? db
-							.collection("bookList")
-							.where(label, "array-contains-any", inputArray)
-					: db
-							.collection("bookList")
+					? collection.where(label, "array-contains-any", inputArray)
+					: collection
 							.where("pustakPrakar", "==", this.props.prakar)
 							.where(label, "array-contains-any", inputArray);
 
-			const second = await query.limit(2).get();
+			const second = await query.limit(10).get();
 
 			let primary = [];
 			let secondary = [];
@@ -167,15 +166,12 @@ class Listing extends Component {
 
 			query =
 				this.props.prakar === ""
-					? db
-							.collection("bookList")
-							.where(
-								secondaryLabel,
-								"array-contains-any",
-								inputArrayMulakshare.split(" ")
-							)
-					: db
-							.collection("bookList")
+					? collection.where(
+							secondaryLabel,
+							"array-contains-any",
+							inputArrayMulakshare.split(" ")
+					  )
+					: collection
 							.where("pustakPrakar", "==", this.props.prakar)
 							.where(
 								secondaryLabel,
@@ -183,7 +179,7 @@ class Listing extends Component {
 								inputArrayMulakshare.split(" ")
 							);
 
-			const third = await query.limit(2).get();
+			const third = await query.limit(10).get();
 
 			let primary = [];
 			let secondary = [];
@@ -221,7 +217,7 @@ class Listing extends Component {
 			results: array,
 		});
 
-		return array.length;
+		return;
 	};
 
 	fetchMoreResults = async () => {
@@ -231,7 +227,7 @@ class Listing extends Component {
 
 			let moreResults = await myQuery
 				.startAfter(myLastDoc)
-				.limit(2)
+				.limit(10)
 				.get();
 
 			let array = [];
@@ -266,17 +262,23 @@ class Listing extends Component {
 		const { input } = this.props;
 		if (input.length) {
 			this.props.setParentState({ results: [], searched: true });
-			let inputArray = input.split(" ");
+
+			let inputString = input
+				.replace(
+					/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g,
+					""
+				)
+				.toLowerCase()
+				.trim();
+
+			let inputArray = inputString.split(" ");
 
 			// reducing the array to max length 10
 			if (inputArray.length > 10) {
 				inputArray.splice(9, inputArray.length - 10);
 			}
 
-			var searchSuccess = await this.search("pustakName", inputArray);
-			if (!searchSuccess) {
-				searchSuccess = await this.search("lekhak", inputArray);
-			}
+			await this.search(this.props.searchAgainst, inputArray);
 		} else {
 			this.props.setParentState({ results: [], searched: false });
 		}
@@ -318,8 +320,15 @@ class Listing extends Component {
 							searched: false,
 						});
 					}}
+					searchAgainst={this.props.searchAgainst}
+					onChange={(event) => {
+						this.props.setParentState({
+							searchAgainst: event.target.value,
+						});
+					}}
+					setError={this.state.error}
 				/>
-				{this.state.loading ? (
+				{this.state.error ? null : this.state.loading ? (
 					<div className="table-super">
 						<Loading page="listing" />
 					</div>

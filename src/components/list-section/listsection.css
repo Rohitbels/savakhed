@@ -90,10 +90,11 @@ table {
 
 .explore {
 	font-size: 1.5rem;
+	margin-top: 25px;
 }
 
 .genre-card {
-	margin: 1rem;
+	margin: 1rem 1.25rem;
 	text-align: center;
 	cursor: pointer;
 }

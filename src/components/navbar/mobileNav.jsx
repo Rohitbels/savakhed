@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import './mobileNav.css';
 import searchSvg from "../../svg/search.svg"
-import authorSvg from "../../svg/author.svg"
-import authorSvg2 from "../../svg/author2.svg"
+import authorSvg2 from "../../svg/lekhak.svg"
 import aboutSvg from "../../svg/about.svg"
 export default class mobileNav extends Component {
     constructor(props){
@@ -39,7 +38,7 @@ export default class mobileNav extends Component {
                 </div>
                 {/* about */}
                 <div className={this.state.isClicked === 3 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
-                    <a href="#/aboutUs" onClick={() => this.setState({ isClicked: 3})}>
+                    <a href="#/aboutus" onClick={() => this.setState({ isClicked: 3})}>
                         <img src={aboutSvg} className="lekhakSvg" alt="About US" />
                     </a>
                 </div>

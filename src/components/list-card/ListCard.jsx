@@ -1,11 +1,9 @@
-import { React, useState, useEffect, Component } from "react";
+import { React, useState, useEffect } from "react";
 import "./listcard.css";
 import bookimage from "./coming-soon.jpg";
+import { storage, collection } from "../../firebase";
 import "../loading/shimmer.css";
-import { storage, db } from "../../firebase";
-
-// import bookimage from "./book.png";
-// import bookimage from "./book-image-not-available.png";
+import Image from "../intersection-image-search/Image";
 
 import mulakshare from "./../../container/listing/mulakshare";
 
@@ -52,14 +50,12 @@ const ListCard = ({ book, setCurrentDetails }) => {
 			"state_changed",
 			(snapshot) => {
 				var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-				// console.log(progress);
 			},
 			(error) => {
 				console.log(error);
 			},
 			() => {
 				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-					// update(downloadURL)
 					console.log("File available at", downloadURL);
 					update(downloadURL);
 				});
@@ -81,7 +77,6 @@ const ListCard = ({ book, setCurrentDetails }) => {
 	const getImgURL = (q) => {
 		const xhr = new XMLHttpRequest();
 		let url = "";
-		// console.log(book);
 		xhr.addEventListener("load", () => {
 			const json = JSON.parse(xhr.responseText);
 			const { items = [] } = json;
@@ -132,11 +127,22 @@ const ListCard = ({ book, setCurrentDetails }) => {
 	//book["imageURL"] ? book["imageURL"] : Img ? bookimage : Img
 	return (
 		<div className='card-container' onClick={() => setCurrentDetails(book)}>
-			<img className='book-cover' src={Img} alt='book cover' />
-			<a href={`#/details/${book["id"]}`}>
-				<span className='book-title'>{book["pustakFullName"]}</span>
-				<span className='book-author'>{book["lekhakFullName"]}</span>
-				<div style={{ display: "flex" }}>
+			<Image className='book-cover' src={Img} alt='book cover' />
+			<a
+				href={`#/details/${book["id"]}`}
+				style={{
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "flex-end",
+				}}>
+				<div style={{ marginBottom: "auto" }}>
+					<span className='book-title'>{book["pustakFullName"]}</span>
+					<span className='book-author'>{book["lekhakFullName"]}</span>
+				</div>
+				<div
+					style={{
+						display: "flex",
+					}}>
 					<span className='book-category'>{book["pustakPrakar"]}</span>
 					<span className='book-language'>{language}</span>
 				</div>
