@@ -31,6 +31,7 @@ export const auth = firebase.auth();
 export const db = firebase.firestore();
 export const storage = firebase.storage();
 
+// export const collection = db.collection("bookList");
 export const collection = db.collection("bookListBackUp");
 
 export default firebase;

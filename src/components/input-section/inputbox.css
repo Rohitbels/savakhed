@@ -7,6 +7,7 @@ ol {
 
 .input-container {
 	flex: 80%;
+	height: 46px;
 	display: flex;
 }
 
@@ -21,13 +22,17 @@ ol {
 }
 
 .react-autosuggest__input {
-	height: 30px;
+	height: 46px;
 	width: 100%;
 	padding: 0.5rem 1rem;
 	font-size: 1rem;
 	outline: none;
 	border: 1px solid #cccccc;
 	border-radius: 4px;
+}
+
+.react-autosuggest__input::-webkit-search-cancel-button {
+	margin-left: 1rem;
 }
 
 .react-autosuggest__input:focus {
@@ -62,4 +67,8 @@ ol {
 
 .react-autosuggest__suggestion--highlighted {
 	background-color: rgba(51, 122, 183, 0.25);
+}
+
+.no-suggestion .react-autosuggest__suggestions-container {
+	display: none;
 }

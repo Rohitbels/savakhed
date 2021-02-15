@@ -85,13 +85,18 @@ export default class InputBox extends React.Component {
 		const inputProps = {
 			placeholder: this.props.placeholder,
 			value,
+			type: "search",
 			onChange: this.onChange,
 		};
 
 		// Finally, render it!
 		return (
 			<div
-				className="input-container"
+				className={`input-container ${
+					suggestions.length && this.props.shouldSuggest
+						? ""
+						: "no-suggestion"
+				}`}
 				height={this.props.height}
 				onKeyDown={this.props.onKeyDown}
 			>

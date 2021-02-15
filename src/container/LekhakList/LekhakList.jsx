@@ -3,7 +3,7 @@ import "./LekhakList.css";
 import ListSection from "../../components/list-section/ListSection";
 import Alphabets from "./Alphabets";
 import Akshar from "./Akshar";
-import { db } from "../../firebase";
+import { collection, db } from "../../firebase";
 import Loading from "../../components/loading/Loading";
 
 class LekhakList extends Component {
@@ -50,8 +50,7 @@ class LekhakList extends Component {
 			results: [],
 			currentLekhak: lekhakName,
 		});
-		await db
-			.collection("bookList")
+		await collection
 			.where(
 				"lekhakFullName",
 				"==",

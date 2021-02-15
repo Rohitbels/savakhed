@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import "./listcard.css";
 import bookimage from "./coming-soon.jpg";
-import { storage, db, collection } from "../../firebase";
+import { storage, collection } from "../../firebase";
 import "../loading/shimmer.css";
 import Image from "../intersection-image-search/Image";
 
@@ -13,8 +13,7 @@ const ListCard = ({ book, setCurrentDetails }) => {
 	const [Img, setImg] = useState(bookimage);
 
 	mulakshare.forEach((letter) => {
-		// if (book["pustakFullName"].includes(letter)) {
-		if (book["pustakName"].join(" ").includes(letter)) {
+		if (book["pustakFullName"].includes(letter)) {
 			language = "मराठी";
 			return;
 		}
@@ -24,13 +23,9 @@ const ListCard = ({ book, setCurrentDetails }) => {
 
 	const update = async (url) => {
 		const docRef = (
-			await db
-				.collection("bookList")
-				.where("dakhalId", "==", book["dakhalId"])
-				.get()
+			await collection.where("dakhalId", "==", book["dakhalId"]).get()
 		).docs[0].id;
-		const docUpdate = await db
-			.collection("bookList")
+		const docUpdate = await collection
 			.doc(docRef)
 			.update({ imageURL: url });
 	};
@@ -54,7 +49,6 @@ const ListCard = ({ book, setCurrentDetails }) => {
 			},
 			() => {
 				uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-					// update(downloadURL)
 					console.log("File available at", downloadURL);
 					update(downloadURL);
 				});
@@ -76,7 +70,6 @@ const ListCard = ({ book, setCurrentDetails }) => {
 	const getImgURL = (q) => {
 		const xhr = new XMLHttpRequest();
 		let url = "";
-		// console.log(book);
 		xhr.addEventListener("load", () => {
 			const json = JSON.parse(xhr.responseText);
 			const { items = [] } = json;
@@ -98,11 +91,9 @@ const ListCard = ({ book, setCurrentDetails }) => {
 			)}&key=AIzaSyB1TtjgdaS-JyFVHFmWz_OMXhg8ft5Tbpw`
 		);
 		xhr.send();
-		// return url
 	};
 
 	useEffect(() => {
-		// debugger;
 		if (book["imageURL"]) {
 			console.log("1");
 			setImg(book["imageURL"]);
@@ -126,7 +117,6 @@ const ListCard = ({ book, setCurrentDetails }) => {
 	return (
 		<div className="card-container" onClick={() => setCurrentDetails(book)}>
 			<Image className="book-cover" src={Img} alt="book cover" />
-			{console.log(`${book["pustakName"].join(" ")}`, book)}
 			<a
 				href={`#/details/${book["id"]}`}
 				style={{
@@ -136,13 +126,9 @@ const ListCard = ({ book, setCurrentDetails }) => {
 				}}
 			>
 				<div style={{ marginBottom: "auto" }}>
-					<span className="book-title">
-						{/* {book["pustakFullName"]} */}
-						{book["pustakName"].join(" ")}
-					</span>
+					<span className="book-title">{book["pustakFullName"]}</span>
 					<span className="book-author">
-						{/* {book["lekhakFullName"]} */}
-						{book["lekhak"].join(" ")}
+						{book["lekhakFullName"]}
 					</span>
 				</div>
 				<div

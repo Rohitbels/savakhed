@@ -18,6 +18,7 @@ class App extends Component {
 			currentDetails: {},
 			results: [],
 			searched: false,
+			searchAgainst: "pustakName",
 			input: "",
 			prakar: "",
 		};

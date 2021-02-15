@@ -5,13 +5,57 @@
 	flex-direction: column;
 }
 
+@media only screen and (min-width: 320px) {
+	.form {
+		width: 60vw;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.form {
+		width: 55vw;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.form {
+		width: 50vw;
+	}
+}
+@media only screen and (min-width: 1900px) {
+	.form {
+		width: 50vw;
+	}
+}
+
+.search-filter-section {
+	margin: 0.5rem 0;
+}
+
+.search-filter-section label {
+	margin: 0.25rem 0.5rem;
+}
+
+.search-filter-section label input {
+	margin-right: 0.5rem;
+}
+
 .filter-section {
 	height: 30px;
 	padding: 0 0.5rem;
+	margin: 0.5rem 0 0 0;
 }
 
 .none {
 	display: none;
+}
+
+.error-filter {
+	width: 100%;
+	margin-bottom: 1rem;
+	cursor: default;
+	border-radius: 999999px;
+	color: #b22222;
+	font-weight: 600;
+	font-size: 0.85em;
 }
 
 .filter {

@@ -35,6 +35,7 @@ class Listing extends Component {
 			results: [],
 			query: null,
 			lastDoc: null,
+			error: false,
 		};
 
 		// eslint-disable-next-line
@@ -58,16 +59,11 @@ class Listing extends Component {
 	search = async (label, inputArray) => {
 		this.setState({
 			loading: true,
+			error: false,
 		});
 
 		let query = null;
 		let array = [];
-
-		inputArray.forEach((word) =>
-			word.replace(/.[,/#!@$%+*^&*;:{}|=\-_`~()]/g, "")
-		);
-
-		console.log(inputArray);
 
 		if (label === "pustakPrakar") {
 			this.props.setParentState({
@@ -97,6 +93,11 @@ class Listing extends Component {
 				loading: false,
 			});
 
+			return;
+		}
+
+		if (inputArray.length < 2) {
+			this.setState({ error: true });
 			return;
 		}
 
@@ -216,7 +217,7 @@ class Listing extends Component {
 			results: array,
 		});
 
-		return array.length;
+		return;
 	};
 
 	fetchMoreResults = async () => {
@@ -262,10 +263,14 @@ class Listing extends Component {
 		if (input.length) {
 			this.props.setParentState({ results: [], searched: true });
 
-			let inputString = input.replace(
-				/.[,/#!@$%+*^&*;:{}|=\-_`~()]/g,
-				""
-			);
+			let inputString = input
+				.replace(
+					/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g,
+					""
+				)
+				.toLowerCase()
+				.trim();
+
 			let inputArray = inputString.split(" ");
 
 			// reducing the array to max length 10
@@ -273,10 +278,7 @@ class Listing extends Component {
 				inputArray.splice(9, inputArray.length - 10);
 			}
 
-			var searchSuccess = await this.search("pustakName", inputArray);
-			if (!searchSuccess) {
-				searchSuccess = await this.search("lekhak", inputArray);
-			}
+			await this.search(this.props.searchAgainst, inputArray);
 		} else {
 			this.props.setParentState({ results: [], searched: false });
 		}
@@ -318,8 +320,15 @@ class Listing extends Component {
 							searched: false,
 						});
 					}}
+					searchAgainst={this.props.searchAgainst}
+					onChange={(event) => {
+						this.props.setParentState({
+							searchAgainst: event.target.value,
+						});
+					}}
+					setError={this.state.error}
 				/>
-				{this.state.loading ? (
+				{this.state.error ? null : this.state.loading ? (
 					<div className="table-super">
 						<Loading page="listing" />
 					</div>

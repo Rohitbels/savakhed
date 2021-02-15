@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./details.css";
 import Card from "../../components/card/Card";
-import { db } from "../../firebase";
+import { collection } from "../../firebase";
 
 class Details extends Component {
 	constructor() {
@@ -69,10 +69,7 @@ class Details extends Component {
 	}
 
 	async getFirebaseData() {
-		const doc = await db
-			.collection("bookList")
-			.doc(this.getIdFromUrl())
-			.get();
+		const doc = await collection.doc(this.getIdFromUrl()).get();
 
 		const firebaseBookDetail = doc.data();
 		this.setState({

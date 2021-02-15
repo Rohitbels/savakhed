@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import ListSection from "../list-section/ListSection";
-import { db } from "../../firebase";
+import { collection } from "../../firebase";
 
 function Recommendation() {
-	const tableHeaders = ["Dakhal-ID", "Vibhag-ID", "Book", "Author"];
 	// eslint-disable-next-line
 	const [results, setResults] = useState([]);
 	const [searched, setSearched] = useState(false);
@@ -11,7 +10,7 @@ function Recommendation() {
 	const getResults = () => {
 		let day = new Date().getUTCDate();
 
-		db.collection("bookList")
+		collection
 			.orderBy("dakhalId", "asc")
 			.get()
 			.then((snapshot) => {
@@ -35,7 +34,6 @@ function Recommendation() {
 	return (
 		<div className="container">
 			<ListSection
-				tableHeaders={tableHeaders}
 				tableElements={results}
 				searched={searched}
 				setCurrentDetails={(book) => console.log(book)}
