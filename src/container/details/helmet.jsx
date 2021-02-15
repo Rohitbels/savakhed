@@ -35,6 +35,8 @@ export default function HelmetMetaData(props) {
       <meta content="image/*" property="og:image:type" />
       <meta property="og:url" content={currentUrl} />
       <meta property="og:site_name" content="Book details" />
-      <meta property="og:description" content={description} />    </Helmet>
+      <meta property="og:description" content={description} />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />    
+  </Helmet>
  );
  }
