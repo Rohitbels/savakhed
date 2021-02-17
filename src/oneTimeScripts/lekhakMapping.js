@@ -1,23 +1,26 @@
+/*
+This is the Older Script used for collection 'newMappingTrial'. Refer newLekhakMapping.js for the latest updated JSON based one.
+*/
+
 //Firebase Setup
 const firebase = require("firebase/app");
 require("firebase/firestore");
 require("firebase/auth");
 const config = {
-	apiKey: "AIzaSyB2MH0qD3U7aOMo7AwPz9phpxtv3K1Vl7A",
-	authDomain: "rajgurunagarlibrary.firebaseapp.com",
-	databaseURL: "https://rajgurunagarlibrary.firebaseio.com",
-	projectId: "rajgurunagarlibrary",
-	storageBucket: "rajgurunagarlibrary.appspot.com",
-	messagingSenderId: "873976955186",
-	appId: "1:873976955186:web:1f0b7bde7368a61cb5172b",
+	apiKey: "AIzaSyCzHYtN3HUc7uNhG15YD3hrnyiX_poQUrM",
+	authDomain: "devsavakhed.firebaseapp.com",
+	projectId: "devsavakhed",
+	storageBucket: "devsavakhed.appspot.com",
+	messagingSenderId: "774083254382",
+	appId: "1:774083254382:web:b184cb1b0851be9474ae7f",
+	measurementId: "G-RCY6EWCX6V",
 };
-
 firebase.initializeApp(config);
 const auth = firebase.auth();
 const db = firebase.firestore();
 const collection = db.collection("bookListBackUp");
 
-//Function to convert given array of strings to a proper string after removing honorifics.
+//Function to convert csvArray to a proper string after removing honorifics.
 const honorifics = [
 	"श्री",
 	"सौ",
@@ -40,7 +43,7 @@ const honorifics = [
 	"पं",
 	"ऍडव्होकेट",
 ];
-function csvArrayToString(csvString) {
+function csvArrayRemoveHonorifics(csvString) {
 	let array = csvString.split(",");
 	let i, j;
 
@@ -60,6 +63,35 @@ function csvArrayToString(csvString) {
 	}
 	let string = array.join(" ");
 	return string;
+}
+
+//Just convert the csvArray to string, with honorifics
+function csvArrayToString(csvString) {
+	let array = csvString.split(",");
+	let string = array.join(" ");
+	return string;
+}
+
+//Writing to a CSV File
+async function writeToCSV(dict) {
+	//console.log("Writing to CSV.");
+	const dictToWrite = {};
+	head = [];
+	for (const [key, value] of Object.entries(dict)) {
+		dictToWrite[key] = value.toString(); //Dict for writing to csv, has different format from dict for firebase
+		head.push(key);
+	}
+	const createCsvWriter = require("csv-writer").createObjectCsvWriter;
+	const csvWriter = createCsvWriter({
+		path: "src/oneTimeScripts/Write trials.csv",
+		header: head,
+	});
+	records = [dictToWrite];
+	csvWriter
+		.writeRecords(records) // returns a promise
+		.then(() => {
+			console.log("Done writing to CSV");
+		});
 }
 
 //Create empty docs of all chars at start.
@@ -144,65 +176,91 @@ const allChars = [
 	"y",
 	"z",
 ];
-async function createAllCharDocuments() {
+async function createAllCharDocuments(collectionName) {
+	//console.log("Creating empty docs in firebase for all chars.");
 	for (let l = 0; l < allChars.length; l++) {
 		const dataTemp = {
 			char: allChars[l],
-			names: [],
+			names: {},
 		};
-		const doc = await collection.doc(dataTemp.char).get();
+		const doc = await db
+			.collection(collectionName)
+			.doc(dataTemp.char)
+			.get();
 		if (!doc.exists) {
-			const setRes = await collection.doc(dataTemp.char).set(dataTemp);
+			const setRes = await db
+				.collection(collectionName)
+				.doc(dataTemp.char)
+				.set(dataTemp);
 		}
 	}
-} //Tested : Declares names as an array too.
+}
 
-//Writing to a CSV File
-async function writeToCSV(dict) {
-	const dictToWrite = {};
-	head = [];
+//Remove lekhaks below threshold
+function removeUnpopular(dict, threshold) {
 	for (const [key, value] of Object.entries(dict)) {
-		dictToWrite[key] = value.toString(); //Dict for writing to csv, has different format from dict for firebase
-		head.push(key);
+		for (const [inKey, inValue] of Object.entries(value)) {
+			if (inValue < 5) {
+				delete dict[key][inKey];
+			}
+			//console.log(inKey, inValue);
+		}
 	}
-	const createCsvWriter = require("csv-writer").createObjectCsvWriter;
-	const csvWriter = createCsvWriter({
-		path: "src/oneTimeScripts/Write trials.csv",
-		header: head,
-	});
-	records = [dictToWrite];
-	csvWriter
-		.writeRecords(records) // returns a promise
-		.then(() => {
-			console.log("Done writing to CSV");
-		});
+	return dict;
 }
 
 //Writing to Firebase
-async function writeToFirebase(dict) {
+async function writeToFirebase(dict, collectionName) {
+	//console.log("Writing to Firebase.");
 	for (const [key, value] of Object.entries(dict)) {
-		//Writing to Firebase
-		//if(key === 'l')            //Remove condition if you want to write to firebase all characters
-		for (let k = 0; k < value.length; k++) {
-			const unionRes = await collection.doc(key).update({
-				names: firebase.firestore.FieldValue.arrayUnion(value[k]),
+		const writeRes = await db
+			.collection(collectionName)
+			.doc(key)
+			.update({
+				names: value,
+			})
+			.then(function () {
+				console.log("Written to new collection in Firebase.");
 			});
+	}
+	console.log("Firebase Collection Updated.");
+}
+
+//Trial with recd data.
+async function passDictToFun(dict) {
+	for (const [key, value] of Object.entries(dict)) {
+		if (key === "त") {
+			const writeRes = await db
+				.collection("newMappingTrial")
+				.doc(key)
+				.update({
+					names: value,
+				})
+				.then(function () {
+					console.log(
+						"Written to new collection in Firebase from trial function."
+					);
+				});
+			for (const [inKey, inValue] of Object.entries(value)) {
+				console.log(inKey, inValue);
+			}
 		}
 	}
 }
 
 //Main Body
 async function main() {
-	//Run when new database started
-	//await createAllCharDocuments();
+	//Uncomment & Run only when new database or collection to be set up
+	// await createAllCharDocuments("newMappingTrial"); //Pass Collection Name as Parameter
 
 	//Reading Input from the CSV using csv-reader package
 	const Fs = require("fs");
 	const { format } = require("path");
-	const dict = {};
+	let dict = {};
 	const CsvReadableStream = require("csv-reader");
+	let count = 0;
 	let inputStream = Fs.createReadStream(
-		"src/oneTimeScripts/test.csv",
+		"src/oneTimeScripts/Recheck - संकीर्ण.csv",
 		"utf8"
 	);
 	inputStream
@@ -214,21 +272,39 @@ async function main() {
 			})
 		)
 		.on("data", function (row) {
+			count++;
+			if (count % 100 === 0) console.log(count);
 			let nameString = csvArrayToString(row[0]);
-			let firstChar = nameString[0];
-			if (dict[firstChar] && dict[firstChar].length) {
-				if (dict[firstChar].indexOf(nameString) === -1)
-					dict[firstChar].push(nameString);
+			let firstChar = csvArrayRemoveHonorifics(row[0])[0];
+
+			if (!dict) dict = {};
+			if (dict[firstChar]) {
+				if (dict[firstChar][nameString]) {
+					dict[firstChar][nameString]++;
+				} else {
+					dict[firstChar][nameString] = 1;
+				}
 			} else {
-				dict[firstChar] = [nameString];
+				dict[firstChar] = {};
+				dict[firstChar][nameString] = 1;
 			}
 		})
 		.on("end", async function (data) {
+			console.log("Entered on end section.");
+
+			//Remove Lekhaks below Threshold
+			dict = removeUnpopular(dict, 5);
+
 			//Uncomment to write to Firebase
-			// writeToFirebase(dict);
+			// writeToFirebase(dict, "newMappingTrial");
+
 			//Uncomment to write to CSV
 			// writeToCSV(dict);
+
+			//Function for Trials, writing to firebase for single char.
+			passDictToFun(dict);
 		});
+	console.log("Stop the script now if it is still running.");
 	return;
 }
 

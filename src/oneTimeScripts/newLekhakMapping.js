@@ -3,13 +3,13 @@ const firebase = require("firebase/app");
 require("firebase/firestore");
 require("firebase/auth");
 const config = {
-	apiKey: "AIzaSyB2MH0qD3U7aOMo7AwPz9phpxtv3K1Vl7A",
-	authDomain: "rajgurunagarlibrary.firebaseapp.com",
-	databaseURL: "https://rajgurunagarlibrary.firebaseio.com",
-	projectId: "rajgurunagarlibrary",
-	storageBucket: "rajgurunagarlibrary.appspot.com",
-	messagingSenderId: "873976955186",
-	appId: "1:873976955186:web:1f0b7bde7368a61cb5172b",
+	apiKey: "AIzaSyCzHYtN3HUc7uNhG15YD3hrnyiX_poQUrM",
+	authDomain: "devsavakhed.firebaseapp.com",
+	projectId: "devsavakhed",
+	storageBucket: "devsavakhed.appspot.com",
+	messagingSenderId: "774083254382",
+	appId: "1:774083254382:web:b184cb1b0851be9474ae7f",
+	measurementId: "G-RCY6EWCX6V",
 };
 firebase.initializeApp(config);
 const auth = firebase.auth();
@@ -194,14 +194,15 @@ async function createAllCharDocuments(collectionName) {
 
 //Remove lekhaks below threshold
 function removeUnpopular(dict, threshold) {
+	let above = 0;
 	for (const [key, value] of Object.entries(dict)) {
 		for (const [inKey, inValue] of Object.entries(value)) {
-			if (inValue < 5) {
+			if (inValue['count'] < 5) {
 				delete dict[key][inKey];
 			}
-			//console.log(inKey, inValue);
 		}
 	}
+	console.log("Above : " + above);
 	return dict;
 }
 
@@ -216,7 +217,7 @@ async function writeToFirebase(dict, collectionName) {
 				names: value,
 			})
 			.then(function () {
-				console.log("Written to new collection in Firebase.");
+				console.log("Written to new collection in Firebase : " + key);
 			});
 	}
 	console.log("Firebase Collection Updated.");
@@ -225,9 +226,12 @@ async function writeToFirebase(dict, collectionName) {
 //Trial with recd data.
 async function passDictToFun(dict) {
 	for (const [key, value] of Object.entries(dict)) {
+		/*
+		//Firebase Block
 		if (key === "ज") {
+			console.log("Firebase in Temp Function");
 			const writeRes = await db
-				.collection("newMappingTrial")
+				.collection("newMappingStructure")
 				.doc(key)
 				.update({
 					names: value,
@@ -237,17 +241,23 @@ async function passDictToFun(dict) {
 						"Written to new collection in Firebase from trial function."
 					);
 				});
+		}
+		*/
+		/*
+		//Console Log Block
+		if (key === "ज") {
 			for (const [inKey, inValue] of Object.entries(value)) {
 				console.log(inKey, inValue);
 			}
 		}
+		*/
 	}
 }
 
 //Main Body
 async function main() {
 	//Uncomment & Run only when new database or collection to be set up
-	// await createAllCharDocuments("newMappingTrial"); //Pass Collection Name as Parameter
+	await createAllCharDocuments("newMappingStructure"); //Pass Collection Name as Parameter
 
 	//Reading Input from the CSV using csv-reader package
 	const Fs = require("fs");
@@ -256,7 +266,7 @@ async function main() {
 	const CsvReadableStream = require("csv-reader");
 	let count = 0;
 	let inputStream = Fs.createReadStream(
-		"src/oneTimeScripts/test.csv",
+		"src/oneTimeScripts/Recheck - संकीर्ण.csv",
 		"utf8"
 	);
 	inputStream
@@ -269,20 +279,23 @@ async function main() {
 		)
 		.on("data", function (row) {
 			count++;
-			if (count % 100 === 0) console.log(count);
+			if (count % 100 === 0)
+				console.log(count);
 			let nameString = csvArrayToString(row[0]);
 			let firstChar = csvArrayRemoveHonorifics(row[0])[0];
 
 			if (!dict) dict = {};
 			if (dict[firstChar]) {
 				if (dict[firstChar][nameString]) {
-					dict[firstChar][nameString]++;
+					dict[firstChar][nameString]['count']++;
 				} else {
-					dict[firstChar][nameString] = 1;
+					dict[firstChar][nameString] = {};
+					dict[firstChar][nameString]['count'] = 1;
 				}
 			} else {
 				dict[firstChar] = {};
-				dict[firstChar][nameString] = 1;
+				dict[firstChar][nameString] = {};
+				dict[firstChar][nameString]['count'] = 1;
 			}
 		})
 		.on("end", async function (data) {
@@ -292,13 +305,13 @@ async function main() {
 			dict = removeUnpopular(dict, 5);
 
 			//Uncomment to write to Firebase
-			// writeToFirebase(dict, "newMappingTrial");
+			writeToFirebase(dict, "newMappingStructure");
 
 			//Uncomment to write to CSV
 			// writeToCSV(dict);
 
 			//Function for Trials, writing to firebase for single char.
-			passDictToFun(dict);
+			//passDictToFun(dict);
 		});
 	console.log("Stop the script now if it is still running.");
 	return;
