@@ -46,7 +46,7 @@
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
 		margin: 20px 0px;
 	}
-
+/* 
 	.cardGoogle {
 		width: 300px;
 		height: auto;
@@ -55,10 +55,21 @@
 		padding: 10px 10px 10px 10px;
 		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
 		margin: 20px 0px;
-	}
+	} */
 
-	.heading {
-		font-size: 18px;
-		font-weight: 600;
-	}
+    .cardGoogle{
+        width: 320px;
+        height: auto;
+        border-radius: 5px;
+        border: 1px solid #eee;
+        padding: 10px 10px 10px 10px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.05);
+        margin: 20px 0px;
+    }
+
+    
+    .heading{
+        font-size: 18px;
+        font-weight: 600;
+    }
 }

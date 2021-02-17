@@ -25,7 +25,7 @@ class App extends Component {
 			prakar: "",
 			lekhakLoading: false,
 			activeTab: 1,
-			lekhakDict: { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 },
+			lekhakDict: { "करुणा गोखले": {'count':7}, "कृ मु उजळंबकर": {'count':9}, "के सागर": {'count':75} },
 			lekhakSearched: false,
 			lekhakResults: [],
 			currentLekhak: "",
