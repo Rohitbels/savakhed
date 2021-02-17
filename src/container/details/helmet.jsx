@@ -24,7 +24,8 @@ export default function HelmetMetaData(props) {
             <meta name="robots" content="noodp" />
             <meta property="title" content={title} />
             <meta property="quote" content={quote} />
-            <meta name="description" content={description} />
+            <link rel="apple-touch-icon" href={image} data-react-helmet="true" />
+            <meta name="description" content={title} />
             <meta rel="icon" href={image} />
             <meta property="image" content={image} />
             <meta property="og:locale" content="en_US" />
