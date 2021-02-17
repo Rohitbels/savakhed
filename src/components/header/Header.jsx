@@ -5,7 +5,7 @@ import { ReactComponent as Arrow } from "./left-arrow.svg";
 function Header() {
 	const setLabel = () => {
 		const href = window.location.href;
-		if (href.includes("lekhaklist")) return "lekhak-list";
+		if (href.includes("lekhaklist")) return "explore by top authors";
 		if (href.includes("lekhakbooks")) return "lekhakbooks";
 		if (href.includes("aboutus")) return "about-us";
 		if (href.includes("details")) return "details";

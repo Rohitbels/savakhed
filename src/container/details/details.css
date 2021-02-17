@@ -51,32 +51,33 @@
 	padding-bottom: 20px;
 	/* padding-right: 15px; */
 	display: flex;
+    justify-content: space-between;
 }
 
-.rows {
-	/* padding-left: 15px; */
-	padding-top: 5px;
-	padding-bottom: 35px;
-	/* padding-right: 15px; */
-	display: flex;
-}
 
 .col2 {
 	width: 50%;
-	padding-left: 25%;
 }
 
-.label {
-	padding: 5px;
-	color: lightslategray;
-	font-weight: 350;
+
+.book_img{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-right: 0.8em;
 }
 
-.book_name {
-	padding: 5px;
-	font-weight: 350;
-	font-size: 1.2em;
-	text-transform: capitalize !important;
+.book_img_class{
+    width: auto;
+    height: 10em;
+}
+
+.label{
+    padding: 5px;
+    color: lightslategray;
+    font-weight: 350;
+    font-size: 14px;
+    
 }
 
 .googleResult {
@@ -95,6 +96,14 @@
 	color: purple;
 }
 
+
+.book_name{
+    font-weight: 350;
+    font-size: 1.2em;
+    padding-left: 0.2em;
+    text-transform: capitalize;
+}
+
 .source {
 	font-size: 10px;
 	padding: 10px 10px 0px 10px;
@@ -102,88 +111,105 @@
 }
 
 @media (max-width: 576px) {
-	.flex-container {
-		flex-direction: column;
-		padding-left: 0px;
-		align-items: center;
-		padding-top: 40px;
-		margin-bottom: 44px;
-		padding-left: 0px;
-	}
 
-	.whatsappShare {
-		position: fixed;
-		display: flex;
-		z-index: 999;
-		box-shadow: 0.5px 0.5px 5px black;
-		width: 31px;
-		height: 31px;
-		border-radius: 30px;
-		bottom: 15vh;
-		right: 3vh;
-		outline: none;
-	}
+  
+    .flex-container {
+      flex-direction: column;
+      padding-left: 0px;
+      align-items: center;  
+      padding-top: 40px;
+      margin-bottom: 44px;
+      padding-left: 0px;
 
-	.whatsappShare:active,
-	.whatsappShare:any-link,
-	.whatsappShare:focus,
-	.whatsappShare:focus-visible {
-		outline: none;
-		border: none;
-	}
 
-	.cardDetails {
-		display: flex;
-		margin: 0 !important;
-		flex-direction: column;
-		width: 300px;
-	}
+    }
 
-	.back_btn {
-		width: 130px;
-		height: 45px;
-		padding: 10px;
-		font-size: 18px;
-		margin-left: 20px;
-		margin-top: 60px;
-		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-			0 6px 20px 0 rgba(0, 0, 0, 0.19);
-	}
+    .book_img{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-	.rows {
-		padding-left: 0px;
-		padding-bottom: 20px;
-	}
+    .book_img_class{
+        width: auto;
+        height: 10em;
+    }
 
-	.col1 {
-		width: 50%;
-	}
+    .whatsappShare{
+        position: fixed;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+        box-shadow: 0.5px 0.5px 8px black;
+        width: 40px;
+        height: 35px;
+        border-radius: 30px;
+        bottom: 14vh;
+        right: 2.5vh;
+        outline: none;
+    }
+    
+    .whatsappShare:active ,.whatsappShare:any-link, .whatsappShare:focus, .whatsappShare:focus-visible {
+        outline: none;
+        border:none;
+    }
+    
 
-	.col2 {
-		width: 50%;
-		padding-left: 2%;
-	}
+    .cardDetails{
+        display: flex;
+        margin: 0 !important;
+        flex-direction: column;
+        width: 320px;
+    }
 
-	.label {
-		padding: 5px !important;
-		font-size: 12px;
-	}
+    .back_btn{
+        width: 130px;
+        height: 45px;
+        padding: 10px;
+        font-size: 18px;
+        margin-left: 20px;
+        margin-top: 60px;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    }
 
-	.book_name {
-		font-weight: 365;
-		font-size: 15px;
-	}
+    
+    .rows{
+        padding-left: 0px;
+        padding-bottom: 20px;
+    }
 
-	.eachgoogleDetails {
-		font-weight: 300;
-		font-size: 15px;
-		width: 100%;
-	}
+    .col1{
+        width: 50%;
+    }
+    
+    .col2{
+        width: 50%;
+        padding-left: 2%;
+    }
 
-	.googleResult {
-		font-size: 12px;
-		padding: 5px;
-		line-height: 16px;
-		color: black;
-	}
-}
+    .label{
+        padding: 5px !important;
+        font-size: 14px;
+        font-weight: 400;
+    }
+
+    .book_name{
+        font-weight: 400;
+        font-size: 1.2em;
+        padding-left: 0.3em;
+    }
+    
+    .eachgoogleDetails{
+        font-weight: 300;
+        font-size: 15px;
+        width: 100%;
+    }
+    
+    .googleResult{
+        font-size: 12px;
+        padding: 5px;
+        line-height: 16px;
+        color: black;
+    }
+  }
