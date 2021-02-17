@@ -43,6 +43,7 @@ const ListSection = ({
 									className="book-cover"
 									alt="book cover"
 									book={book}
+									type=""
 								/>
 								<a
 									href={`#/details/${book["id"]}`}
@@ -70,7 +71,7 @@ const ListSection = ({
 										</span>
 										<span className="book-language">
 											{getLanguage(
-												book["pustakFullName"]
+												book["pustakName"].join(" ")
 											)}
 										</span>
 									</div>

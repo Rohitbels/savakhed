@@ -83,17 +83,7 @@ function Header() {
 					}}
 				>
 					<div className="link-placeholders" id="lekhak-list">
-						Lekhak List
-					</div>
-				</a>
-				<a
-					href="/savakhed/#/recommendation"
-					onClick={() => {
-						onClickHandler("recommendation");
-					}}
-				>
-					<div className="link-placeholders" id="recommendation">
-						Recommendations
+						Authors
 					</div>
 				</a>
 				<a
@@ -105,15 +95,6 @@ function Header() {
 					<div className="link-placeholders" id="about-us">
 						About Us
 					</div>
-				</a>
-				<a
-					href="/#/search"
-					onClick={() => {
-						onClickHandler("about-us");
-					}}
-					id="title-id"
-				>
-					<div className="title">{setLabel().replace("-", " ")}</div>
 				</a>
 			</div>
 		</nav>

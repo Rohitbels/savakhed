@@ -3,12 +3,17 @@ import { storage, collection } from "../../firebase";
 import useVisibility from "./useVisibility";
 import bookimage from "./coming-soon.jpg";
 
-function Image({ alt, book, ...props }) {
+function Image({ type, alt, book, ...props }) {
 	const [inView, setInView] = useState(false);
 	const imgRef = useRef(null);
-
 	const [Img, setImg] = useState(bookimage);
 
+	const API_KEY = "AIzaSyB1TtjgdaS-JyFVHFmWz_OMXhg8ft5Tbpw";
+	const AUTHORS_ENGINE = "af35ce6be8762aee9";
+	const BOOKS_ENGINE = "b322c10bd42a76344";
+
+	const SEARCH_ENGINE = type === "author" ? AUTHORS_ENGINE : BOOKS_ENGINE;
+	const STORAGE_LOCATION = type === "author" ? "author" : "book-covers";
 	const storageRef = storage.ref();
 
 	const update = async (url) => {
@@ -25,7 +30,7 @@ function Image({ alt, book, ...props }) {
 			contentType: "image/jpg",
 		};
 		let uploadTask = storageRef
-			.child(`book-covers/${filename.replaceAll(" ", "_")}`)
+			.child(`${STORAGE_LOCATION}/${filename.replaceAll(" ", "_")}`)
 			.put(file, metadata);
 
 		uploadTask.on(
@@ -76,9 +81,9 @@ function Image({ alt, book, ...props }) {
 		});
 		xhr.open(
 			"GET",
-			`https://customsearch.googleapis.com/customsearch/v1/siterestrict?searchType=image&cx=b322c10bd42a76344&q=${encodeURI(
+			`https://customsearch.googleapis.com/customsearch/v1/siterestrict?searchType=image&cx=${SEARCH_ENGINE}&q=${encodeURI(
 				q
-			)}&key=AIzaSyB1TtjgdaS-JyFVHFmWz_OMXhg8ft5Tbpw`
+			)}&key=${API_KEY}`
 		);
 		xhr.send();
 	};
