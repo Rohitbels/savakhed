@@ -53,8 +53,13 @@ function Header() {
 
 	return (
 		<nav className="nav-bar">
-			{window.location.href.includes("details") || window.location.href.includes("lekhakbooks") ? (
-				<a onClick={() => window.history.go(-1)} className="back-link">
+			{window.location.href.includes("details") ||
+			window.location.href.includes("lekhakbooks") ? (
+				<a
+					href="#"
+					onClick={() => window.history.go(-1)}
+					className="back-link"
+				>
 					<div className="back-button">
 						<Arrow />
 					</div>
@@ -101,10 +106,14 @@ function Header() {
 						About Us
 					</div>
 				</a>
-				<a href="/#/search" onClick={() => {onClickHandler("about-us")}} id="title-id">
-					<div className="title">
-						{setLabel().replace('-', ' ')}
-					</div>
+				<a
+					href="/#/search"
+					onClick={() => {
+						onClickHandler("about-us");
+					}}
+					id="title-id"
+				>
+					<div className="title">{setLabel().replace("-", " ")}</div>
 				</a>
 			</div>
 		</nav>

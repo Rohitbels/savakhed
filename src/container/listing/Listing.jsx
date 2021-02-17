@@ -96,7 +96,7 @@ class Listing extends Component {
 			return;
 		}
 
-		if (inputArray.length < 2) {
+		if (inputArray[0].length < 2) {
 			this.setState({ error: true });
 			return;
 		}
