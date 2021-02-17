@@ -7,12 +7,15 @@ import Image from "../intersection-image-search/Image";
 
 import mulakshare from "./../../container/listing/mulakshare";
 
-const ListCard = ({ book, setCurrentDetails }) => {
+const ListCard = ({ book, setCurrentDetails, type }) => {
 	var language = "इंग्रजी";
 
 	const API_KEY = "AIzaSyB1TtjgdaS-JyFVHFmWz_OMXhg8ft5Tbpw";
 	const AUTHORS_ENGINE = "af35ce6be8762aee9";
 	const BOOKS_ENGINE = "b322c10bd42a76344";
+
+	const SEARCH_ENGINE = type == "author" ? AUTHORS_ENGINE : BOOKS_ENGINE;
+	const STORAGE_LOCATION = type == "author" ? "author" : "book-covers";
 
 	const [Img, setImg] = useState(bookimage);
 	const storageRef = storage.ref();
@@ -26,16 +29,10 @@ const ListCard = ({ book, setCurrentDetails }) => {
 
 	const update = async (url) => {
 		const docRef = (
-			await db
-				.collection("bookList")
-				.where("dakhalId", "==", book["dakhalId"])
-				.get()
+			await collection.where("dakhalId", "==", book["dakhalId"]).get()
 		).docs[0].id;
 		// console.log(docRef);
-		const docUpdate = await db
-			.collection("bookList")
-			.doc(docRef)
-			.update({ imageURL: url });
+		const docUpdate = await collection.doc(docRef).update({ imageURL: url });
 	};
 
 	const upload = (file, filename) => {
@@ -43,7 +40,7 @@ const ListCard = ({ book, setCurrentDetails }) => {
 			contentType: "image/jpg",
 		};
 		let uploadTask = storageRef
-			.child(`book-covers/${filename.replaceAll(" ", "_")}`)
+			.child(`${STORAGE_LOCATION}/${filename.replaceAll(" ", "_")}`)
 			.put(file, metadata);
 
 		uploadTask.on(
@@ -93,7 +90,7 @@ const ListCard = ({ book, setCurrentDetails }) => {
 		});
 		xhr.open(
 			"GET",
-			`https://customsearch.googleapis.com/customsearch/v1/siterestrict?searchType=image&cx=${BOOKS_ENGINE}&q=${encodeURI(
+			`https://customsearch.googleapis.com/customsearch/v1/siterestrict?searchType=image&cx=${SEARCH_ENGINE}&q=${encodeURI(
 				q
 			)}&key=${API_KEY}`
 		);
@@ -127,7 +124,11 @@ const ListCard = ({ book, setCurrentDetails }) => {
 	//book["imageURL"] ? book["imageURL"] : Img ? bookimage : Img
 	return (
 		<div className='card-container' onClick={() => setCurrentDetails(book)}>
-			<Image className='book-cover' src={Img} alt='book cover' />
+			<Image
+				className='book-cover'
+				src={book["imageURL"] ? book["imageURL"] : Img ? bookimage : Img}
+				alt='book cover'
+			/>
 			<a
 				href={`#/details/${book["id"]}`}
 				style={{

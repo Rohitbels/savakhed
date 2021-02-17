@@ -52,59 +52,50 @@ function Header() {
 	});
 
 	return (
-		<nav className="nav-bar">
-			{window.location.href.includes("details") || window.location.href.includes("lekhakbooks") ? (
-				<a onClick={() => window.history.go(-1)} className="back-link">
-					<div className="back-button">
+		<nav className='nav-bar'>
+			{window.location.href.includes("details") ||
+			window.location.href.includes("lekhakbooks") ? (
+				<a onClick={() => window.history.go(-1)} className='back-link'>
+					<div className='back-button'>
 						<Arrow />
 					</div>
 				</a>
 			) : null}
-			<div className="tabs">
+			<div className='tabs'>
 				<a
-					href="/savakhed/#/search"
+					href='/savakhed/#/search'
 					onClick={() => {
 						onClickHandler("search");
-					}}
-				>
-					<div className="link-placeholders" id="search">
+					}}>
+					<div className='link-placeholders' id='search'>
 						Search
 					</div>
 				</a>
 				<a
-					href="/savakhed/#/lekhaklist"
+					href='/savakhed/#/lekhaklist'
 					onClick={() => {
 						onClickHandler("lekhak-list");
-					}}
-				>
-					<div className="link-placeholders" id="lekhak-list">
-						Lekhak List
+					}}>
+					<div className='link-placeholders' id='lekhak-list'>
+						Authors
 					</div>
 				</a>
 				<a
-					href="/savakhed/#/recommendation"
-					onClick={() => {
-						onClickHandler("recommendation");
-					}}
-				>
-					<div className="link-placeholders" id="recommendation">
-						Recommendations
-					</div>
-				</a>
-				<a
-					href="/savakhed/#/aboutus"
+					href='/savakhed/#/aboutus'
 					onClick={() => {
 						onClickHandler("about-us");
-					}}
-				>
-					<div className="link-placeholders" id="about-us">
+					}}>
+					<div className='link-placeholders' id='about-us'>
 						About Us
 					</div>
 				</a>
-				<a href="/#/search" onClick={() => {onClickHandler("about-us")}} id="title-id">
-					<div className="title">
-						{setLabel().replace('-', ' ')}
-					</div>
+				<a
+					href='/#/search'
+					onClick={() => {
+						onClickHandler("about-us");
+					}}
+					id='title-id'>
+					<div className='title'>{setLabel().replace("-", " ")}</div>
 				</a>
 			</div>
 		</nav>
