@@ -31,7 +31,7 @@ class LekhakList extends Component {
             lekhakDict: {}
         })
         //console.log(value);
-        const doc = await db.collection("newMappingTrial").doc(value).get();
+        const doc = await db.collection("newMappingStructure").doc(value).get();
         let lekhakNamesDict = doc.data().names;
         lekhakNamesDict = this.sortKeys(lekhakNamesDict);
         this.props.setParentState(
@@ -71,7 +71,7 @@ class LekhakList extends Component {
         this.props.setParentState({
             activeTab: tab,
             lekhakSearched: false,
-            lekhakDict: tab === 1 ? { "करुणा गोखले": 7, "कृ मु उजळंबकर": 9, "के सागर": 75 } :{},
+            lekhakDict: tab === 1 ? { "करुणा गोखले": {count:7}, "कृ मु उजळंबकर": {count:9}, "के सागर": {count:75} } :{},
             isBtnClicked: tab === 1 ? 'क' : 'a'
         });
         
@@ -85,7 +85,7 @@ class LekhakList extends Component {
         return (
             Object.keys(this.props.lekhakDict).map((key, index) => (
                 <div className="renderAuthors">
-                    <div className="authorName">{key} - <span>{this.props.lekhakDict[key]} Books</span></div>
+                    <div className="authorName">{key} - <span>{this.props.lekhakDict[key]['count']} Books</span></div>
                     <div className="bookNames"><p onClick={this.getLekhakBooks(key)}>View Books</p></div>
                 </div>
             ))
