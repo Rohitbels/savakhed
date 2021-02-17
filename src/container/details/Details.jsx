@@ -176,7 +176,7 @@ class Details extends Component {
                 
 
                 <div className="whatsappShare">
-                <WhatsappShareButton title={"*"+currentBook.pustakName.join(" ") + "*   by   *" + currentBook.lekhak.join(" ")+"* "}  separator="  " url={window.location.href} size={36}   >
+                <WhatsappShareButton title={"*"+currentBook.pustakName.join(" ") + "* by " + currentBook.lekhak.join(" ")} imageUrl={currentBook.imageURL} separator="  " url={window.location.href} size={36}   >
                     <WhatsappIcon size={46} round={true}/>
                 </WhatsappShareButton>
                 </div>
