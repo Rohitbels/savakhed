@@ -135,7 +135,7 @@ class Details extends Component {
                         <Card bookName="Book Details">
                         <div className="cardDetails">
                         <div className="book_img">
-                                    {currentBook.imageUrl != "" ?
+                                    {currentBook.imageURL !== undefined ?
                                         <img src={currentBook.imageURL} alt="book image" className="book_img_class"/>
                                     :<div></div>
                                     }

@@ -192,12 +192,14 @@
 
     .label{
         padding: 5px !important;
-        font-size: 12px;
+        font-size: 14px;
+        font-weight: 400;
     }
 
     .book_name{
         font-weight: 400;
-        font-size: 15px;
+        font-size: 1.5em;
+        padding-left: 0.5em;
     }
     
     .eachgoogleDetails{
