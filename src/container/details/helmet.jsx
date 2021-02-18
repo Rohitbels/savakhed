@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import image from '../../svg/reading192.png';
+import image from '../../svg/reading192.png';   
 
 export default function HelmetMetaData(props) {
     console.log(props)
@@ -12,7 +12,7 @@ export default function HelmetMetaData(props) {
     return (
         <Helmet>
             <meta property="og:title" content={title} />
-            <meta property="og:image" content={image} />
+            <meta property="og:image" content="https://w7.pngwing.com/pngs/808/1018/png-transparent-e-book-computer-icons-reading-book-icon-angle-reading-logo-thumbnail.png" />
             <title>{title}</title>
             <meta charset="utf-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -27,8 +27,8 @@ export default function HelmetMetaData(props) {
             <meta property="quote" content={quote} />
             <link rel="apple-touch-icon" href="" data-react-helmet="true" />
             <meta name="description" content={title} />
-            <meta rel="icon" href={image} />
-            <meta property="image" content={image} />
+            <meta rel="icon" href="https://w7.pngwing.com/pngs/808/1018/png-transparent-e-book-computer-icons-reading-book-icon-angle-reading-logo-thumbnail.png" />
+            <meta property="image" content="https://w7.pngwing.com/pngs/808/1018/png-transparent-e-book-computer-icons-reading-book-icon-angle-reading-logo-thumbnail.png" />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="website" /> 
             <meta content="image/*" property="og:image:type" />
