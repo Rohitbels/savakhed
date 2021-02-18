@@ -118,10 +118,7 @@ class Details extends Component {
         return strName;
     }
 
-    componentWillUnmount(){
-        <HelmetMetaData bookName="सार्वजनिक वाचनालय राजगुरूनगर" description="सार्वजनिक वाचनालय राजगुरूनगर" >
-            </HelmetMetaData>
-    }
+  
 
 
     render() {
