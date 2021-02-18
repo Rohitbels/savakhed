@@ -18,10 +18,14 @@ function Recommendation() {
 				var firstSlot = Math.floor((day - 1) * slotSize);
 				var secondSlot = Math.ceil(day * slotSize);
 
+				console.log(firstSlot + " - " + secondSlot);
+
 				for (var i = firstSlot; i <= secondSlot; i++) {
 					let book = snapshot.docs[i].data();
 					results.push({ ...book, id: snapshot.docs[i].id });
 				}
+
+				console.log("results", results);
 
 				setSearched(true);
 			});
