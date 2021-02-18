@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import image from '../../../public/reading192.png';
+import image from '../../svg/reading192.png';
 
 export default function HelmetMetaData(props) {
     console.log(props)
