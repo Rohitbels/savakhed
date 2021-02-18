@@ -12,7 +12,7 @@ export default function HelmetMetaData(props) {
     return (
         <Helmet>
             <meta property="og:title" content={title} />
-         <meta property="og:image" content="https://w7.pngwing.com/pngs/808/1018/png-transparent-e-book-computer-icons-reading-book-icon-angle-reading-logo-thumbnail.png" /> */}
+         <meta property="og:image" content="https://i.pinimg.com/originals/e8/9c/7c/e89c7ca5e17e78904990bda912b16644.jpg" /> 
             <meta content="image/*" property="og:image:type" />
             <title>{title}</title>
             <meta charset="utf-8" />
