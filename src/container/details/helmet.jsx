@@ -19,7 +19,7 @@ export default function HelmetMetaData(props) {
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
             <meta property="og:quote" content={quote} />
-            <meta property="og:image" content={image} />
+            <meta property="og:image" content="https://i.pinimg.com/originals/41/b0/ed/41b0edd10bd1fcca1833c2e651fcfdaa.png" />
             <meta content="image/*" property="og:image:type" />
             <meta property="url" content={currentUrl} />
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
