@@ -1,5 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
+import image from '../../svg/reading192.png';   
 
 export default function HelmetMetaData(props) {
     console.log(props)
@@ -11,7 +12,7 @@ export default function HelmetMetaData(props) {
     return (
         <Helmet>
             <meta property="og:title" content={title} />
-         <meta property="og:image" content="https://p7.hiclipart.com/preview/831/479/764/ibooks-computer-icons-ios-apple-app-store-sparito-lo-scaffale-sono-rimaste-le-pagine-aperte-i-colori-cambiano-thumbnail.jpg" />
+         <meta property="og:image" content="https://w7.pngwing.com/pngs/808/1018/png-transparent-e-book-computer-icons-reading-book-icon-angle-reading-logo-thumbnail.png" /> */}
             <meta content="image/*" property="og:image:type" />
             <title>{title}</title>
             <meta charset="utf-8" />
