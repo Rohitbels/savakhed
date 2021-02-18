@@ -15,6 +15,12 @@ export default function HelmetMetaData(props) {
             <meta http-equiv="X-UA-Compatible" content="IE=edge" />
             <meta name="csrf_token" content="" />
             <meta property="type" content="website" />
+            <meta property="og:locale" content="en_US" />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content={title} />
+            <meta property="og:quote" content={quote} />
+            <meta property="og:image" content={image} />
+            <meta content="image/*" property="og:image:type" />
             <meta property="url" content={currentUrl} />
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta name="msapplication-TileColor" content="#ffffff" />
@@ -24,12 +30,6 @@ export default function HelmetMetaData(props) {
             <meta name="description" content={title} />
             <meta rel="icon" href={image} />
             <meta property="image" content={image} />
-            <meta property="og:locale" content="en_US" />
-            <meta property="og:type" content="website" />
-            <meta property="og:title" content={title} />
-            <meta property="og:quote" content={quote} />
-            <meta property="og:image" content={image} />
-            <meta content="image/*" property="og:image:type" />
             <meta property="og:url" content={currentUrl} />
             <meta property="og:site_name" content="Book details" />
             <meta property="og:description" content={description} />
