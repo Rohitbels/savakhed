@@ -19,11 +19,7 @@ export default function HelmetMetaData(props) {
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
             <meta name="msapplication-TileColor" content="#ffffff" />
             <meta name="msapplication-TileImage" content={image} />
-            <meta name="theme-color" content="#ffffff" />
-            <meta name="_token" content="" />
-            <meta name="robots" content="noodp" />
             <meta property="title" content={title} />
-            <meta property="quote" content={quote} />
             <link rel="apple-touch-icon" href={image} data-react-helmet="true" />
             <meta name="description" content={title} />
             <meta rel="icon" href={image} />
