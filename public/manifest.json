@@ -27,7 +27,6 @@
   "background_color": "#ffffff",
   "categories": ["education", "reading", "library"],
   "lang": "",
-  "react-data-helmet":true,
   "screenshots": [
     {
 

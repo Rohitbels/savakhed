@@ -133,7 +133,6 @@ class Details extends Component {
                 {currentBook.pustakName &&    
     <div>
                         <HelmetMetaData bookName={currentBook.pustakName.join(" ")} description={currentBook.pustakName.join(" ")} image={currentBook.imageURL}>
-                            <meta property="og:image" content={currentBook.imageURL} />
                         </HelmetMetaData>
 
                         <Card bookName="Book Details">
