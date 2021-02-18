@@ -32,7 +32,7 @@ export default function HelmetMetaData(props) {
             <meta property="og:type" content="website" />
             <meta property="og:title" content={title} />
             <meta property="og:quote" content={quote} />
-            <meta property="og:image" content={image} />
+            {/* <meta property="og:image" content={image} /> */}
             <meta content="image/*" property="og:image:type" />
             <meta property="og:url" content={currentUrl} />
             <meta property="og:site_name" content="Book details" />
