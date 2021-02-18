@@ -6,7 +6,7 @@ export default function HelmetMetaData(props) {
     let currentUrl = window.location.href;
     let quote = props.quote !== undefined ? props.quote : props.bookName;
     let title = props.bookName;
-    let image = props.image != " " ? props.image : "../../../public/reading192.png";
+    let image = props.image != " " ? props.image : "%PUBLIC_URL%/reading192.png";
     let description = props.description !== undefined ? props.description : props.bookName;
     return (
         <Helmet>
