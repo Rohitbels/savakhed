@@ -119,7 +119,7 @@ class Details extends Component {
     }
 
     componentWillUnmount(){
-        <HelmetMetaData bookName="सार्वजनिक वाचनालय राजगुरूनगर" description="सार्वजनिक वाचनालय राजगुरूनगर" image={currentBook.imageURL}>
+        <HelmetMetaData bookName="सार्वजनिक वाचनालय राजगुरूनगर" description="सार्वजनिक वाचनालय राजगुरूनगर" >
             </HelmetMetaData>
     }
 
@@ -128,7 +128,7 @@ class Details extends Component {
         const { bookDetail: stateBookDetails } = this.state;
         const { bookDetail: propsBookDetails } = this.props;
         //console.log(propsBookDetails)
-        constcurrentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
+        const currentBook = propsBookDetails.pustakName ? propsBookDetails: stateBookDetails;
         return (
             <div className="fullDetails">
                                {/* conditional rendering, if details are found */}
