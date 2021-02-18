@@ -271,7 +271,7 @@ async function passDictToFun(dict) {
 //Main Body
 async function main() {
 	//Uncomment & Run only when new database or collection to be set up
-	await createAllCharDocuments("newMappingStructure"); //Pass Collection Name as Parameter
+	//await createAllCharDocuments("newMappingStructure"); //Pass Collection Name as Parameter
 
 	//Reading Input from the CSV using csv-reader package
 	const Fs = require("fs");
