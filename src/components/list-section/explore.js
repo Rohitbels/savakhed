@@ -67,9 +67,9 @@ const exploreBooks = [
 	},
 	{
 		id: 12,
-		prakar: "इतिहास",
+		prakar: "राजा राम मोहनरॉय फाऊंडेशन",
 		img:
-			"https://firebasestorage.googleapis.com/v0/b/devsavakhed.appspot.com/o/itihas.jpeg?alt=media&token=5a24669f-7018-48e7-a48d-19b05c88214d",
+			"https://firebasestorage.googleapis.com/v0/b/devsavakhed.appspot.com/o/dengi.jpg?alt=media&token=96931670-4c52-4b9e-a544-f36d73512b7f",
 	},
 	{
 		id: 13,
@@ -139,18 +139,12 @@ const exploreBooks = [
 	},
 	{
 		id: 24,
-		prakar: "अनुवाद",
+		prakar: "इतिहास",
 		img:
-			"https://firebasestorage.googleapis.com/v0/b/devsavakhed.appspot.com/o/anuvad.jpg?alt=media&token=e5290229-f966-4bfa-b16e-98f2f01eb1d0",
+			"https://firebasestorage.googleapis.com/v0/b/devsavakhed.appspot.com/o/itihas.jpeg?alt=media&token=5a24669f-7018-48e7-a48d-19b05c88214d",
 	},
 	{
 		id: 25,
-		prakar: "राजा राम मोहनरॉय फाऊंडेशन",
-		img:
-			"https://firebasestorage.googleapis.com/v0/b/devsavakhed.appspot.com/o/rajarammohanroy.jpg?alt=media&token=f73f5504-bc57-45a3-b1de-f457d99aa0ba",
-	},
-	{
-		id: 26,
 		prakar: "P. D. D. (दीक्षित देणगी)",
 		img:
 			"https://firebasestorage.googleapis.com/v0/b/devsavakhed.appspot.com/o/dengi.jpg?alt=media&token=96931670-4c52-4b9e-a544-f36d73512b7f",

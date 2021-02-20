@@ -55,33 +55,87 @@ table {
 	}
 }
 
+.card-container {
+	height: 100%;
+	display: grid;
+	text-align: left;
+	grid-template-columns: 100px 2fr;
+}
+
+@media only screen and (min-width: 320px) {
+	.card-container {
+		width: 85vw;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.card-container {
+		width: 70vw;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.card-container {
+		width: 55vw;
+	}
+}
+@media only screen and (min-width: 1900px) {
+	.card-container {
+		width: 60vw;
+	}
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+	height: 100%;
+	text-decoration: none;
+	color: inherit;
+}
+
+.book-cover {
+	width: 84px;
+	height: 120px;
+	align-items: center;
+	object-fit: cover;
+}
+
+.book-title {
+	font-size: 1.35rem;
+	margin: 0.4rem 0.25rem;
+	font-weight: 500;
+	display: block;
+	text-transform: capitalize;
+}
+
+.book-author {
+	font-size: 1rem;
+	margin: 0.2rem 0.25rem;
+	font-weight: 500;
+	display: block;
+	text-transform: capitalize;
+}
+
+.book-category {
+	font-size: 1rem;
+	margin: 0.4rem 0.25rem;
+	font-weight: 300;
+	text-transform: capitalize;
+}
+
+.book-language {
+	font-size: 1rem;
+	margin: 0.4rem 0.25rem;
+	margin-left: auto;
+	font-weight: 300;
+	text-transform: capitalize;
+}
+
 .genre-container {
 	width: 100vw;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 10px 0px;
-}
-
-@media only screen and (min-width: 320px) {
-	.table-super {
-		margin-bottom: 100px;
-	}
-}
-@media only screen and (min-width: 768px) {
-	.table-super {
-		margin-bottom: 4rem;
-	}
-}
-@media only screen and (min-width: 1024px) {
-	.table-super {
-		margin-bottom: 2rem;
-	}
-}
-@media only screen and (min-width: 1900px) {
-	.table-super {
-		margin-bottom: 2rem;
-	}
 }
 
 .no-book-error {
