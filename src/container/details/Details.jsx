@@ -43,14 +43,13 @@ class Details extends Component {
         return urlID;
     }
 
-
     getGoogleData() {
         var xhr = new XMLHttpRequest()
         var query = this.props.bookDetail.pustakNameEnglish;
         
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
-            //console.log(xhr.responseText)
+            console.log(xhr.responseText)
 
             // destructuring
             const { itemListElement = [] } = JSON.parse(xhr.responseText);
@@ -66,7 +65,7 @@ class Details extends Component {
             });
 
         })
-        xhr.open('GET', 'https://kgsearch.googleapis.com/v1/entities:search?query=' + query + '&key=AIzaSyAY9Boy7kdeOmi7JYAfI2zR8Ij3iF_zgxM&limit=1&indent=True')
+        xhr.open('GET', 'https://kgsearch.googleapis.com/v1/entities:search?query=' + query +'&key=AIzaSyAY9Boy7kdeOmi7JYAfI2zR8Ij3iF_zgxM&limit=1&indent=True')
         xhr.send()
     }
 
