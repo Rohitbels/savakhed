@@ -5,6 +5,7 @@
 	font-size: 1.1rem;
 	height: 2.2rem;
 	padding: 0rem 0rem;
+	z-index: 10;
 
 	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
 }
@@ -56,11 +57,16 @@
 
 @media screen and (max-width: 550px) {
 	.title {
-		font-size: 1.6rem;
+		color: white;
+		font-size: 1.5rem;
 		font-weight: 400;
 		text-align: center;
 		text-transform: capitalize;
 		display: block;
+	}
+
+	#Layer_1 {
+		fill: white;
 	}
 
 	#title-id {
@@ -86,6 +92,7 @@
 	.nav-bar {
 		height: 5.5vh;
 		display: flex;
+		background-color: #337ab7;
 		justify-content: center;
 	}
 
@@ -94,7 +101,7 @@
 	}
 
 	.nav-bar a:hover {
-		background-color: white;
+		/* background-color: white; */
 	}
 
 	.back-link {

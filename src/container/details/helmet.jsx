@@ -1,6 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-import image from '../../svg/reading192.png';   
+//import image from '../../svg/reading192.png';   
 
 export default function HelmetMetaData(props) {
     console.log(props)
@@ -12,7 +12,7 @@ export default function HelmetMetaData(props) {
     return (
         <Helmet>
             <meta property="og:title" content={title} />
-         <meta property="og:image" content="https://i.pinimg.com/originals/e8/9c/7c/e89c7ca5e17e78904990bda912b16644.jpg" /> 
+            <meta property="og:image" content="https://i.pinimg.com/originals/e8/9c/7c/e89c7ca5e17e78904990bda912b16644.jpg" />
             <meta content="image/*" property="og:image:type" />
             <title>{title}</title>
             <meta charset="utf-8" />
