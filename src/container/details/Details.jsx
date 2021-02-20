@@ -44,31 +44,6 @@ class Details extends Component {
     }
 
 
-    getGoogleData() {
-        var xhr = new XMLHttpRequest()
-        var query = this.props.bookDetail.pustakNameEnglish; 
-
-        // get a callback when the server responds
-        xhr.addEventListener('load', () => {
-            //console.log(xhr.responseText)
-
-            // destructuring
-            const { itemListElement = [] } = JSON.parse(xhr.responseText);
-            const { result = {}, resultScore = {} } = (itemListElement.length && itemListElement[0]) || {};
-            const { detailedDescription = '', name = '', description = '' } = result;
-            const { articleBody = '' } = detailedDescription;
-            this.setState({
-                gotGoogleData: true,
-                GresultScore: resultScore,
-                GarticleBody: articleBody,
-                Gname: name,
-                Gdescription: description
-            });
-
-        })
-        xhr.open('GET', 'https://kgsearch.googleapis.com/v1/entities:search?query=' + query +'&key=AIzaSyAY9Boy7kdeOmi7JYAfI2zR8Ij3iF_zgxM&limit=1&indent=True')
-        xhr.send()
-    }
 
 
     async getFirebaseData() {

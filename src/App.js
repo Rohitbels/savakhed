@@ -69,6 +69,7 @@ class App extends Component {
 
 	render() {
 		return (
+			
 			<div className="App">
 				<Header url={this.state.show} />
 				{this.state.show === "details" && (
