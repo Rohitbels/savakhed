@@ -11,6 +11,10 @@
   }
   .lekhakBooklist h1 {
     padding-left: 10px;
+    
+  }
+  .author_img {
     margin-bottom: -0.5rem;
+    margin-left: 0.5rem;
   }
 }

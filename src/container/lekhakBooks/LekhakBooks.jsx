@@ -157,18 +157,19 @@ class LekhakBooks extends Component {
             <div>
                 <div className="lekhakBooklist">
                     <h1>लेखक : { this.props.currentLekhak }</h1>
+                    <div className="author_img">
+                        {this.props.lekhakDict[this.props.currentLekhak].imgURL !== "" || this.props.lekhakDict[this.props.currentLekhak].imgURL !== undefined ?
+                            <img src={this.props.lekhakDict[this.props.currentLekhak].imgURL} alt="" className="author_img_class"/>
+                        :<div></div>
+                        }
+                    </div>
                     <ListSection
                         setCurrentDetails={this.props.setCurrentDetails}
                         tableElements={this.props.lekhakResults}
                         searched={true}
                     />
                 </div>
-                <div className="author_img">
-                    {this.props.lekhakDict[this.props.currentLekhak].imgURL !== "" || this.props.lekhakDict[this.props.currentLekhak].imgURL !== undefined ?
-                        <img src={this.props.lekhakDict[this.props.currentLekhak].imgURL} alt="" className="author_img_class"/>
-                    :<div></div>
-                    }
-                </div>
+                
             </div>
         )
     }
