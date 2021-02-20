@@ -95,7 +95,7 @@ class LekhakList extends Component {
     renderAlphabets = (alpha) => {
         return (
             alpha.map((letter) => (
-                <button value={letter.key} className={this.props.isBtnClicked === letter.key? "alphabetsClicked" : "alphabetsUnclicked"} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
+                <button value={letter.key} key={"button"+letter.key} className={this.props.isBtnClicked === letter.key? "alphabetsClicked" : "alphabetsUnclicked"} onClick={this.getLekhakNames(letter.key)}>{letter.key}</button>
             ))
         )
     }

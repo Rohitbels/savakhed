@@ -51,6 +51,7 @@ class App extends Component {
 		if (currURL.length > 1) {
 			let endPart = currURL[1].toLowerCase();
 			if (endPart.includes("details")) {
+				console.log(this.state);
 				var patt = detailsURLPattern;
 				if (patt.test(endPart)) this.setState({ show: "details" });
 			} else if (endPart.includes("lekhaklist")) {

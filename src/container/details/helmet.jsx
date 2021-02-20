@@ -3,7 +3,7 @@ import { Helmet } from "react-helmet";
 //import image from '../../svg/reading192.png';   
 
 export default function HelmetMetaData(props) {
-    console.log(props)
+    //console.log(props)
     let currentUrl = window.location.href;
     let quote = props.quote !== undefined ? props.quote : props.bookName;
     let title = props.bookName;

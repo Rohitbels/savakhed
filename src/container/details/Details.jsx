@@ -24,6 +24,7 @@ class Details extends Component {
 
 
     componentDidMount() {
+        console.log(this.props);
         const { bookDetail = {} } = this.props;
         if (!bookDetail.pustakName) {
             this.getFirebaseData();
@@ -32,7 +33,6 @@ class Details extends Component {
             this.getUsername(this.props.bookDetail.usermail);
         }
         this.getGoogleData();
-
     }
 
 
@@ -47,7 +47,7 @@ class Details extends Component {
     getGoogleData() {
         var xhr = new XMLHttpRequest()
         var query = this.props.bookDetail.pustakNameEnglish;
-
+        
         // get a callback when the server responds
         xhr.addEventListener('load', () => {
             //console.log(xhr.responseText)
