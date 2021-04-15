@@ -2,6 +2,7 @@ import Autosuggest from "react-autosuggest";
 import React from "react";
 import ReactDOM from "react-dom";
 import "./inputbox.css";
+import searchSvg from "../../svg/search.svg"
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
 
@@ -85,8 +86,10 @@ export default class InputBox extends React.Component {
 		const inputProps = {
 			placeholder: this.props.placeholder,
 			value,
+			name: 'thesearchbox',
 			type: "search",
 			onChange: this.onChange,
+			style: { 'paddingLeft': '3rem'}
 		};
 
 		// Finally, render it!
@@ -98,8 +101,8 @@ export default class InputBox extends React.Component {
 						: "no-suggestion"
 				}`}
 				height={this.props.height}
-				onKeyDown={this.props.onKeyDown}
 			>
+				<img src={searchSvg} className="input-search-icon" alt="Search Books" />
 				<Autosuggest
 					suggestions={suggestions}
 					onSuggestionsFetchRequested={

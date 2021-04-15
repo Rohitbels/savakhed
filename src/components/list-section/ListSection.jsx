@@ -50,10 +50,12 @@ const ListSection = ({
 									style={{
 										display: "flex",
 										flexDirection: "column",
-										justifyContent: "flex-end",
+										justifyContent: "space-between",
+										marginLeft: '10px',
+										height: '120px'
 									}}
 								>
-									<div style={{ marginBottom: "auto" }}>
+									<div>
 										<span className="book-title">
 											{book["pustakFullName"]}
 										</span>
@@ -86,7 +88,7 @@ const ListSection = ({
 				}`}</div>
 			) : (
 				<>
-					<span className="explore">~ Explore by genre ~</span>
+					<span className="explore">Explore by genre</span>
 					<div className="genre-container">
 						{exploreBooks.map(({ id, prakar, img }) => (
 							<GenreCard

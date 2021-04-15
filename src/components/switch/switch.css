@@ -1,15 +1,19 @@
 .switch-container {
 	display: flex;
 	align-items: center;
-	margin: 0.5rem 0.25rem;
+	width: 90%;
+	margin: auto;
 	cursor: pointer;
+	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .switch {
 	position: relative;
 	display: inline-block;
-	width: 30px;
-	height: 14px;
+	width: 35px;
+	height: 16px;
+
 }
 
 .tag {
@@ -34,24 +38,56 @@
 	left: 0;
 	border-radius: 34px;
 	transition: 0.4s;
-	background-color: #aaaaaa;
+	background-color: gray;
 }
+
 
 .slider::before {
 	position: absolute;
-	height: 10px;
-	width: 10px;
+	height: 12px;
+	width: 12px;
 	content: "";
 	left: 2px;
 	bottom: 2px;
-	background-color: #ffffff;
+	background-color: #337ab7;
 	transition: 0.4s;
 	border-radius: 50%;
 }
+@media only screen and (max-width: 700px) and (min-width: 300px){
 
-input:checked + .slider {
-	background-color: #2196f3;
-}
+	.slider {
+
+		background-color:darkgray;
+	}
+	input:checked + .slider {
+		background-color: white;
+	}
+	.slider::before {
+	
+		background-color: #337ab7
+
+	}
+	}
+
+
+
+
+@media only screen and (min-width: 700px)  {
+
+	.slider {
+		background-color: #aaa;
+	}
+	input:checked + .slider {
+		background-color: #337ab7;
+	}
+
+	.slider::before {
+	
+		background-color: white;
+
+	}
+	}
+
 
 input:checked + .slider::before {
 	transform: translateX(16px);

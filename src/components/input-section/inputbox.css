@@ -6,9 +6,8 @@ ol {
 }
 
 .input-container {
-	flex: 80%;
-	height: 46px;
-	display: flex;
+	width: 100%;
+	position: relative;
 }
 
 .react-autosuggest__container {
@@ -19,6 +18,7 @@ ol {
 	outline: none;
 	border: none;
 	box-shadow: none;
+	color: black;
 }
 
 .react-autosuggest__input {
@@ -37,6 +37,8 @@ ol {
 
 .react-autosuggest__input:focus {
 	outline: none;
+	border: none;
+	box-shadow: 0 0 4px #337ab7;
 }
 
 .react-autosuggest__container--open .react-autosuggest__input {
@@ -71,4 +73,14 @@ ol {
 
 .no-suggestion .react-autosuggest__suggestions-container {
 	display: none;
+}
+
+.input-search-icon {
+	position: absolute;
+	height: 23px;
+	width: auto;
+	opacity: 0.35;
+	top: 13px;
+	left: 16px;
+	z-index: 999;
 }

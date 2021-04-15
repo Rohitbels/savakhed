@@ -1,5 +1,4 @@
 .form {
-	display: flex;
 	width: 50vw;
 	min-width: 320px;
 	flex-direction: column;
@@ -7,7 +6,7 @@
 
 @media only screen and (min-width: 320px) {
 	.form {
-		width: 60vw;
+		width: 100vw;
 	}
 }
 @media only screen and (min-width: 768px) {
@@ -27,21 +26,24 @@
 }
 
 .search-filter-section {
-	margin: 0.5rem 0;
+	margin: auto;
+	width: 90%;
+	margin-bottom: 1rem;
 }
+
 
 .search-filter-section label {
-	margin: 0.25rem 0.5rem;
-}
-
-.search-filter-section label input {
-	margin-right: 0.5rem;
+	font-size: 1em;
 }
 
 .filter-section {
 	height: 30px;
 	padding: 0 0.5rem;
-	margin: 0.5rem 0 0 0;
+	width: 90%;
+	margin: auto;
+	color:white;
+	margin-top: 1rem;
+	margin-bottom: 0.5rem;
 }
 
 .none {
@@ -70,6 +72,42 @@
 	font-size: 0.85em;
 }
 
+
+@media only screen and (max-width: 700px) and (min-width: 300px){
+
+	.filter {
+		width: 100%;
+		padding: 0.25rem 1.25rem;
+		padding-right: 0;
+		cursor: pointer;
+		border-radius: 999999px;
+		background-color: rgba(255, 255, 255, 0.75);
+		color: black;
+		font-weight: 600;
+		font-size: 0.90em;
+		
+	}
+	}
+
+
+
+
+@media only screen and (min-width: 700px)  {
+
+	
+.filter {
+	width: 100%;
+	padding: 0.25rem 1.25rem;
+	padding-right: 0;
+	cursor: pointer;
+	border-radius: 999999px;
+	background-color: rgba(51, 122, 183, 0.25);
+	color: #337ab7;
+	font-weight: 600;
+	font-size: 0.85em;
+}
+	}
+
 .filter button {
 	background: none;
 	outline: none;
@@ -79,7 +117,8 @@
 	margin-right: 0.5rem;
 	color: inherit;
 	font-weight: 600;
-	font-size: 0.85em;
+	font-size: 1.1em;
+	
 }
 
 .filter:hover {
@@ -88,7 +127,8 @@
 }
 
 .input-section {
-	width: 100%;
+	width: 90%;
+	margin: auto;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -118,4 +158,18 @@
 	box-shadow: none;
 	border: none;
 	cursor: pointer;
+}
+
+.choice-selection {
+	margin: 5px;
+	margin-bottom: 10px;
+}
+
+.choice-selection input {
+	margin-right: 10px;
+}
+
+.choice-selection label {
+	font-size: 1em;
+	font-weight: 600;
 }

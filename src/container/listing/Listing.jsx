@@ -57,6 +57,7 @@ class Listing extends Component {
 	}
 
 	search = async (label, inputArray) => {
+		debugger
 		this.setState({
 			loading: true,
 			error: false,
@@ -69,7 +70,7 @@ class Listing extends Component {
 			this.props.setParentState({
 				searched: true,
 			});
-
+			inputArray = [this.props.prakar]	
 			query = collection.where(label, "==", inputArray.join(" "));
 
 			let filteredResults = await query.limit(10).get();
@@ -265,7 +266,7 @@ class Listing extends Component {
 
 			let inputString = input
 				.replace(
-					/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g,
+					/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g,
 					""
 				)
 				.toLowerCase()
@@ -280,7 +281,10 @@ class Listing extends Component {
 
 			await this.search(this.props.searchAgainst, inputArray);
 		} else {
-			this.props.setParentState({ results: [], searched: false });
+			if(this.props.prakar)
+				await this.search('pustakPrakar');
+			else 
+				this.props.setParentState({ results: [], searched: false });
 		}
 	};
 
@@ -298,8 +302,11 @@ class Listing extends Component {
 	};
 
 	render() {
+		const { search, props } = this;
+		const { setParentState } = props;
 		return (
 			<div className="container">
+				<div className="top-section-listing"> 
 				<div className="logo">
 					<span id="name">सार्वजनिक वाचनालय</span>
 					<br />
@@ -318,6 +325,12 @@ class Listing extends Component {
 						this.props.setParentState({
 							prakar: prakar,
 							searched: false,
+						},()=>{
+							if( prakar)
+							search('pustakPrakar') 
+							else {
+								setParentState({results:[]})
+							}
 						});
 					}}
 					searchAgainst={this.props.searchAgainst}
@@ -328,6 +341,7 @@ class Listing extends Component {
 					}}
 					setError={this.state.error}
 				/>
+				</div>
 				{this.state.error ? null : this.state.loading ? (
 					<div className="table-super">
 						<Loading page="listing" />
@@ -340,9 +354,13 @@ class Listing extends Component {
 						this.props.searched ||
 						(this.props.input && this.state.results.length)
 					}
-					setBookType={(prakar) =>
-						this.props.setParentState({ prakar: prakar })
-					}
+					setBookType={(prakar, searchFilter) => {
+						this.props.setParentState({
+							prakar: prakar
+						},()=>{
+							searchFilter()
+						});
+					}}
 					bookType={this.props.prakar}
 					searchFilter={this.search}
 				/>

@@ -33,7 +33,9 @@ function Header() {
 				if (document.getElementById(setLabel()) != null) {
 					removeActive();
 					document.getElementById(setLabel()).classList.add("active");
+					
 				}
+				document.getElementById("current").innerText = setLabel();
 			},
 			false
 		);
@@ -47,6 +49,7 @@ function Header() {
 	useEffect(() => {
 		if (document.getElementById(setLabel()) != null) {
 			document.getElementById(setLabel()).classList.add("active");
+			
 		}
 		hashChange();
 	});
@@ -56,8 +59,8 @@ function Header() {
 			{window.location.href.includes("details") ||
 			window.location.href.includes("lekhakbooks") ? (
 				<a
-					href="#"
-					onClick={() => window.history.go(-1)}
+					href="##"
+					onClick={(e) => {e.preventDefault(); window.history.go(-1);}}
 					className="back-link"
 				>
 					<div className="back-button">
@@ -76,7 +79,7 @@ function Header() {
 						Search
 					</div>
 				</a>
-				<a
+				{/* <a
 					href="/savakhed/#/lekhaklist"
 					onClick={() => {
 						onClickHandler("lekhak-list");
@@ -95,8 +98,13 @@ function Header() {
 					<div className="link-placeholders" id="about-us">
 						About Us
 					</div>
-				</a>
+				</a> */}
+
+
 			</div>
+			<div id="current" className="current">
+						details
+					</div>
 		</nav>
 	);
 }

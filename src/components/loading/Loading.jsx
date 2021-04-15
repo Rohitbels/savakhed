@@ -1,4 +1,5 @@
 import React from "react";
+import Card from "../card/Card";
 import "../../container/LekhakList/LekhakList.css";
 import "./shimmer.css";
 
@@ -22,52 +23,35 @@ function Loading({ page }) {
 	}
 	return (
 		<>
-			<div className="card-container">
-				<img className="book-cover shine" />
-				<a>
-					<span
+			{[1,2,3].map((key)=>(
+			<Card
+				key={key}
+				bookName=""
+				whichCard=" "
+			>
+			<div className="loading-card-container">
+			<div className="book-cover shine" style={{ flexGrow: 1}} >
+				</div>
+				<div style={{ display: 'flex', flexDirection: "column", justifyContent: "stretch", flexGrow: 16}}>
+					<div
 						className="book-title shine"
-						style={{ height: "15px", width: "50%" }}
-					></span>
-					<span
+						style={{ height: "20px" }}
+					></div>
+					<div
 						className="book-author shine"
-						style={{ height: "15px", width: "50%" }}
-					></span>
-					<div style={{ display: "flex" }}>
-						<span
-							className="book-category shine"
-							style={{ height: "15px", width: "30%" }}
-						></span>
-						<span
+						style={{ height: "20px", width: "50%" }}
+					></div>
+					<div style={{ display: "flex", flexGrow: 3, justifyContent: "space-between" , flexDirection: "column-reverse"  }}>
+						<div
 							className="book-language shine"
-							style={{ height: "15px", width: "30%" }}
-						></span>
+							style={{ height: "20px" }}
+						></div>
 					</div>
-				</a>
-			</div>
-			<div className="card-container">
-				<img className="book-cover shine" />
-				<a>
-					<span
-						className="book-title shine"
-						style={{ height: "15px", width: "50%" }}
-					></span>
-					<span
-						className="book-author shine"
-						style={{ height: "15px", width: "50%" }}
-					></span>
-					<div style={{ display: "flex" }}>
-						<span
-							className="book-category shine"
-							style={{ height: "15px", width: "30%" }}
-						></span>
-						<span
-							className="book-language shine"
-							style={{ height: "15px", width: "30%" }}
-						></span>
-					</div>
-				</a>
-			</div>
+			</div>	
+		</div>
+		</Card>
+			))}
+
 		</>
 	);
 }

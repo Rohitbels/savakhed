@@ -20,7 +20,7 @@ function Image({ type, alt, book, ...props }) {
 		const docRef = (
 			await collection.where("dakhalId", "==", book["dakhalId"]).get()
 		).docs[0].id;
-		const docUpdate = await collection
+		await collection
 			.doc(docRef)
 			.update({ imageURL: url });
 	};
@@ -38,6 +38,7 @@ function Image({ type, alt, book, ...props }) {
 			(snapshot) => {
 				var progress =
 					(snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+					console.log(progress)
 			},
 			(error) => {
 				console.log(error);
@@ -117,7 +118,7 @@ function Image({ type, alt, book, ...props }) {
 
 	return (
 		<div className="image-div" ref={imgRef}>
-			{inView ? <img alt={alt} src={Img} {...props} /> : null}
+			{inView ? <img alt={alt} src={Img} {...props} /> : <div className="book-cover shine"  > </div>}
 		</div>
 	);
 }

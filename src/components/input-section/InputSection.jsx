@@ -7,21 +7,21 @@ const InputSection = ({
 	onInput,
 	onSearch,
 	inputValue,
-	bookType,
+	bookType = "",
 	setBookType,
 	searchAgainst,
 	onChange,
 	setError,
 }) => {
 	const [toggle, setToggle] = useState(false);
-	const [label, setLabel] = useState("एकटा जीव सदाशिव");
+	const [label, setLabel] = useState("Marathi suggestions off.");
 
 	const onToggleHandler = () => {
 		setToggle(!toggle);
 		setTimeout(() => {
 			toggle
-				? setLabel("एकटा जीव सदाशिव")
-				: setLabel("अडला हरी ऑटोसजेष्टचे पाय धरी");
+				? setLabel("Marathi suggestions off.")
+				: setLabel("Marathi suggestions on.");
 		}, 200);
 	};
 
@@ -29,8 +29,12 @@ const InputSection = ({
 	inputBox.type = "search";
 
 	return (
-		<form className="form">
-			<form className="search-filter-section">
+		<form className="form" onSubmit={(event) => {
+			event.preventDefault();
+			document.getElementsByName('thesearchbox')[0].blur();
+			onSearch(event);
+		}}> 
+			<div className="search-filter-section">
 				<label>
 					<input
 						type="radio"
@@ -51,7 +55,7 @@ const InputSection = ({
 					/>
 					लेखक
 				</label>
-			</form>
+			</div>
 			<div className={`filter-section ${bookType === "" ? "none" : ""}`}>
 				<span className="filter">
 					{bookType}
@@ -75,17 +79,6 @@ const InputSection = ({
 					onInput={onInput}
 					shouldSuggest={toggle}
 				/>
-				<button
-					className="search-button"
-					tabIndex={1}
-					type="search"
-					onClick={(event) => {
-						event.preventDefault();
-						onSearch(event);
-					}}
-				>
-					Search
-				</button>
 			</section>
 			{setError ? (
 				<span className="error-filter">

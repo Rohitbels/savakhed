@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./details.css";
 import Card from "../../components/card/Card";
-import { db } from "../../firebase";
+import { db, collection } from "../../firebase";
 import { WhatsappShareButton, WhatsappIcon } from "react-share";
 import HelmetMetaData from "./helmet";
 
@@ -32,7 +32,7 @@ class Details extends Component {
         else {
             this.getUsername(this.props.bookDetail.usermail);
         }
-        this.getGoogleData();
+        
     }
 
 
@@ -72,7 +72,7 @@ class Details extends Component {
 
     async getFirebaseData() {
         //console.log("getFirebaseData called");
-        const doc = await db.collection("bookList")
+        const doc = await collection
             .doc(this.getIdFromUrl()).get()
         const firebaseBookDetail = doc.data();
         //console.log(firebaseBookDetail)
@@ -107,23 +107,11 @@ class Details extends Component {
     }
 
 
-    //Return one string for array of name
-    nameArrayToString(nameArray) {
-        let strName = "";
-        for (let i = 0; i < nameArray.length; i++) {
-            if (i !== 0)
-                strName += " ";
-        }
-        return strName;
-    }
-
-
-
-
     render() {
         const { bookDetail: stateBookDetails } = this.state;
         const { bookDetail: propsBookDetails } = this.props;
-        //console.log(propsBookDetails)
+        console.log(propsBookDetails)
+        debugger
         const currentBook = propsBookDetails.pustakName ? propsBookDetails : stateBookDetails;
         return (
             <div className="fullDetails">
@@ -134,7 +122,8 @@ class Details extends Component {
                             <HelmetMetaData bookName={currentBook.pustakName.join(" ")} description={currentBook.pustakName.join(" ")} image={currentBook.imageURL}>
                             </HelmetMetaData>
 
-                            <Card bookName="Book Details">
+                            <Card 	bookName=""
+							whichCard=" ">
                                 <div className="cardDetails">
                                     <div className="book_img">
                                         {currentBook.imageURL !== undefined ?
@@ -143,7 +132,16 @@ class Details extends Component {
                                         }
                                     </div>
                                     <div className="book_details">
-
+                                    <div className="rows">
+                                            <div className="col1">
+                                                <span className="label">Dakhal Id</span>
+                                                <div className="book_name">{currentBook.dakhalId} </div>
+                                            </div>
+                                            <div className="col2">
+                                                <span className="label">Vibhag Id</span>
+                                                <div className="book_name">{currentBook.vibhagId}</div>
+                                            </div>
+                                        </div>
                                         <div className="rows">
                                             <div className="col1">
                                                 <span className="label">Pustak Name</span>
@@ -154,16 +152,7 @@ class Details extends Component {
                                                 <div className="book_name">{currentBook.lekhak.join(" ")}</div>
                                             </div>
                                         </div>
-                                        <div className="rows">
-                                            <div className="col1">
-                                                <span className="label">Dakhal Id</span>
-                                                <div className="book_name">{currentBook.dakhalId} </div>
-                                            </div>
-                                            <div className="col2">
-                                                <span className="label">Vibhag Id</span>
-                                                <div className="book_name">{currentBook.vibhagId}</div>
-                                            </div>
-                                        </div>
+                                       
                                         <div className="rows">
                                             <div>
                                                 <span className="label">Pustak Prakar</span>

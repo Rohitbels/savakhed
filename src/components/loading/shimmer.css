@@ -3,11 +3,12 @@
 	background: linear-gradient(
 		to right,
 		#f6f7f8 0%,
-		#edeef1 20%,
+		#e9ebee 20%,
 		#f6f7f8 40%,
 		#f6f7f8 100%
 	);
 	background-size: 1000px 100%;
+	margin: 3px;
 }
 
 @keyframes shimmer {
@@ -33,4 +34,35 @@
 	border-radius: 3px;
 	height: 30%;
 	width: 100%;
+}
+
+
+.loading-card-container {
+	height: 100%;
+	display: flex;
+	text-align: left;
+	margin-bottom: 10px;
+
+}
+
+
+@media only screen and (min-width: 320px) {
+	.loading-card-container {
+		width: 85vw;
+	}
+}
+@media only screen and (min-width: 768px) {
+	.loading-card-container {
+		width: 70vw;
+	}
+}
+@media only screen and (min-width: 1024px) {
+	.loading-card-container {
+		width: 55vw;
+	}
+}
+@media only screen and (min-width: 1900px) {
+	.loading-card-container {
+		width: 60vw;
+	}
 }

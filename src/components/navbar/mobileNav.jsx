@@ -31,17 +31,17 @@ export default class mobileNav extends Component {
                     </a>
                 </div>
                 {/* lekhak list */}
-                <div className={this.state.isClicked === 2 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
+                {/* <div className={this.state.isClicked === 2 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
                     <a href="#/lekhaklist" onClick={() => this.setState({ isClicked: 2})}>
                         <img src={authorSvg2} className="lekhakSvg" alt="Lekhak List" />
                     </a>
-                </div>
+                </div> */}
                 {/* about */}
-                <div className={this.state.isClicked === 3 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
+                {/* <div className={this.state.isClicked === 3 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
                     <a href="#/aboutus" onClick={() => this.setState({ isClicked: 3})}>
                         <img src={aboutSvg} className="lekhakSvg" alt="About US" />
                     </a>
-                </div>
+                </div> */}
             </div>
         )
     }

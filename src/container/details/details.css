@@ -100,7 +100,7 @@
 .book_name{
     font-weight: 350;
     font-size: 1.2em;
-    padding-left: 0.2em;
+
     text-transform: capitalize;
 }
 
@@ -108,11 +108,14 @@
 	font-size: 11px;
 	padding: 10px 10px 0px 10px;
 	color: gray;
+    text-transform: capitalize;
 }
 
 @media (max-width: 576px) {
 
-  
+    .fullDetails .card{
+        margin-top: 20px;
+    }
     .flex-container {
       flex-direction: column;
       padding-left: 0px;
@@ -197,7 +200,7 @@
     .book_name{
         font-weight: 400;
         font-size: 1.2em;
-        padding-left: 0.3em;
+        padding-left: 0.1em;
     }
     
     .eachgoogleDetails{
@@ -213,3 +216,5 @@
         color: black;
     }
   }
+
+  

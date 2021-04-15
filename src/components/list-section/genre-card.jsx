@@ -6,16 +6,15 @@ const GenreCard = ({ img, prakar, setBookType, searchFilter }) => {
 		<div
 			className="genre-card"
 			onClick={() => {
-				setBookType([prakar].join(" "));
-				searchFilter("pustakPrakar", [prakar]);
+				setBookType([prakar].join(" "),searchFilter.bind(null,"pustakPrakar", [prakar]));
+				
+				window.scrollTo(0, 0)
 			}}
 		>
 			<Image
 				type=""
 				src={img}
 				alt={`Book cover for ${prakar} pustak prakar`}
-				width="126"
-				height="180"
 				className="genre-image"
 			/>
 			<h4 className="genre-title">{prakar}</h4>

@@ -1,5 +1,5 @@
 .container {
-	width: 100vw;
+	width: 100%;
 	min-height: 100vh;
 	margin-bottom: 50px;
 	display: flex;
@@ -10,16 +10,27 @@
 .logo {
 	text-align: center;
 	user-select: none;
+	z-index: 99;
 }
 
 @media only screen and (min-width: 320px) {
 	.logo {
-		margin: 3.5rem 0rem 1rem 0rem;
+		margin: 3rem 0rem 0.5rem 0rem;
+	}
+	.top-listing-section {
+		background-color: #337ab7;
+		width: 100%;
+		color: white;
+		z-index: 99;
 	}
 }
 @media only screen and (min-width: 768px) {
 	.logo {
 		margin: 2.5rem 0rem 1rem 0rem;
+	}
+	.top-listing-section {
+		background-color:white;
+		width: 100%;
 	}
 }
 @media only screen and (min-width: 1024px) {
@@ -34,11 +45,21 @@
 }
 
 .logo #name {
-	font-size: 1.75em;
-	font-weight: 600;
+	font-family: 'Noto Sans', sans-serif;
+	font-size: 2em;
 }
 
 .logo #place {
+	font-family: 'Noto Sans', sans-serif;
 	font-size: 1.25em;
 	font-weight: 600;
+}
+
+@media only screen and (max-width: 700px) {
+.top-section-listing {
+	background-color:#337ab7;
+	width: 100%;
+	color: white;
+}
+
 }
