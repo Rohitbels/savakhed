@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import { Spinner } from "reactstrap";
 import "./listing.css";
 import InputSection from "../../components/input-section/InputSection";
 import ListSection from "../../components/list-section/ListSection";
 import { collection } from "../../firebase";
 import Loading from "../../components/loading/Loading";
 import "../../components/list-section/listsection.css";
+
 
 const chinha = [
 	"्",
@@ -36,6 +38,7 @@ class Listing extends Component {
 			query: null,
 			lastDoc: null,
 			error: false,
+			fetchMore: false
 		};
 
 		// eslint-disable-next-line
@@ -50,6 +53,7 @@ class Listing extends Component {
 
 				if (windowHeight > documentOffset) {
 					this.fetchMoreResults();
+					this.setState({ fetchMore : true });
 				}
 			}
 			this.oldScrollTop = window.scrollY;
@@ -57,7 +61,6 @@ class Listing extends Component {
 	}
 
 	search = async (label, inputArray) => {
-		debugger
 		this.setState({
 			loading: true,
 			error: false,
@@ -253,6 +256,11 @@ class Listing extends Component {
 
 				this.setState({
 					lastDoc: moreResults.docs[moreResults.docs.length - 1],
+					fetchMore : false 
+				});
+			} else {
+				this.setState({
+					fetchMore : false 
 				});
 			}
 		}
@@ -305,7 +313,7 @@ class Listing extends Component {
 		const { search, props } = this;
 		const { setParentState } = props;
 		return (
-			<div className="container">
+			<div className="listing-container">
 				<div className="top-section-listing"> 
 				<div className="logo">
 					<span id="name">सार्वजनिक वाचनालय</span>
@@ -364,6 +372,8 @@ class Listing extends Component {
 					bookType={this.props.prakar}
 					searchFilter={this.search}
 				/>
+				{this.state.fetchMore ? <Spinner color="primary"> </Spinner> : null}
+
 			</div>
 		);
 	}

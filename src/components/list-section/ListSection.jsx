@@ -25,7 +25,10 @@ const ListSection = ({
 		});
 
 		return language;
-	};
+	};	
+	const showDetails = (id) => {
+		window.location.hash = `details/${id}`;
+	}
 
 	return (
 		<>
@@ -36,23 +39,28 @@ const ListSection = ({
 							key={key}
 							bookName=""
 							whichCard=" "
-							onClick={() => setCurrentDetails(book)}
+							
 						>
-							<div className="card-container">
+							<div onClick={() => {
+								setCurrentDetails(book)
+								showDetails(book['id'])
+							}} className="card-container">
 								<Image
 									className="book-cover"
 									alt="book cover"
 									book={book}
 									type=""
+									setCurrentDetails={setCurrentDetails}
 								/>
-								<a
-									href={`#/details/${book["id"]}`}
+								<div									
+									
 									style={{
 										display: "flex",
 										flexDirection: "column",
 										justifyContent: "space-between",
 										marginLeft: '10px',
-										height: '120px'
+										height: '120px',
+										width:'100%'
 									}}
 								>
 									<div>
@@ -66,18 +74,20 @@ const ListSection = ({
 									<div
 										style={{
 											display: "flex",
+											flexDirection: "row",
+										justifyContent: "space-between",
 										}}
 									>
-										<span className="book-category">
+										<div className="book-category">
 											{book["pustakPrakar"]}
-										</span>
-										<span className="book-language">
+										</div>
+										<div className="book-language">
 											{getLanguage(
 												book["pustakName"].join(" ")
 											)}
-										</span>
+										</div>
 									</div>
-								</a>
+								</div>
 							</div>
 						</Card>
 					))}

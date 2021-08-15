@@ -35,6 +35,7 @@ table {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+	justify-content: space-around;
 }
 
 @media only screen and (min-width: 320px) {
@@ -62,6 +63,7 @@ table {
 	height: 100%;
 	display: flex;
 	text-align: left;
+	cursor: pointer;
 }
 
 @media only screen and (min-width: 320px) {
@@ -157,13 +159,21 @@ a:active {
 .genre-card {
 	text-align: center;
 	cursor: pointer;
+	display: flex;
+	flex-direction: column;
 	margin: 10px;
 	height: 175px;
 	width: 130px;
 	margin-bottom: 30px;
 }
 
-.genre-card .image-div {
+/* .genre-card .image-div {
+
+} */
+.genre-image {
+	height: 80%;
+	width: 80%;
+	box-shadow: 1px 2px 2px 2px #ccc;
 	animation: shimmer 10s infinite;
 	background: linear-gradient(
 		to right,
@@ -172,23 +182,16 @@ a:active {
 		#f6f7f8 60%,
 		#f6f7f8 100%
 	);
-	height: 100%;
-	width: 100%;
-}
-.genre-image {
-	height: 100%;
-	width: 100%;
-	box-shadow:         1px 2px 2px 2px #ccc;
+	height: 80%;
+	width: 80%;
 }
 
 
 
 .genre-title {
-	width: 80px;
-	margin: 0 auto;
-	margin-top: 5px;
-	padding: 0;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
+	width: 100%;
+	text-align: center;
+
+
+
 }

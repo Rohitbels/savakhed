@@ -6,10 +6,11 @@ import LekhakList from "./container/LekhakList/LekhakList";
 import LekhakBooks from "./container/lekhakBooks/LekhakBooks";
 
 import MobileNav from "./components/navbar/mobileNav";
-import Header from "./components/header/Header";
+import Header from "./container/header/Header";
 import AboutUs from "./components/about-us/AboutUs";
 import Recommendation from "./components/recommendation/Recommendation";
-import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { Offline, Online } from "react-detect-offline";
 
 const detailsURLPattern = /\/?details\/[a-z0-9A-Z]{20}/;
 class App extends Component {
@@ -63,25 +64,22 @@ class App extends Component {
 				this.setState({ show: "recommendation" });
 			} else if (currURL[1].includes("lekhakbooks")) {
 				this.setState({ show: "lekhakbooks" });
-			} else if(currURL[1].includes("listing")) {
-				this.setState({ show: "listing" });
 			} else {
-				window.location.hash = '#/listing';
+				this.setState({ show: "listing" });
 			}
-		} else {
-			window.location.hash = '#/listing';
 		}
 	};
 
 	render() {
 		return (
-			
+			<div>
+			<Online>
 			<div className="App">
 				<Header url={this.state.show} />
 				{this.state.show === "details" && (
 					<Details bookDetail={this.state.currentDetails} />
 				)}
-				{this.state.show === "lekhaklist" && (
+				{/* {this.state.show === "lekhaklist" && (
 					<LekhakList
 						setCurrentDetails={(book) =>
 							this.setState({ currentDetails: book })
@@ -98,7 +96,7 @@ class App extends Component {
 						setParentState={this.setState.bind(this)}
 						{...this.state}
 					/>
-				)}
+				)} */}
 				{this.state.show === "listing" && (
 					<Listing
 						setCurrentDetails={(currentDetails) =>
@@ -108,10 +106,17 @@ class App extends Component {
 						{...this.state}
 					/>
 				)}
-				{this.state.show === "aboutus" && <AboutUs />}
-				{this.state.show === "recommendation" && <Recommendation />}
+				{/* {this.state.show === "aboutus" && <AboutUs />}
+				{this.state.show === "recommendation" && <Recommendation />} */}
 				<MobileNav url={this.state.show} />
 			</div>
+			</Online>
+			<Offline>
+				<div className="offline-main">
+					<h1>No Internet Connection.</h1>
+				</div>
+			</Offline>
+		  </div>
 		);
 	}
 }

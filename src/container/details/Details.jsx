@@ -159,7 +159,7 @@ class Details extends Component {
                                                 <div className="book_name">{currentBook.pustakPrakar}</div>
                                             </div>
                                         </div>
-                                        <div className="source">Book details provided by : {this.state.username} </div>
+                                        { this.state.username.length ? <div className="source">Book details provided by : {this.state.username}  </div> : null}
                                     </div>
                                 </div>
                             </Card>

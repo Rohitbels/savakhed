@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "rajgurunagarlibrary"
+  },
+  "targets": {
+    "rajgurunagarlibrary": {
+      "hosting": {
+        "savakheddemo": [
+          "savakheddemo"
+        ]
+      }
+    }
+  }
+}

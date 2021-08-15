@@ -3,7 +3,7 @@ import { storage, collection } from "../../firebase";
 import useVisibility from "./useVisibility";
 import bookimage from "./coming-soon.jpg";
 
-function Image({ type, alt, book, ...props }) {
+function Image({ type, alt, book, setCurrentDetails, ...props }) {
 	const [inView, setInView] = useState(false);
 	const imgRef = useRef(null);
 	const [Img, setImg] = useState(bookimage);
@@ -15,6 +15,9 @@ function Image({ type, alt, book, ...props }) {
 	const SEARCH_ENGINE = type === "author" ? AUTHORS_ENGINE : BOOKS_ENGINE;
 	const STORAGE_LOCATION = type === "author" ? "author" : "book-covers";
 	const storageRef = storage.ref();
+
+
+
 
 	const update = async (url) => {
 		const docRef = (
@@ -64,32 +67,62 @@ function Image({ type, alt, book, ...props }) {
 	};
 
 	const getImgURL = (q) => {
-		const xhr = new XMLHttpRequest();
+
 		let url = "";
-		xhr.addEventListener("load", () => {
-			const json = JSON.parse(xhr.responseText);
+		fetch(`https://www.googleapis.com/customsearch/v1/siterestrict?cx=${SEARCH_ENGINE}&q=${encodeURI(
+			q
+		)}&key=${API_KEY}`, {mode: 'cors'}).then((resp)=>(resp.json())).then((json)=>{
+
 			const { items = [] } = json;
+			if(!items.length) {
+				return;
+			}
 			try {
-				url = items[0].image.thumbnailLink;
+				// url = items[0].image.thumbnailLink;
+				url = items[0].pagemap.cse_thumbnail[0].src
 				console.log("URL result : ", url);
 				downloadFile(url, q);
+				setCurrentDetails({...book, imageURL: url})
 				setImg(url);
 			} catch (error) {
 				console.log("image set to default");
 				setImg(bookimage);
 				console.log(error);
 			}
-		});
-		xhr.open(
-			"GET",
-			`https://customsearch.googleapis.com/customsearch/v1/siterestrict?searchType=image&cx=${SEARCH_ENGINE}&q=${encodeURI(
-				q
-			)}&key=${API_KEY}`
-		);
-		xhr.send();
+		}).catch((error)=>{
+			console.log("image set to default");
+				setImg(bookimage);
+				console.log(error);
+		})
+		// const xhr = new XMLHttpRequest();
+		// let url = "";
+		// xhr.addEventListener("load", () => {
+		// 	const json = JSON.parse(xhr.responseText);
+		// 	const { items = [] } = json;
+		// 	try {
+		// 		// url = items[0].image.thumbnailLink;
+		// 		url = items[0].pagemap.cse_thumbnail[0].src
+		// 		console.log("URL result : ", url);
+		// 		downloadFile(url, q);
+		// 		setImg(url);
+		// 	} catch (error) {
+		// 		console.log("image set to default");
+		// 		setImg(bookimage);
+		// 		console.log(error);
+		// 	}
+		// });
+		// xhr.open(
+		// 	"GET",
+		// 	`https://www.googleapis.com/customsearch/v1?cx=${SEARCH_ENGINE}&q=${encodeURI(
+		// 		q
+		// 	)}&key=${API_KEY}`
+		// );
+		// xhr.send();
 	};
 
-	useEffect(() => {
+
+	useVisibility(imgRef, () => {
+		setInView(true);
 		if (book !== undefined) {
 			if (book["imageURL"]) {
 				console.log("1");
@@ -98,22 +131,18 @@ function Image({ type, alt, book, ...props }) {
 				console.log("2");
 				console.log(
 					"searching for ",
-					book["pustakNameEnglish"].join(" ") +
+					book["pustakName"].join(" ") +
 						" " +
-						book["lekhakNameEnglish"].join(" ")
+						book["lekhak"].join(" ")
 				);
-				getImgURL(
-					book["pustakNameEnglish"].join(" ") +
-						" " +
-						book["lekhakNameEnglish"].join(" ")
-				);
+				// getImgURL(
+				// 	book["pustakName"].join(" ") +
+				// 		" " +
+				// 		book["lekhak"].join(" ")
+				// );
 			}
 			return () => {};
 		}
-	}, []);
-
-	useVisibility(imgRef, () => {
-		setInView(true);
 	});
 
 	return (

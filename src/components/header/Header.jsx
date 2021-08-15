@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 import "./header.css";
 import { ReactComponent as Arrow } from "./left-arrow.svg";
-
+import {
+	Nav,
+	NavItem,
+	NavLink  } from 'reactstrap';
 function Header() {
 	const setLabel = () => {
 		const href = window.location.href;
@@ -13,6 +16,7 @@ function Header() {
 		if (href.includes("recommendation")) return "recommendation";
 		return "search";
 	};
+
 
 	const removeActive = () => {
 		const nav = document.getElementsByClassName("tabs")[0];
@@ -35,77 +39,68 @@ function Header() {
 					document.getElementById(setLabel()).classList.add("active");
 					
 				}
-				document.getElementById("current").innerText = setLabel();
+				//document.getElementById("current").innerText = setLabel();
 			},
 			false
 		);
 	};
 
-	const onClickHandler = (target) => {
-		removeActive();
-		document.getElementById(target).classList.add("active");
-	};
+
 
 	useEffect(() => {
 		if (document.getElementById(setLabel()) != null) {
 			document.getElementById(setLabel()).classList.add("active");
 			
 		}
+		document.getElementById("current").innerText = setLabel();
 		hashChange();
 	});
 
 	return (
-		<nav className="nav-bar">
-			{window.location.href.includes("details") ||
+		<>
+
+      <Nav className="onlyDesktop nav-bar">
+        <NavItem>
+          <NavLink href="#">
+
+		  {window.location.href.includes("details") ||
 			window.location.href.includes("lekhakbooks") ? (
-				<a
-					href="##"
+				<span
 					onClick={(e) => {e.preventDefault(); window.history.go(-1);}}
 					className="back-link"
 				>
 					<div className="back-button">
 						<Arrow />
 					</div>
-				</a>
+				</span>
 			) : null}
-			<div className="tabs">
-				<a
-					href="/savakhed/#/search"
-					onClick={() => {
-						onClickHandler("search");
-					}}
+		  </NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="#/listing">Search</NavLink>
+        </NavItem>
+        <NavItem active>
+          <NavLink active href="#/lekhaklist">Lekhak List</NavLink>
+        </NavItem>
+      </Nav>
+		<nav className="onlyMobile nav-bar">
+			{window.location.href.includes("details") ||
+			window.location.href.includes("lekhakbooks") ? (
+				<span
+					onClick={(e) => {e.preventDefault(); window.history.go(-1);}}
+					className="back-link"
 				>
-					<div className="link-placeholders" id="search">
-						Search
+					<div className="back-button arrowColor">
+						<Arrow />
 					</div>
-				</a>
-				{/* <a
-					href="/savakhed/#/lekhaklist"
-					onClick={() => {
-						onClickHandler("lekhak-list");
-					}}
-				>
-					<div className="link-placeholders" id="lekhak-list">
-						Authors
-					</div>
-				</a>
-				<a
-					href="/savakhed/#/aboutus"
-					onClick={() => {
-						onClickHandler("about-us");
-					}}
-				>
-					<div className="link-placeholders" id="about-us">
-						About Us
-					</div>
-				</a> */}
-
-
-			</div>
+				</span>
+			) : null}
+			
 			<div id="current" className="current">
-						details
-					</div>
+						
+			</div>
 		</nav>
+		</>
 	);
 }
 

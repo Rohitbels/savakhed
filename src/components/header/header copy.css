@@ -1,0 +1,144 @@
+.nav-bar {
+	display: flex;
+	background-color: white;
+	width: 100vw;
+	font-size: 1.1rem;
+	height: 2.2rem;
+	padding: 0rem 0rem;
+	z-index: 10;
+
+	box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.2);
+}
+
+.tabs {
+	display: flex;
+	align-content: flex-start;
+	width: 100%;
+}
+
+.link-placeholders {
+	padding: 0 1.25rem;
+	padding-top: 0.2125rem;
+	text-align: center;
+	@media (max-width: 800px) height: 90%;
+}
+
+.active {
+	color: #337ab7;
+	border-bottom: 3px solid #337ab7;
+	padding-bottom: 15px;
+	display: block !important;
+}
+
+.nav-bar a:hover {
+	background-color: #dcdcdc;
+}
+
+.nav-bar a {
+	margin: 0px;
+	text-decoration: none;
+	color: black;
+}
+
+.back-button {
+	display: flex;
+	height: 99%;
+	width: 40.2px;
+}
+
+#Layer_1 {
+	align-self: center;
+	fill: black;
+	height: 20px;
+	width: 38.2px;
+}
+
+.title {
+	display: none;
+}
+
+@media screen and (max-width: 650px) and (min-width: 300px) {
+.current{
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	margin: auto 0px auto 0px;
+	text-transform: capitalize;
+	color: white;
+	font-size: 1.em;
+	font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+	background-color: #337ab7;
+}
+
+.tabs {
+	display: none;
+}
+}
+
+@media screen and (min-width: 650px) and (max-width: 1700px) {
+	.current {
+		display: none !important;
+	}
+	.title {
+		color: white;
+		font-size: 1.5rem;
+		font-weight: 400;
+		text-align: center;
+		text-transform: capitalize;
+		display: block;
+	}
+
+	#Layer_1 {
+		fill: white;
+	}
+
+	#title-id {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.tabs {
+		padding: auto auto;
+	}
+
+	.noSelect {
+		-webkit-tap-highlight-color: transparent;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	.nav-bar {
+		height: 5.5vh;
+		display: flex;
+		background-color: white;
+		justify-content: center;
+		width: 100%;
+	}
+
+	.link-placeholders {
+		display: none;
+	}
+
+	.nav-bar a:hover {
+		/* background-color: white; */
+	}
+
+	.back-link {
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 4.85vh;
+		cursor: pointer;
+	}
+}
+
+@media (max-width: 800px) {
+	.nav-bar {
+		position: fixed;
+	}
+}

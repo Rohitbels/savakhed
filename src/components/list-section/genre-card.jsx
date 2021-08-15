@@ -17,7 +17,9 @@ const GenreCard = ({ img, prakar, setBookType, searchFilter }) => {
 				alt={`Book cover for ${prakar} pustak prakar`}
 				className="genre-image"
 			/>
-			<h4 className="genre-title">{prakar}</h4>
+			<div className="genre-title">
+			{prakar}
+			</div>
 		</div>
 	);
 };

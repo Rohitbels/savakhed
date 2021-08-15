@@ -35,11 +35,12 @@ const InputSection = ({
 			onSearch(event);
 		}}> 
 			<div className="search-filter-section">
-				<label>
+				<label className="m-2">
 					<input
 						type="radio"
 						name="pustakName"
 						value="pustakName"
+						className="m-1"
 						checked={searchAgainst === "pustakName"}
 						onChange={onChange}
 					/>
@@ -50,6 +51,7 @@ const InputSection = ({
 						type="radio"
 						name="lekhak"
 						value="lekhak"
+						className="m-1"
 						checked={searchAgainst === "lekhak"}
 						onChange={onChange}
 					/>
