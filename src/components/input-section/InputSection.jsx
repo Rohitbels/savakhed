@@ -87,12 +87,6 @@ const InputSection = ({
 					*Please search for more than one word/letter
 				</span>
 			) : null}
-			<Switch
-				className="toggle-button"
-				isToggled={toggle}
-				onToggle={onToggleHandler}
-				label={label}
-			/>
 		</form>
 	);
 };

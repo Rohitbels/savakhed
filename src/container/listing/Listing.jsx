@@ -53,7 +53,6 @@ class Listing extends Component {
 
 				if (windowHeight > documentOffset) {
 					this.fetchMoreResults();
-					this.setState({ fetchMore : true });
 				}
 			}
 			this.oldScrollTop = window.scrollY;
@@ -226,6 +225,7 @@ class Listing extends Component {
 
 	fetchMoreResults = async () => {
 		if (this.state.query && this.state.lastDoc) {
+			this.setState({ fetchMore : true });
 			let myQuery = this.state.query;
 			let myLastDoc = this.state.lastDoc;
 
@@ -270,8 +270,20 @@ class Listing extends Component {
 		event.preventDefault();
 		const { input } = this.props;
 		if (input.length) {
-			this.props.setParentState({ results: [], searched: true });
 
+			const marathiVersion = await fetch(
+				`https://inputtools.google.com/request?text=${input}&itc=mr-t-i0-und&num=13&cp=0&cs=1&ie=utf-8&oe=utf-8&app=demopage`
+			)
+				.then((resp) => resp.json())
+				.then((suggestions) => {
+						try {
+							return suggestions[1][0][1];
+						} catch {
+
+						}
+				});
+			this.props.setParentState({ results: [], searched: true });
+				
 			let inputString = input
 				.replace(
 					/(~|`|!|@|#|$|%|^|&|\*|\(|\)|{|}|\[|\]|;|:|\\"|'|<|,|\.|>|\?|\/|\\|\||-|_|\+|=)/g,
@@ -279,9 +291,12 @@ class Listing extends Component {
 				)
 				.toLowerCase()
 				.trim();
-
+			if(marathiVersion && marathiVersion.length) {
+				inputString = inputString.concat(" ", marathiVersion[0])
+			}
+	
 			let inputArray = inputString.split(" ");
-
+			console.log(inputArray,marathiVersion)
 			// reducing the array to max length 10
 			if (inputArray.length > 10) {
 				inputArray.splice(9, inputArray.length - 10);
@@ -322,7 +337,7 @@ class Listing extends Component {
 				</div>
 				<InputSection
 					onInput={(value) =>
-						this.props.setParentState({
+						setParentState({
 							input: value,
 						})
 					}
@@ -330,7 +345,7 @@ class Listing extends Component {
 					onSearch={(event) => this.fetchResults(event)}
 					bookType={this.props.prakar}
 					setBookType={(prakar) => {
-						this.props.setParentState({
+						setParentState({
 							prakar: prakar,
 							searched: false,
 						},()=>{
@@ -343,7 +358,7 @@ class Listing extends Component {
 					}}
 					searchAgainst={this.props.searchAgainst}
 					onChange={(event) => {
-						this.props.setParentState({
+						setParentState({
 							searchAgainst: event.target.value,
 						});
 					}}
