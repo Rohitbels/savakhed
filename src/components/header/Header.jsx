@@ -52,6 +52,7 @@ function Header() {
 			document.getElementById(setLabel()).classList.add("active");
 			
 		}
+		if(setLabel() !== 'search')
 		document.getElementById("current").innerText = setLabel();
 		hashChange();
 	});
@@ -83,7 +84,8 @@ function Header() {
           <NavLink active href="#/lekhaklist">Lekhak List</NavLink>
         </NavItem>
       </Nav>
-		<nav className="onlyMobile nav-bar">
+	  {setLabel() !== 'search' ? 
+	  <nav className="onlyMobile nav-bar">
 			{window.location.href.includes("details") ||
 			window.location.href.includes("lekhakbooks") ? (
 				<span
@@ -100,6 +102,7 @@ function Header() {
 						
 			</div>
 		</nav>
+		: null }
 		</>
 	);
 }

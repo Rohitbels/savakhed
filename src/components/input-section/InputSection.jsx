@@ -74,9 +74,9 @@ const InputSection = ({
 			</div>
 			<section className="input-section">
 				<InputBox
-					placeholder={`Search by ${
-						searchAgainst === "lekhak" ? "Author" : "Book"
-					}'s name ${bookType === "" ? "" : `across ${bookType}`}`}
+					placeholder={`Search ${
+						searchAgainst === "lekhak" ? "Authors" : "Books"
+					}${bookType === "" ? "" : ` under ${bookType}`}`}
 					value={inputValue}
 					onInput={onInput}
 					shouldSuggest={toggle}

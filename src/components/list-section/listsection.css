@@ -55,7 +55,7 @@ table {
 }
 @media only screen and (min-width: 1900px) {
 	.table-super {
-		width: 60%;
+		width: 70%;
 	}
 }
 
@@ -140,9 +140,9 @@ a:active {
 }
 
 .explore {
-	font-size: 1.5rem;
-	margin-top: 15px;
-	margin-bottom: 10px;
+	font-size: 1.25rem;
+	margin-top: 5px;
+	margin-bottom: 20px;
 	text-decoration: solid;
 	text-emphasis: inherit;
 }
@@ -162,17 +162,20 @@ a:active {
 	display: flex;
 	flex-direction: column;
 	margin: 10px;
-	height: 175px;
-	width: 130px;
+	height: 180px;
+	width: 140px;
 	margin-bottom: 30px;
+	justify-content: space-around;
+	align-items: center;
 }
 
-/* .genre-card .image-div {
-
-} */
+.genre-card .image-div {
+	height: 180px;
+	width: 140px;
+}
 .genre-image {
-	height: 80%;
-	width: 80%;
+	height: 100%;
+	width: 100%;
 	box-shadow: 1px 2px 2px 2px #ccc;
 	animation: shimmer 10s infinite;
 	background: linear-gradient(
@@ -182,8 +185,7 @@ a:active {
 		#f6f7f8 60%,
 		#f6f7f8 100%
 	);
-	height: 80%;
-	width: 80%;
+
 }
 
 
@@ -191,7 +193,6 @@ a:active {
 .genre-title {
 	width: 100%;
 	text-align: center;
-
-
-
+	font-size: 1.2rem;
+	margin-top: 4px;
 }

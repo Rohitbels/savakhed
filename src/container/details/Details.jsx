@@ -117,7 +117,7 @@ class Details extends Component {
                 <div className="flex-container">
                     {currentBook.pustakName &&
                         <div>
-                            <HelmetMetaData bookName={currentBook.pustakName.join(" ")} description={currentBook.pustakName.join(" ")} image={currentBook.imageURL}>
+                            <HelmetMetaData bookName={currentBook.pustakName.join(" ")+" by "+ currentBook.lekhak.join(" ")} description={currentBook.pustakName.join(" ")} image={currentBook.imageURL}>
                             </HelmetMetaData>
 
                             <Card 	bookName=""

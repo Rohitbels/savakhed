@@ -98,7 +98,7 @@ const ListSection = ({
 				}`}</div>
 			) : (
 				<>
-					<span className="explore">Explore by genre</span>
+					<span className="explore">Pustak Prakar</span>
 					<div className="genre-container">
 						{exploreBooks.map(({ id, prakar, img }) => (
 							<GenreCard

@@ -2,7 +2,7 @@
 	width: 50vw;
 	min-width: 320px;
 	flex-direction: column;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 }
 
 @media only screen and (min-width: 320px) {
@@ -28,8 +28,8 @@
 
 .search-filter-section {
 	margin: auto;
-	width: 90%;
-	margin-bottom: 1rem;
+	width: 92%;
+	font-weight:600;
 }
 
 
@@ -43,7 +43,7 @@
 	width: 90%;
 	margin: auto;
 	color:white;
-	margin-top: 1rem;
+	margin-top: 0.25rem;
 	margin-bottom: 0.5rem;
 }
 
@@ -87,6 +87,11 @@
 		font-weight: 600;
 		font-size: 0.90em;
 		
+	}
+
+	.logo {
+		text-shadow: 1px 1px black;
+		margin-top: 25px;
 	}
 	}
 

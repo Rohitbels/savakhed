@@ -188,7 +188,7 @@ class LekhakList extends Component {
             English
           </button>
         </div>
-        <div>
+        <>
 
             {this.props.activeTab === 1 ? (
               <div className="ButtonContainer">
@@ -200,7 +200,7 @@ class LekhakList extends Component {
                 {this.renderAlphabets(Alphabets)}
               </div>
             ) : null}
-        </div>
+        </>
         {!this.props.lekhakSearched && (
           <div className="authorsList">
             {this.props.lekhakLoading ? <Loading page="lekhakList" /> : null}

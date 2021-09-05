@@ -24,7 +24,8 @@
 
 .logo #name {
 	font-family: 'Noto Sans', sans-serif;
-	font-size: 2em;
+	font-size: 1.8em;
+	
 }
 
 .logo #place {
@@ -35,7 +36,8 @@
 
 @media only screen and (max-width: 815px) {
 	.logo {
-		margin: 0.5rem 0rem 0.5rem 0rem;
+		margin: 0rem;
+		text-shadow: 1px 1px black;
 	}
 .top-section-listing {
 	background-color:#337ab7;
@@ -44,7 +46,8 @@
 	display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center
+    align-items: center;
+	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 20%);
 }
 
 }

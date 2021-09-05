@@ -147,7 +147,7 @@ function Image({ type, alt, book, setCurrentDetails, ...props }) {
 
 	return (
 		<div className="image-div" ref={imgRef}>
-			{inView ? <img alt={alt} src={Img} {...props} /> : <div className="book-cover shine"  > </div>}
+			{inView && Img ? <img alt={alt} src={Img} {...props} /> : <div className="book-cover shine"  > </div>}
 		</div>
 	);
 }
