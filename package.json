@@ -12,6 +12,7 @@
 		"csv-reader": "^1.0.7",
 		"csv-writer": "^1.6.0",
 		"firebase": "^8.2.1",
+		"firebase-admin": "^9.12.0",
 		"react": "^17.0.1",
 		"react-autosuggest": "^10.1.0",
 		"react-detect-offline": "^2.4.3",

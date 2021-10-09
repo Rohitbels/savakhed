@@ -12,7 +12,7 @@ function Header() {
 		if (href.includes("lekhakbooks")) return "lekhakbooks";
 		if (href.includes("aboutus")) return "about-us";
 		if (href.includes("details")) return "details";
-		if (href.includes("search")) return "search";
+		if (href.includes("listing")) return "search";
 		if (href.includes("recommendation")) return "recommendation";
 		return "search";
 	};
@@ -52,7 +52,6 @@ function Header() {
 			document.getElementById(setLabel()).classList.add("active");
 			
 		}
-		if(setLabel() !== 'search')
 		document.getElementById("current").innerText = setLabel();
 		hashChange();
 	});
@@ -77,14 +76,13 @@ function Header() {
 			) : null}
 		  </NavLink>
         </NavItem>
-        <NavItem>
-          <NavLink href="#/listing">Search</NavLink>
+        <NavItem className={setLabel() === 'search'? 'active' : '' }>
+          <NavLink   href="#/listing">Search</NavLink>
         </NavItem>
-        <NavItem active>
-          <NavLink active href="#/lekhaklist">Lekhak List</NavLink>
+        <NavItem className={setLabel() === 'explore by top authors' || setLabel() === 'lekhakbooks' ? 'active' : '' }>
+          <NavLink href="#/lekhaklist">Lekhak List</NavLink>
         </NavItem>
-      </Nav>
-	  {setLabel() !== 'search' ? 
+      </Nav> 
 	  <nav className="onlyMobile nav-bar">
 			{window.location.href.includes("details") ||
 			window.location.href.includes("lekhakbooks") ? (
@@ -102,7 +100,6 @@ function Header() {
 						
 			</div>
 		</nav>
-		: null }
 		</>
 	);
 }

@@ -13,6 +13,8 @@ const ListSection = ({
 	setBookType,
 	bookType,
 	searchFilter,
+	typeOfSearch,
+	input
 }) => {
 	const getLanguage = (name) => {
 		let language = "इंग्रजी";
@@ -34,6 +36,9 @@ const ListSection = ({
 		<>
 			{tableElements.length && searched ? (
 				<div className="table-super">
+				
+						<span className="search-info">Search Result under {typeOfSearch} for <b>{input}</b> </span>
+
 					{tableElements.map((book, key) => (
 						<Card
 							key={key}

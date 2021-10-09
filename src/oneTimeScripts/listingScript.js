@@ -28,7 +28,7 @@ firebase.initializeApp(config);
 firebase.auth();
 
 const db = firebase.firestore();
-const collection = db.collection("bookListBackUp");
+const collection = db.collection("bookList");
 
 const chinha = [
 	"्",
@@ -64,83 +64,87 @@ const getMulakshare = (array) => {
 
 	return mulaksharaArray;
 };
-
+const start = 4800;
+const lastDakhalId = 5000;
 new Promise(async (resolve, reject) => {
 	let message = logger("info", "Script has started succesfully");
 
-	console.log(db.collection("bookListBackUp").docs(""));
+//	console.log(db.collection("bookListBackUp").docs(""));
 
-	// let query = collection.where("dakhalId", ">=", 40000);
-	// query = query.where("dakhalId", "<", 44000);
-	// query = query.orderBy("dakhalId", "asc");
+	let query = collection.where("dakhalId", ">=", start);
+	query = query.where("dakhalId", "<=", lastDakhalId);
+//	query = query.orderBy("dakhalId", "asc");
 
-	// try {
-	// 	let results = await query.limit(500).get();
+	try {
+		let results = await query.get();
+		let lastDoc = results.docs[results.docs.length - 1];
 
-	// 	let lastDoc = results.docs[results.docs.length - 1];
-	// 	message = logger(
-	// 		"info",
-	// 		"Count: " +
-	// 			results.docs.length +
-	// 			" Last-Doc-Dakhal-ID: " +
-	// 			lastDoc.data()["dakhalId"]
-	// 	);
-	// 	filestream.appendFileSync("log.txt", message, "utf8");
-
-	// 	var batch = db.batch();
-
-	// 	results.forEach((doc) => {
-	// 		let book = doc.data();
-
-	// 		message = logger(
-	// 			"info",
-	// 			doc["id"] +
-	// 				" | " +
-	// 				"Dakhal-ID: " +
-	// 				book["dakhalId"] +
-	// 				" |  Book: " +
-	// 				book["pustakName"].join(" ") +
-	// 				" |  Author: " +
-	// 				book["lekhak"].join(" ")
-	// 		);
-	// 		filestream.appendFileSync("log.txt", message, "utf8");
-
-	// 		if (book["pustakName"] && book["lekhak"]) {
-	// 			var bookRef = collection.doc(doc["id"]);
-	// 			var l_lekhakMulakshare = getMulakshare(book["lekhak"]);
-	// 			var l_pustakMulakshare = getMulakshare(book["pustakName"]);
-
-	// 			batch.update(bookRef, {
-	// 				lekhakMulakshare: l_lekhakMulakshare,
-	// 				pustakMulakshare: l_pustakMulakshare,
-	// 				lekhakFullName: book["lekhak"].join(" "),
-	// 				pustakFullName: book["pustakName"].join(" "),
-	// 				lekhakNameMulakshare: l_lekhakMulakshare.join(" "),
-	// 				pustakNameMulakshare: l_pustakMulakshare.join(" "),
-	// 			});
-	// 		}
-	// 	});
-
-	// message = logger("info", "Successfully created batch 40000-44000 (I)");
-	// filestream.appendFileSync("log.txt", message, "utf8");
-
-	// // batch.commit();
-
-	// message = logger("info", "Successfully commited batch 40000-44000 (I)");
-	// filestream.appendFileSync("log.txt", message, "utf8");
-	// } catch (error) {
-	// 	message = logger("error", error.message);
-	// 	filestream.appendFileSync("log.txt", message, "utf8");
-	// }
-	resolve();
-	reject();
-})
-
-	.then(() => {
-		message = logger("info", "Script has ended succesfully");
+		message = logger(
+			"info",
+			"Count: " +
+				results.docs.length +
+				" Last-Doc-Dakhal-ID: " +
+				lastDoc.data()["dakhalId"]
+		);
 		filestream.appendFileSync("log.txt", message, "utf8");
-	})
-	.catch((error) => {
+
+		var batch = db.batch();
+
+		results.forEach((doc) => {
+			let book = doc.data();
+
+			message = logger(
+				"info",
+				doc["id"] +
+					" | " +
+					"Dakhal-ID: " +
+					book["dakhalId"] +
+					" |  Book: " +
+					book["pustakName"].join(" ") +
+					" |  Author: " +
+					book["lekhak"].join(" ")
+			);
+
+
+			if (book["pustakName"] && book["lekhak"] && book['lekhakMulakshare'] === undefined) {
+				console.log(message)
+				filestream.appendFileSync("log.txt", message, "utf8");
+				var bookRef = collection.doc(doc["id"]);
+				var l_lekhakMulakshare = getMulakshare(book["lekhak"]);
+				var l_pustakMulakshare = getMulakshare(book["pustakName"]);
+
+				batch.update(bookRef, {
+					lekhakMulakshare: l_lekhakMulakshare,
+					pustakMulakshare: l_pustakMulakshare,
+					lekhakFullName: book["lekhak"].join(" "),
+					pustakFullName: book["pustakName"].join(" "),
+					lekhakNameMulakshare: l_lekhakMulakshare.join(" "),
+					pustakNameMulakshare: l_pustakMulakshare.join(" "),
+				});
+			}
+		});
+
+
+	await batch.commit();
+
+	message = logger("info", `Successfully commited batch ${start}-${lastDakhalId} (I)`);
+	filestream.appendFileSync("log.txt", message, "utf8");
+	resolve();
+} catch (error) {
+		console.log("e--------",error)
 		message = logger("error", error.message);
 		filestream.appendFileSync("log.txt", message, "utf8");
+		reject();
+	}
+}).then(() => {
+		let message = logger("info", "Script has ended succesfully");
+		filestream.appendFileSync("log.txt", message, "utf8");
+
+		process.exit();
+		return;
+	})
+	.catch((error) => {
+		let message = logger("error", error.message);
+		filestream.appendFileSync("log.txt", message, "utf8");
+		process.exit();
 	});

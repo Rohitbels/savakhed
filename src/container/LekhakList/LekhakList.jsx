@@ -3,7 +3,7 @@ import "./LekhakList.css";
 import Alphabets from "./Alphabets";
 import Akshar from "./Akshar";
 import { db } from "../../firebase";
-import Loading from "../../components/loading/Loading";
+import Loading from "components/loading/Loading";
 
 class LekhakList extends Component {
   constructor(props) {
@@ -107,7 +107,7 @@ class LekhakList extends Component {
           {key} - <span>{this.props.lekhakDict[key]["count"]} Books</span>
         </div>
         <div className="bookNames">
-          <p onClick={this.getLekhakBooks(key)}>View Books</p>
+          <span onClick={this.getLekhakBooks(key)}>View Books</span>
         </div>
       </div>
     ));

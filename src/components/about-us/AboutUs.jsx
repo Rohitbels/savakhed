@@ -1,21 +1,32 @@
 import React from 'react'
-import './aboutUs.css'
+import { Container, Jumbotron } from 'reactstrap'
+import library from './library.png';
 
 function AboutUs() {
 	return (
-		<div className='aboutUs-container'>
-			<div className="aboutUs-content">
-				<div className="aboutUs-page-authors">
-					<img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" alt="Avatar"/>
-					<img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" alt="Avatar"/>
-					<img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" alt="Avatar"/>
-					<img src="https://www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png" alt="Avatar"/>
-				</div>
-				<div className="aboutUs-wordArt">
-					<img src="https://bjgp.org/content/bjgp/67/658/231/F1.large.jpg" alt="Word Cloud"/>
-				</div>
+		<div>
+		<Jumbotron fluid>
+		  <Container fluid >
+			<img style={{ width: '90vw', marginTop: 10, boxShadow: '1px 1px black' }} src={library} />
+			<div style={{ textAlign: 'center', marginTop: 20, color: '#337ab7' }}>
+				<h1 className="display-3">सार्वजनिक वाचनालय</h1>
+				<h2>राजगुरूनगर</h2>
 			</div>
-		</div>
+			<p className="lead">Established in 1862 this is the oldest </p>
+			<hr/>
+			This website is part of Crowd sourced initaitive by Janiv Pariwar and various other organization.
+			<img style={{ width: '90vw', marginTop: 10, boxShadow: '1px 1px black' }} src={library} />
+			<div style={{ textAlign: 'center', marginTop: 20, color: '#337ab7' }}>
+				<h1 className="display-3">सार्वजनिक वाचनालय</h1>
+				<h2>राजगुरूनगर</h2>
+			</div>
+			<p className="lead">Established in 1862 this is the oldest </p>
+			<hr/>
+			This website is part of Crowd sourced initaitive by Janiv Pariwar and various other organization.
+
+		  </Container>
+		</Jumbotron>
+	  </div>
 	)
 }
 

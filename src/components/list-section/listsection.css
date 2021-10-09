@@ -139,12 +139,16 @@ a:active {
 	margin: 2rem;
 }
 
-.explore {
+.explore, .search-info {
 	font-size: 1.25rem;
 	margin-top: 5px;
 	margin-bottom: 20px;
 	text-decoration: solid;
 	text-emphasis: inherit;
+}
+
+.search-info {
+	font-size: 1rem;
 }
 
 .genre-container {
@@ -162,7 +166,7 @@ a:active {
 	display: flex;
 	flex-direction: column;
 	margin: 10px;
-	height: 180px;
+	height: 182px;
 	width: 140px;
 	margin-bottom: 30px;
 	justify-content: space-around;
@@ -170,7 +174,7 @@ a:active {
 }
 
 .genre-card .image-div {
-	height: 180px;
+	height: 182px;
 	width: 140px;
 }
 .genre-image {

@@ -37,11 +37,11 @@ export default class mobileNav extends Component {
                     </a>
                 </div>
                 {/* about */}
-                {/* <div className={this.state.isClicked === 3 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
+                <div className={this.state.isClicked === 3 ? "mobileNav_clicked" : "mobileNav_unclicked"}>
                     <a href="#/aboutus" onClick={() => this.setState({ isClicked: 3})}>
                         <img src={aboutSvg} className="lekhakSvg" alt="About US" />
                     </a>
-                </div> */}
+                </div>
             </div>
         )
     }

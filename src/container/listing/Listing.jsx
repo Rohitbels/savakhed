@@ -6,6 +6,7 @@ import ListSection from "../../components/list-section/ListSection";
 import { collection } from "../../firebase";
 import Loading from "../../components/loading/Loading";
 import "../../components/list-section/listsection.css";
+import { debug } from "request";
 
 
 const chinha = [
@@ -38,7 +39,8 @@ class Listing extends Component {
 			query: null,
 			lastDoc: null,
 			error: false,
-			fetchMore: false
+			fetchMore: false,
+			searchedValue:''
 		};
 
 		// eslint-disable-next-line
@@ -63,11 +65,12 @@ class Listing extends Component {
 		this.setState({
 			loading: true,
 			error: false,
+			label,
+			input: inputArray.splice(0,inputArray.length /2).join(" ")
 		});
 
 		let query = null;
 		let array = [];
-
 		if (label === "pustakPrakar") {
 			this.props.setParentState({
 				searched: true,
@@ -105,8 +108,7 @@ class Listing extends Component {
 		}
 
 		let inputArrayMulakshare = this.getMulakshara(inputArray);
-		let bookParameterMulakshare = "";
-
+		let bookParameterMulakshare = "";	
 		let secondaryLabel =
 			label === "pustakName" ? "pustakFullName" : "lekhakFullName";
 
@@ -296,7 +298,7 @@ class Listing extends Component {
 			}
 	
 			let inputArray = inputString.split(" ");
-			console.log(inputArray,marathiVersion)
+
 			// reducing the array to max length 10
 			if (inputArray.length > 10) {
 				inputArray.splice(9, inputArray.length - 10);
@@ -327,6 +329,7 @@ class Listing extends Component {
 	render() {
 		const { search, props } = this;
 		const { setParentState } = props;
+		const { label, input } = this.state;
 		return (
 			<div className="listing-container">
 				<div className="top-section-listing"> 
@@ -386,6 +389,9 @@ class Listing extends Component {
 					}}
 					bookType={this.props.prakar}
 					searchFilter={this.search}
+					typeOfSearch={label === "pustakName"? "पुस्तक": "लेखक"}
+					input={input}
+
 				/>
 				{this.state.fetchMore ? <Spinner color="primary"> </Spinner> : null}
 

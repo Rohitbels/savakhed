@@ -45,6 +45,7 @@ class App extends Component {
 			false
 		);
 		this.setPath();
+		window.onbeforeunload = function () {return false;}
 	}
 
 	setPath = () => {

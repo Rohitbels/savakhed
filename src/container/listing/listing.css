@@ -19,8 +19,25 @@
 	.logo {
 		margin: 2rem 0rem 2rem 0rem;
 	}
+	.logo #name {
+		font-family: 'Noto Sans', sans-serif;
+		font-size: 2.5em ;
+		
+	}
+	
+	.logo #place {
+		font-family: 'Noto Sans', sans-serif;
+		font-size: 1.5em;
+		font-weight: 600;
+	}
 }
 
+
+@media only screen and (max-width: 815px) {
+	.logo {
+		margin: 0rem;
+		text-shadow: 1px 1px black;
+	}
 
 .logo #name {
 	font-family: 'Noto Sans', sans-serif;
@@ -34,11 +51,6 @@
 	font-weight: 600;
 }
 
-@media only screen and (max-width: 815px) {
-	.logo {
-		margin: 0rem;
-		text-shadow: 1px 1px black;
-	}
 .top-section-listing {
 	background-color:#337ab7;
 	width: 100%;
